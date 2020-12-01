@@ -1,0 +1,12 @@
+[
+  {
+      "op": "replace",
+      "value": 40,
+      "path": "/Temperature"
+  },
+  {
+      "op": "add",
+      "value": 30,
+      "path": "/comp1/prop1"
+  }
+]

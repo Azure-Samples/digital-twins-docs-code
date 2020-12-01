@@ -1,0 +1,43 @@
+[
+    {
+      "@context": "dtmi:dtdl:context;2",
+      "@id": "dtmi:com:contoso:coffeeMaker;1",
+      "@type": "Interface",
+      "contents": [
+        {
+          "@type": "Component",
+          "name": "coffeeMaker",
+          "schema": "dtmi:com:contoso:coffeeMakerInterface;1"
+        }
+      ]
+    },
+    {
+      "@context": "dtmi:dtdl:context;2",
+      "@id": "dtmi:com:contoso:coffeeMakerInterface;1",
+      "@type": "Interface",
+      "contents": [
+        {
+          "@type": "Property",
+          "name": "waterTemp",
+          "schema": "double"
+        }
+      ]
+    },
+    {
+      "@context": "dtmi:dtdl:context;2",
+      "@id": "dtmi:com:contoso:coffeeBar;1",
+      "@type": "Interface",
+      "contents": [
+        {
+          "@type": "Relationship",
+          "name": "foo",
+          "target": "dtmi:com:contoso:coffeeMaker;1"
+        },
+        {
+          "@type": "Property",
+          "name": "capacity",
+          "schema": "integer"
+        }
+      ]
+    }
+  ]

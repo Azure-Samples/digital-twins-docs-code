@@ -1,0 +1,10 @@
+[
+    {
+      "@id": "dtmi:com:contoso:Planet",
+      "@type": "Interface"
+    },
+    {
+      "@id": "dtmi:com:contoso:Moon",
+      "@type": "Interface"
+    }
+]

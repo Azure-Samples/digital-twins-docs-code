@@ -1,0 +1,19 @@
+{
+    "@id": "dtmi:example:Moon;1",
+    "@type": "Interface",
+    "@context": "dtmi:dtdl:context;2",
+    "contents": [
+        {
+            "@type": "Property",
+            "name": "radius",
+            "schema": "double",
+            "writable": true
+        },
+        {
+            "@type": "Property",
+            "name": "mass",
+            "schema": "double",
+            "writable": true
+        }
+    ]
+}

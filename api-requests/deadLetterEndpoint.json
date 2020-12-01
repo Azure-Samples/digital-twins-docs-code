@@ -1,0 +1,9 @@
+{
+    "properties": {
+      "endpointType": "EventGrid",
+      "TopicEndpoint": "https://contosoGrid.westus2-1.eventgrid.azure.net/api/events",
+      "accessKey1": "xxxxxxxxxxx",
+      "accessKey2": "xxxxxxxxxxx",
+      "deadLetterSecret":"https://<storageAccountname>.blob.core.windows.net/<containerName>?<SASToken>"
+    }
+  }

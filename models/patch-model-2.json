@@ -1,0 +1,12 @@
+[
+  {
+    "op": "replace",
+    "path": "$metadata.$model",
+    "value": "dtmi:example:foo_new"
+  },
+  {
+    "op": "add",
+    "path": "temperature",
+    "value": 60
+  }
+]

@@ -1,0 +1,49 @@
+[
+  {
+    "@id": "dtmi:com:contoso:CelestialBody;1",
+    "@type": "Interface",
+    "@context": "dtmi:dtdl:context;2",
+    "displayName": "Celestial body",
+    "contents": [
+      {
+        "@type": "Property",
+        "name": "name",
+        "schema": "string"
+      },
+      {
+        "@type": "Property",
+        "name": "mass",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "temperature",
+        "schema": "double"
+      }
+    ]
+  },
+  {
+    "@id": "dtmi:com:contoso:Planet;1",
+    "@type": "Interface",
+    "@context": "dtmi:dtdl:context;2",
+    "displayName": "Planet",
+    "extends": "dtmi:com:contoso:CelestialBody;1",
+    "contents": [
+      {
+        "@type": "Relationship",
+        "name": "satellites",
+        "target": "dtmi:com:contoso:Moon;1"
+      },
+      {
+        "@type": "Component",
+        "name": "deepestCrater",
+        "schema": "dtmi:com:contoso:Crater;1"
+      }
+    ]
+  },
+  {
+    "@id": "dtmi:com:contoso:Crater;1",
+    "@type": "Interface",
+    "@context": "dtmi:dtdl:context;2"
+  }
+]

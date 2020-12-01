@@ -1,0 +1,32 @@
+[]
+{
+      "@type": "Property",
+      "name": "tags",
+      "schema": {
+        "@type": "Map",
+        "mapKey": {
+          "name": "tagName",
+          "schema": "string"
+        },
+        "mapValue": {
+          "name": "tagValue",
+          "schema": "boolean"
+        }
+      }
+    },
+    {
+      "@type": "Property",
+      "name": "tags",
+      "schema": {
+        "@type": "Map",
+        "mapKey": {
+          "name": "tagName",
+          "schema": "string"
+        },
+        "mapValue": {
+          "name": "tagValue",
+          "schema": "string"
+        }
+      }
+    }
+    ]

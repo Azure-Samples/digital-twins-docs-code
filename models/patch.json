@@ -1,0 +1,12 @@
+[
+    {
+      "op": "replace",
+      "path": "/mass",
+      "value": 0.0799
+    },
+    {
+      "op": "replace",
+      "path": "/radius",
+      "value": 0.800
+    }
+  ]
