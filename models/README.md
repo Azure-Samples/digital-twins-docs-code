@@ -1,4 +1,4 @@
-# Model file descriptions
+# Model contents
 
 Below is a list of the model files contained in this sample folder, including mappings between the models and the documents in which they appear, and descriptions of each.
 
