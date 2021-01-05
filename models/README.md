@@ -3,7 +3,7 @@
 Below is a list of the model files contained in this sample folder, including mappings between the models and the documents in which they appear, and descriptions of each.
 
 | JSON model file | Used in | Description
-| --- | --- |
+| --- | --- | --- |
 | CelestialBody-Planet-Crater.json | [concepts-models](https://docs.microsoft.com/azure/digital-twins/concepts-models) | Illustrates model inheritance |
 | coffeeMaker-coffeeMakerInterface-coffeeBar.json | [how-to-parse-models](https://docs.microsoft.com/azure/digital-twins/how-to-parse-models) | General multi-model example. Used as a reference for writing parser code |
 | Moon.json | [how-to-manage-twin](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin) | General model example, with two properties. Used for querying |
