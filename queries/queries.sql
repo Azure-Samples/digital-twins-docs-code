@@ -70,7 +70,7 @@ AND R.reportedCondition = 'clean'
 -- </QueryByRelationship2>
 
 -- (Shows multiple relationship JOINs in a single query)
--- </QueryByRelationship3>
+-- <QueryByRelationship3>
 SELECT LightBulb
 FROM DIGITALTWINS Room
 JOIN LightPanel RELATED Room.contains
