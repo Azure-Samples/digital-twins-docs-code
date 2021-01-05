@@ -1,5 +1,5 @@
 -------------- Used in tutorial-end-to-end
--- <GetAllTwins> (Shows how to query all twins)
+-- <GetAllTwins>
 SELECT * 
 FROM DIGITALTWINS
 -- </GetAllTwins>
