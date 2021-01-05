@@ -12,13 +12,13 @@
         "@type": "Property",
         "name": "HumidityLevel",
         "schema": "double"
-      },
-      {
+      }
+      ,{
         "@type": "Property",
         "name": "RoomName",
         "schema": "string"
-      },
-      {
+      }
+      ,{
         "@type": "Relationship",
         "name": "contains"
       }
