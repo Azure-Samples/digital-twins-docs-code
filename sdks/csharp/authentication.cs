@@ -1,9 +1,11 @@
 //USED IN: how-to-authenticate-client
-
+// <Azure_Digital_Twins_dependencies>
 using Azure.Identity;
 using Azure.DigitalTwins.Core;
+// </Azure_Digital_Twins_dependencies>
 
 // ------------------ DefaultAzureCredential ------------------ 
+// <DefaultAzureCredential>
 // The URL of your instance, starting with the protocol (https://)
 private static string adtInstanceUrl = "https://<your-Azure-Digital-Twins-instance-URL>";
 

@@ -1,3 +1,5 @@
+//USED IN: how-to-create-azure-function
+
 // Default URL for triggering event grid function in the local environment.
 // http://localhost:7071/runtime/webhooks/EventGrid?functionName={functionname}
 using System;
@@ -6,18 +8,24 @@ using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Azure.EventGrid.Models;
 using Microsoft.Azure.WebJobs.Extensions.EventGrid;
 using Microsoft.Extensions.Logging;
+//<Function_dependencies>
 using Azure.DigitalTwins.Core;
 using Azure.Identity;
 using System.Net.Http;
 using Azure.Core.Pipeline;
+//</Function_dependencies>
 
 namespace adtIngestFunctionSample
 {
     public class Function1
     {
         //Your Digital Twin URL is stored in an application setting in Azure Functions
+        // <ADT_service_URL>
         private static readonly string adtInstanceUrl = Environment.GetEnvironmentVariable("ADT_SERVICE_URL");
+        // </ADT_service_URL>
+        // <HTTP_client>
         private static readonly HttpClient httpClient = new HttpClient();
+        // </HTTP_client>
 
         [FunctionName("TwinsFunction")]
         public void Run([EventGridTrigger] EventGridEvent eventGridEvent, ILogger log)
@@ -27,8 +35,12 @@ namespace adtIngestFunctionSample
             try
             {
                 //Authenticate with Digital Twins
+                // <ManagedIdentityCredential>
                 ManagedIdentityCredential cred = new ManagedIdentityCredential("https://digitaltwins.azure.net");
+                // </ManagedIdentityCredential>
+                // <DigitalTwinsClient>
                 DigitalTwinsClient client = new DigitalTwinsClient(new Uri(adtInstanceUrl), cred, new DigitalTwinsClientOptions { Transport = new HttpClientTransport(httpClient) });
+                // </DigitalTwinsClient>
                 log.LogInformation($"ADT service client connection created.");
                 /*
                 * Add your business logic here
