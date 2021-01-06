@@ -1,6 +1,6 @@
 # Query code snippets
 
-This folder contains the source code for [queries](https://docs.microsoft.com/azure/digital-twins/concepts-query-language) that are included in the Azure Digital Twins documentation. They are written in a SQL-like query language referred to as the Azure Digital Twins query language. 
+This folder contains the source code for [queries](https://docs.microsoft.com/azure/digital-twins/concepts-query-language) that are included in the Azure Digital Twins documentation. They are written in a SQL-like query language referred to as the Azure Digital Twins query language.
 
 Note that this is the text of the queries themselves, not the complete SDK calls to submit these queries to the service. For SDK call examples for your language of choice, see the folder of [SDK code snippets](/sdks).
 
