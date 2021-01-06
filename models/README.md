@@ -1,6 +1,12 @@
-# Model contents
+# Model code snippets
 
-Below is a list of the model files contained in this sample folder, including mappings between the models and the documents in which they appear, and descriptions of each.
+This folder contains the source code for [models](https://docs.microsoft.com/azure/digital-twins/concepts-models) that are included in the Azure Digital Twins documentation. They are written in a JSON-LD-based language called **Digital Twin Definition Language (DTDL)**. 
+
+Note that these are the model definitions themselves, not the complete SDK calls to submit these models to the service. For SDK call examples for your language of choice, see the folder of [SDK code snippets](/sdks).
+
+## Contents
+
+Below is a list of the model files contained in this folder, including mappings between the models and the documents in which they appear, and descriptions of each.
 
 | JSON model file | Used in | Description
 | --- | --- | --- |
@@ -19,3 +25,9 @@ Below is a list of the model files contained in this sample folder, including ma
 | SampleModel.json | [tutorial-code](https://docs.microsoft.com/azure/digital-twins/tutorial-code) | General model example, with a property and a relationship. Used as the basis for a tutorial |
 | tags.json | [how-to-use-tags](https://docs.microsoft.com/azure/digital-twins/how-to-use-tags) | Two models with tags (one marker-type, one value-type).<br>*If this file is updated, make sure the line-number reference in the corresponding doc stays up-to-date. |
 | Thermostat.json | [how-to-ingest-iot-hub-data](https://docs.microsoft.com/azure/digital-twins/how-to-ingest-iot-hub-data) | General model example, with one property. Used in a flow for ingesting IoT Hub data |
+
+## Strategy
+
+The preferred strategy for referencing code snippets in docs is by using [named tags](https://review.docs.microsoft.com/help/contribute/code-in-docs?branch=master#named-snippet) to identify the proper section of code from a document.
+
+However, the JSON file format of model documents does not currently appear to be supported by the [DocFX Flavored Markdown's tag representation options](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html#tag-name-representation-in-code-snippet-source-file). As a result, each model example in the docs is represented in its own JSON file that can be referenced by name in its entirety.

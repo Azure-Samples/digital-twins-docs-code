@@ -38,17 +38,19 @@ namespace IotHubtoTwins
                 {
                     log.LogInformation(eventGridEvent.Data.ToString());
 
-                    // Reading deviceId and temperature for IoT Hub JSON
+                    // <Find_device_ID_and_temperature>
                     JObject deviceMessage = (JObject)JsonConvert.DeserializeObject(eventGridEvent.Data.ToString());
                     string deviceId = (string)deviceMessage["systemProperties"]["iothub-connection-device-id"];
                     var temperature = deviceMessage["body"]["Temperature"];
+                    // </Find_device_ID_and_temperature>
                     
                     log.LogInformation($"Device:{deviceId} Temperature is:{temperature}");
 
-                    //Update twin using device temperature
+                    // <Update_twin_with_device_temperature>
                     var updateTwinData = new JsonPatchDocument();
                     updateTwinData.AppendReplace("/Temperature", temperature.Value<double>());
                     await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
+                    // </Update_twin_with_device_temperature>
                 }
             }
             catch (Exception e)
