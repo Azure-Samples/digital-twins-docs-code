@@ -1,5 +1,3 @@
-//USED IN: how-to-query-graph
-
 // ------------------ RUN A QUERY ---------------------
 string adtInstanceEndpoint = "https://<your-instance-hostname>";
 

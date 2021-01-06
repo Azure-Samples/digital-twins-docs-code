@@ -1,5 +1,3 @@
-//USED IN: how-to-manage-model
-
 // ------------------ CREATE MODEL (SINGLE) ---------------------
 // 'client' is an instance of DigitalTwinsClient
 // Read model file into string (not part of SDK)

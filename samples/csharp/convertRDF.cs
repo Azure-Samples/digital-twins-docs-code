@@ -1,5 +1,3 @@
-//USED IN: how-to-integrate-models
-
 using VDS.RDF.Ontology; 
 using VDS.RDF.Parsing; 
 using Microsoft.Azure.DigitalTwins.Parser; 

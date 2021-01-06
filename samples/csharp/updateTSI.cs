@@ -1,5 +1,3 @@
-//USED IN: how-to-integrate-time-series-insights
-
 using Microsoft.Azure.EventHubs;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;

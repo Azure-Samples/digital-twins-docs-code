@@ -1,5 +1,3 @@
-//USED IN: how-to-integrate-maps
-
 using Microsoft.Azure.EventGrid.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.EventGrid;

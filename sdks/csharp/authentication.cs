@@ -1,4 +1,3 @@
-//USED IN: how-to-authenticate-client
 // <Azure_Digital_Twins_dependencies>
 using Azure.Identity;
 using Azure.DigitalTwins.Core;

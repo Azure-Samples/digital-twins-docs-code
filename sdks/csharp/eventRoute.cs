@@ -1,5 +1,3 @@
-//USED IN: concepts-event-routes, how-to-ingest-iot-hub-data
-
 // ------------------ CREATE EVENT ROUTE ---------------------
 string eventFilter = "$eventType = 'DigitalTwinTelemetryMessages' or $eventType = 'DigitalTwinLifecycleNotification'";
 var er = new DigitalTwinsEventRoute("endpointName", eventFilter);

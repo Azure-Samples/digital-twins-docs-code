@@ -1,5 +1,3 @@
-//USED IN: how-to-integrate-azure-signalr
-
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;

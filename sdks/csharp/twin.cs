@@ -1,5 +1,3 @@
-//USED IN: concepts-twins-graph, how-to-manage-twin, how-to-use-apis-sdks
-
 // ------------------ CREATE TWIN: NO HELPER ---------------------
 // Define the model type for the twin to be created
 Dictionary<string, object> meta = new Dictionary<string, object>()

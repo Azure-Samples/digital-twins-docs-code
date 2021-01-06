@@ -1,5 +1,3 @@
-//USED IN: how-to-provision-using-device-provisioning-service
-
 using System;
 using System.Collections.Generic;
 using System.Linq;

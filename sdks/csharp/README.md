@@ -1,17 +1,18 @@
 # SDK snippets (C#)
 
-This folder contains SDK call examples that are included in the Azure Digital Twins documentation. 
+This folder contains SDK call examples that are included in the Azure Digital Twins documentation.
 
 ## Contents
 
-Below is a list of the request bodies that are contained in this folder, including mappings between the samples and the documents in which they appear, and descriptions of each.
+Below is a list of the SDK code files that are contained in this folder, including mappings between the files and the documents in which they appear, and descriptions of each.
 
-| JSON request body file | Used in | Description |
+| SDK code file | Used in | Description |
 | --- | --- | --- |
-| deadLetterEndpoint.json | [how-to-manage-routes-apis-cli](https://docs.microsoft.com/azure/digital-twins/how-to-manage-routes-apis-cli) | Body of a request to create an endpoint with dead-lettering enabled |
-| filter.json | [how-to-manage-routes-apis-cli](https://docs.microsoft.com/azure/digital-twins/how-to-manage-routes-apis-cli) | Body of a request that adds a filter to an event route |
-| filter-multiple.json | [how-to-manage-routes-apis-cli](https://docs.microsoft.com/azure/digital-twins/how-to-manage-routes-apis-cli) (via include file) | Body of a request that adds multiple filters to an event route |
+| authentication.cs | [how-to-authenticate-client](https://docs.microsoft.com/azure/digital-twins/how-to-authenticate-client) |  |
+| eventRoute.cs | [concepts-event-routes](https://docs.microsoft.com/azure/digital-twins/concepts-event-routes)<br><br>[how-to-ingest-iot-hub-data](https://docs.microsoft.com/azure/digital-twins/how-to-ingest-iot-hub-data) |  |
+| graph.cs | [concepts-twins-graph](https://docs.microsoft.com/azure/digital-twins/concepts-twins-graph)<br><br>[how-to-manage-graph](https://docs.microsoft.com/azure/digital-twins/how-to-manage-graph) |  |
+| model.cs | [how-to-manage-model](https://docs.microsoft.com/azure/digital-twins/how-to-manage-model) |  |
+| query.cs | [how-to-query-graph](https://docs.microsoft.com/azure/digital-twins/how-to-query-graph) |  |
+| twin.cs | [concepts-twins-graph](https://docs.microsoft.com/azure/digital-twins/concepts-twins-graph)<br><br>[how-to-manage-twin](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin)<br><br>[how-to-use-apis-sdks](https://docs.microsoft.com/azure/digital-twins/how-to-use-apis-sdks) |  |
 
 ## Strategy
-
-Since these are separate requests, each one is kept separately as its own file. Documents can then reference these files by name to pull in the entire snippet.

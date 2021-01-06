@@ -1,5 +1,3 @@
-// USED IN: concepts-query-units
-
 AsyncPageable<string> asyncPageableResponseWithCharge = client.QueryAsync("SELECT * FROM digitaltwins");
 int pageNum = 0;
 

@@ -1,5 +1,3 @@
-//USED IN: concepts-twins-graph, how-to-manage-graph
-
 // ------------------ CREATE RELATIONSHIP ---------------------
 //can use for how-to-manage-twin and how-to-manage-graph
 public async static Task CreateRelationship(DigitalTwinsClient client, string srcId, string targetId, string relName)

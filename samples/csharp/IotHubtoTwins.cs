@@ -1,5 +1,3 @@
-//USED IN: how-to-ingest-iot-hub-data
-
 using System;
 using System.Net.Http;
 using Azure.Core.Pipeline;
