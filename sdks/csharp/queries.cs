@@ -1,26 +1,13 @@
-// ------------------ RUN A QUERY ---------------------
-string adtInstanceEndpoint = "https://<your-instance-hostname>";
-
-    var credential = new DefaultAzureCredential();
-    DigitalTwinsClient client = new DigitalTwinsClient(new Uri(adtInstanceEndpoint), credential);
-
+// ------------------ RUN QUERY (Basic) ---------------------
+// <RunQuery>
     // Run a query for all twins   
     string query = "SELECT * FROM DIGITALTWINS";
     AsyncPageable<BasicDigitalTwin> result = client.QueryAsync<BasicDigitalTwin>(query);
+// </RunQuery>
 
-// ------------------ RUN A QUERY (2) ---------------------
+// ------------------ RUN QUERY & LOOP THROUGH PAGEABLE RESULTS WITH TRY/CATCH (Full sample) ---------------------
+// <FullQuerySample>
 AsyncPageable<string> result = client.QueryAsync("Select * From DigitalTwins");
-await foreach (string twin in result)
-{
-    // Use JSON deserialization to pretty-print
-    object jsonObj = JsonSerializer.Deserialize<object>(twin);
-    string prettyTwin = JsonSerializer.Serialize(jsonObj, new JsonSerializerOptions { WriteIndented = true });
-    Console.WriteLine(prettyTwin);
-    // Or use BasicDigitalTwin for convenient property access
-    BasicDigitalTwin btwin = JsonSerializer.Deserialize<BasicDigitalTwin>(twin);
-}
-
-// ------------------ LOOP THROUGH RESULTS ---------------------
 try
 {
     await foreach(BasicDigitalTwin twin in result)
@@ -40,3 +27,4 @@ catch (RequestFailedException e)
     Console.WriteLine($"Error {e.Status}: {e.Message}");
     throw;
 }
+// </FullQuerySample>

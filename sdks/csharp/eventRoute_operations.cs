@@ -1,20 +1,12 @@
-// ------------------ CREATE EVENT ROUTE ---------------------
+// ------------------ CREATE EVENT ROUTE (Basic) ---------------------
+// <CreateEventRoute>
 string eventFilter = "$eventType = 'DigitalTwinTelemetryMessages' or $eventType = 'DigitalTwinLifecycleNotification'";
 var er = new DigitalTwinsEventRoute("endpointName", eventFilter);
 await client.CreateOrReplaceEventRouteAsync("routeName", er);
+// </CreateEventRoute>
 
-// ------------------ ADD TELEMETRY PROCESSING ---------------------
-JObject deviceMessage = (JObject)JsonConvert.DeserializeObject(eventGridEvent.Data.ToString());
-string deviceId = (string)deviceMessage["systemProperties"]["iothub-connection-device-id"];
-var temperature = deviceMessage["body"]["Temperature"];
-
-//Update twin using device temperature
-var updateTwinData = new JsonPatchDocument();
-updateTwinData.AppendReplace("/Temperature", temperature.Value<double>());
-await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
-//...
-
-// ------------------ CREATE, LIST, AND DELETE EVENT ROUTE ---------------------
+// ------------------ CREATE, LIST, AND DELETE EVENT ROUTE (Full sample) ---------------------
+// <FullEventRouteSample>
 private async static Task CreateEventRoute(DigitalTwinsClient client, String routeName, DigitalTwinsEventRoute er)
 {
   try
@@ -42,3 +34,4 @@ private async static Task CreateEventRoute(DigitalTwinsClient client, String rou
         Console.WriteLine($"*** Error in event route processing ({e.ErrorCode}):\n${e.Message}");
     }
   }
+// </FullEventRouteSample>
