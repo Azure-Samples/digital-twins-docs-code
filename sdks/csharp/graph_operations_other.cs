@@ -8,7 +8,7 @@ Dictionary<string, object> props = new Dictionary<string, object>();
 props.Add("active", true);
 rel.Properties = props;
 client.CreateOrReplaceRelationshipAsync("mySourceTwin", "rel001", rel);
-// <CreateRelationship_short>
+// </CreateRelationship_short>
 
 // ------------------ CREATE RELATIONSHIP (Alternate) ---------------------
 // <CreateRelationship_3>
@@ -29,7 +29,7 @@ try
 {
     Console.WriteLine($"*** Error creating relationship: {e.Response.StatusCode}");
 }
-// <CreateRelationship_3>
+// </CreateRelationship_3>
 
 // ------------------ LIST PROPERTIES OF RELATIONSHIPS ---------------------
 // <ListRelationshipProperties>
