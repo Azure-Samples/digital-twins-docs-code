@@ -34,7 +34,7 @@ namespace minimal
             await client.CreateModelsAsync(typeList);
 
             //Create new digital twin
-            // <CreateTwin_helper>
+            // <CreateTwin_withHelper>
             BasicDigitalTwin initData = new BasicDigitalTwin();
             string twin_ID = "myTwinID";
             initData.Metadata = new DigitalTwinMetadata();
@@ -48,7 +48,7 @@ namespace minimal
             // <CreateTwinCall>
             await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(twin_ID, initData);
             // </CreateTwinCall>
-            // </CreateTwin_helper>
+            // </CreateTwin_withHelper>
             Console.WriteLine("Twin created successfully");
             Console.WriteLine();
 
