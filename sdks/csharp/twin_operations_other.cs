@@ -13,7 +13,7 @@ Dictionary<string, object> initData = new Dictionary<string, object>()
     { "Humidity", 50.0},
 };
 //Create the twin
-client.CreateOrReplaceDigitalTwinAsync("myTwinID", JsonSerializer.Serialize<Dictionary<string, object>>(initData));
+client.CreateOrReplaceDigitalTwinAsync(twin_ID, JsonSerializer.Serialize<Dictionary<string, object>>(initData));
 // </CreateTwin_noHelper>
 
 // ------------------ CREATE TWIN: Error handling---------------------
