@@ -28,3 +28,35 @@ catch (RequestFailedException e)
     throw;
 }
 // </FullQuerySample>
+
+// ------------------ Paging pattern for query API ---------------------
+// <PagedQuery>
+string query = "SELECT * FROM digitaltwins";
+string conToken = null; // continuation token from the query
+int page = 0;
+try
+{
+    // Repeat the query while there are pages
+    do
+    {
+        QuerySpecification spec = new QuerySpecification(query, conToken);
+        QueryResult qr = await client.Query.QueryTwinsAsync(spec);
+        page++;
+        Console.WriteLine($"== Query results page {page}:");
+        if (qr.Items != null)
+        {
+            // Query returns are JObjects
+            foreach(JObject o in qr.Items)
+            {
+                string twinId = o.Value<string>("$dtId");
+                Console.WriteLine($"  Found {twinId}");
+            }
+        }
+        Console.WriteLine($"== End query results page {page}");
+        conToken = qr.ContinuationToken;
+    } while (conToken != null);
+} catch (ErrorResponseException e)
+{
+    Console.WriteLine($"*** Error in twin query: ${e.Response.StatusCode}");
+}
+// </PagedQuery>
