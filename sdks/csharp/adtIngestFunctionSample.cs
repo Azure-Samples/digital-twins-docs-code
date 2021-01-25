@@ -17,12 +17,12 @@ namespace adtIngestFunctionSample
 {
     public class Function1
     {
-        //Your Digital Twin URL is stored in an application setting in Azure Functions
+        // Your Digital Twin URL is stored in an application setting in Azure Functions
         // <ADT_service_URL>
         private static readonly string adtInstanceUrl = Environment.GetEnvironmentVariable("ADT_SERVICE_URL");
         // </ADT_service_URL>
         // <HTTP_client>
-        private static readonly HttpClient httpClient = new HttpClient();
+        private static readonly HttpClient singletonHttpClientInstance = new HttpClient();
         // </HTTP_client>
 
         [FunctionName("TwinsFunction")]
@@ -32,23 +32,28 @@ namespace adtIngestFunctionSample
             if (adtInstanceUrl == null) log.LogError("Application setting \"ADT_SERVICE_URL\" not set");
             try
             {
-                //Authenticate with Digital Twins
+                // Authenticate with Digital Twins
                 // <ManagedIdentityCredential>
-                ManagedIdentityCredential cred = new ManagedIdentityCredential("https://digitaltwins.azure.net");
+                var cred = new ManagedIdentityCredential("https://digitaltwins.azure.net");
                 // </ManagedIdentityCredential>
                 // <DigitalTwinsClient>
-                DigitalTwinsClient client = new DigitalTwinsClient(new Uri(adtInstanceUrl), cred, new DigitalTwinsClientOptions { Transport = new HttpClientTransport(httpClient) });
+                var client = new DigitalTwinsClient(
+                    new Uri(adtInstanceUrl),
+                    cred,
+                    new DigitalTwinsClientOptions
+                    {
+                        Transport = new HttpClientTransport(singletonHttpClientInstance)
+                    });
                 // </DigitalTwinsClient>
                 log.LogInformation($"ADT service client connection created.");
                 /*
-                * Add your business logic here
+                * Add your business logic here.
                 */
             }
             catch (Exception e)
             {
                 log.LogError(e.Message);
             }
-
         }
     }
 }
