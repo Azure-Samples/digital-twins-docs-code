@@ -15,7 +15,8 @@ try
 {
     var credential = new DefaultAzureCredential();
     client = new DigitalTwinsClient(new Uri(adtInstanceUrl), credential);
-} catch(Exception e)
+}
+catch(Exception e)
 {
     Console.WriteLine($"Authentication or client creation error: {e.Message}");
     Environment.Exit(0);
@@ -33,8 +34,10 @@ DigitalTwinsClient client = new DigitalTwinsClient(new Uri(adtInstanceUrl), cred
 // ------------------ ManagedIdentityCredential ------------------
 // <ManagedIdentityCredential>
 ManagedIdentityCredential cred = new ManagedIdentityCredential(adtAppId);
-DigitalTwinsClientOptions opts = 
-    new DigitalTwinsClientOptions { Transport = new HttpClientTransport(httpClient) });
+DigitalTwinsClientOptions opts = new DigitalTwinsClientOptions
+{
+    Transport = new HttpClientTransport(httpClient)
+});
 client = new DigitalTwinsClient(new Uri(adtInstanceUrl), cred, opts);
 // </ManagedIdentityCredential>
 
