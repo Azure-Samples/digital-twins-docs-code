@@ -1,7 +1,0 @@
-{
-    "endpointName": "dt-endpoint", 
-    "filter": "true", 
-    "filter": "source = 'ADT-resource.api.wus2.digitaltwins.azure.net/myFloorID'", 
-    "filter": "type = 'Microsoft.DigitalTwins.Twin.Delete'", 
-    "filter": "specversion = '1.0'"
-}
