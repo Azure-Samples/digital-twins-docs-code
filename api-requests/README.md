@@ -10,7 +10,6 @@ Below is a list of the request bodies that are contained in this folder, includi
 | --- | --- | --- |
 | deadLetterEndpoint.json | [how-to-manage-routes-apis-cli](https://docs.microsoft.com/azure/digital-twins/how-to-manage-routes-apis-cli) | Body of a request to create an endpoint with dead-lettering enabled |
 | filter.json | [how-to-manage-routes-apis-cli](https://docs.microsoft.com/azure/digital-twins/how-to-manage-routes-apis-cli) | Body of a request that adds a filter to an event route |
-| filter-multiple.json | [how-to-manage-routes-apis-cli](https://docs.microsoft.com/azure/digital-twins/how-to-manage-routes-apis-cli) (via include file) | Body of a request that adds multiple filters to an event route |
 
 ## Strategy
 
