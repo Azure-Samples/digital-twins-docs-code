@@ -8,7 +8,6 @@ Below is a list of the request bodies that are contained in this folder, includi
 
 | JSON request body file | Used in | Description |
 | --- | --- | --- |
-| deadLetterEndpoint.json | [how-to-manage-routes-apis-cli](https://docs.microsoft.com/azure/digital-twins/how-to-manage-routes-apis-cli) | Body of a request to create an endpoint with dead-lettering enabled |
 | filter.json | [how-to-manage-routes-apis-cli](https://docs.microsoft.com/azure/digital-twins/how-to-manage-routes-apis-cli) | Body of a request that adds a filter to an event route |
 
 ## Strategy
