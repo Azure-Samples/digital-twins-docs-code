@@ -2,36 +2,37 @@
 // <CreateEventRoute>
 string eventFilter = "$eventType = 'DigitalTwinTelemetryMessages' or $eventType = 'DigitalTwinLifecycleNotification'";
 var er = new DigitalTwinsEventRoute("endpointName", eventFilter);
-await client.CreateOrReplaceEventRouteAsync("routeName", er);
+await client.CreateOrReplaceEventRouteAsync("routeId", er);
 // </CreateEventRoute>
 
 // ------------------ CREATE, LIST, AND DELETE EVENT ROUTE (Full sample) ---------------------
 // <FullEventRouteSample>
-private async static Task CreateEventRoute(DigitalTwinsClient client, String routeName, DigitalTwinsEventRoute er)
+private static async Task CreateEventRouteAsync(DigitalTwinsClient client, string routeId, DigitalTwinsEventRoute er)
 {
-  try
-  {
-    Console.WriteLine("Create a route: testRoute1");
-            
-    // Make a filter that passes everything
-    er.Filter = "true";
-    await client.CreateOrReplaceEventRouteAsync(routeName, er);
-    Console.WriteLine("Create route succeeded. Now listing routes:");
-    Pageable<DigitalTwinsEventRoute> result = client.GetEventRoutes();
-    foreach (DigitalTwinsEventRoute r in result)
+    try
     {
-        Console.WriteLine($"Route {r.Id} to endpoint {r.EndpointName} with filter {r.Filter} ");
+        Console.WriteLine("Create a route: testRoute1");
+
+        // Make a filter that passes everything
+        er.Filter = "true";
+        await client.CreateOrReplaceEventRouteAsync(routeId, er);
+        Console.WriteLine("Create route succeeded.");
+
+        // List routes
+        AsyncPageable<DigitalTwinsEventRoute> results = client.GetEventRoutesAsync();
+        await foreach (DigitalTwinsEventRoute route in results)
+        {
+            Console.WriteLine($"Route {route.Id} to endpoint {route.EndpointName} with filter {route.Filter} ");
+        }
+
+        // Delete route created earlier
+        Console.WriteLine($"Deleting route {routeId}:");
+        await client.DeleteEventRouteAsync(routeId);
+        }
     }
-    Console.WriteLine("Deleting routes:");
-    foreach (DigitalTwinsEventRoute r in result)
-    {
-        Console.WriteLine($"Deleting route {r.Id}:");
-        client.DeleteEventRoute(r.Id);
-    }
-  }
     catch (RequestFailedException e)
     {
         Console.WriteLine($"*** Error in event route processing ({e.ErrorCode}):\n${e.Message}");
     }
-  }
+}
 // </FullEventRouteSample>
