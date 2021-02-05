@@ -2,8 +2,8 @@
 // <CreateModel>
 // 'client' is an instance of DigitalTwinsClient
 // Read model file into string (not part of SDK)
-StreamReader r = new StreamReader("MyModelFile.json");
-string dtdl = r.ReadToEnd(); r.Close();
+using var modelStreamReader = new StreamReader("MyModelFile.json");
+string dtdl = modelStreamReader.ReadToEnd();
 string[] dtdls = new string[] { dtdl };
 client.CreateModels(dtdls);
 // </CreateModel>
@@ -12,15 +12,15 @@ client.CreateModels(dtdls);
 // <CreateModels_multi>
 var dtdlFiles = Directory.EnumerateFiles(sourceDirectory, "*.json");
 
-List<string> dtdlStrings = new List<string>();
+var dtdlModels = new List<string>();
 foreach (string fileName in dtdlFiles)
 {
     // Read model file into string (not part of SDK)
-    StreamReader r = new StreamReader(fileName);
-    string dtdl = r.ReadToEnd(); r.Close();
-    dtdlStrings.Add(dtdl);
+    using var modelStreamReader = new StreamReader(fileName);
+    string dtdl = modelStreamReader.ReadToEnd();
+    dtdlModels.Add(dtdl);
 }
-client.CreateModels(dtdlStrings);
+client.CreateModels(dtdlModels);
 // </CreateModels_multi>
 
 // ------------------ GET MODELS ---------------------
@@ -31,8 +31,8 @@ client.CreateModels(dtdlStrings);
 DigitalTwinsModelData md1 = client.GetModel(id);
 
 // Get a list of the metadata of all available models; print their display names and IDs
-Pageable<DigitalTwinsModelData> pmd2 = client.GetModels();
-foreach (DigitalTwinsModelData md in pmd2)
+AsyncPageable<DigitalTwinsModelData> pmd2 = client.GetModelsAsync();
+await foreach (DigitalTwinsModelData md in pmd2)
 {
     Console.WriteLine($"Type name: {md.DisplayName}: {md.Id}");
 }
@@ -43,8 +43,8 @@ Pageable<DigitalTwinsModelData> pmd3 = client.GetModels(new GetModelsOptions { I
 
 // ------------------ DECOMISSION MODEL ---------------------
 // <DecommissionModel>
-// 'client' is a valid DigitalTwinsClient  
-client.DecommissionModel(dtmiOfPlanetInterface);
+// 'client' is a valid DigitalTwinsClient
+await client.DecommissionModelAsync(dtmiOfPlanetInterface);
 // Write some code that deletes or transitions digital twins
 //...
 // </DecommissionModel>

@@ -11,52 +11,49 @@ AsyncPageable<string> result = client.QueryAsync("Select * From DigitalTwins");
 try
 {
     await foreach(BasicDigitalTwin twin in result)
+    {
+        // You can include your own logic to print the result
+        // The logic below prints the twin's ID and contents
+        Console.WriteLine($"Twin ID: {twin.Id} \nTwin data");
+        foreach (KeyValuePair<string, object> kvp in twin.Contents)
         {
-            // You can include your own logic to print the result
-            // The logic below prints the twin's ID and contents
-            Console.WriteLine($"Twin ID: {twin.Id} \nTwin data");
-            IDictionary<string, object> contents = twin.Contents;
-            foreach (KeyValuePair<string, object> kvp in contents)
-            {
-                Console.WriteLine($"{kvp.Key}  {kvp.Value}");
-            }
+            Console.WriteLine($"{kvp.Key}  {kvp.Value}");
         }
+    }
 }
-catch (RequestFailedException e)
+catch (RequestFailedException ex)
 {
-    Console.WriteLine($"Error {e.Status}: {e.Message}");
+    Console.WriteLine($"Error {ex.Status}, {ex.ErrorCode}, {ex.Message}");
     throw;
 }
 // </FullQuerySample>
 
 // ------------------ Paging pattern for query API ---------------------
 // <PagedQuery>
-string query = "SELECT * FROM digitaltwins";
-string conToken = null; // continuation token from the query
-int page = 0;
 try
 {
     // Repeat the query while there are pages
-    do
+    string query = "SELECT * FROM digitaltwins";
+    AsyncPageable<BasicDigitalTwin> queryResult = await client.QueryAsync(query);
+    int page = 0;
+    await foreach (Page<BasicDigitalTwin> page in queryResult.AsPages())
     {
-        QuerySpecification spec = new QuerySpecification(query, conToken);
-        QueryResult qr = await client.Query.QueryTwinsAsync(spec);
-        page++;
-        Console.WriteLine($"== Query results page {page}:");
-        if (qr.Items != null)
+        Console.WriteLine($"== Query results page {++page}:");
+
+        // Extract the query-charge header from the page
+        if (QueryChargeHelper.TryGetQueryCharge(page, out float queryCharge))
         {
-            // Query returns are JObjects
-            foreach(JObject o in qr.Items)
-            {
-                string twinId = o.Value<string>("$dtId");
-                Console.WriteLine($"  Found {twinId}");
-            }
+            Console.WriteLine($"Query charge was: {queryCharge}");
         }
-        Console.WriteLine($"== End query results page {page}");
-        conToken = qr.ContinuationToken;
-    } while (conToken != null);
-} catch (ErrorResponseException e)
+
+        foreach (BasicDigitalTwin twin in page.Values)
+        {
+            Console.WriteLine($"  Found {twin.Id}");
+        }
+    }
+}
+catch (RequestFailedException ex)
 {
-    Console.WriteLine($"*** Error in twin query: ${e.Response.StatusCode}");
+    Console.WriteLine($"*** Error in twin query: {ex.Status}, {ex.ErrorCode}, {ex.Message}");
 }
 // </PagedQuery>
