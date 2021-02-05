@@ -1,4 +1,4 @@
-AsyncPageable<string> asyncPageableResponseWithCharge = client.QueryAsync("SELECT * FROM digitaltwins");
+AsyncPageable<BasicDigitalTwin> asyncPageableResponseWithCharge = client.QueryAsync<BasicDigitalTwin>("SELECT * FROM digitaltwins");
 int pageNum = 0;
 
 // The "await" keyword here is required, as a call is made when fetching a new page.
@@ -18,9 +18,8 @@ await foreach (Page<string> page in asyncPageableResponseWithCharge.AsPages())
 
     // The "await" keyword is not required here, as the paged response is local.
 
-    foreach (string response in page.Values)
+    foreach (BasicDigitalTwin twin in page.Values)
     {
-        BasicDigitalTwin twin = JsonSerializer.Deserialize<BasicDigitalTwin>(response);
         Console.WriteLine($"Found digital twin '{twin.Id}'");
     }
 }

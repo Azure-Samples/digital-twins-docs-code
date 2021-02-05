@@ -1,64 +1,60 @@
 using System;
-using Azure.DigitalTwins.Core;
-using Azure.Identity;
 using System.Threading.Tasks;
 using System.IO;
 using System.Collections.Generic;
-using Azure;
-using Azure.DigitalTwins.Core.Serialization;
 using System.Text.Json;
+using Azure;
+using Azure.DigitalTwins.Core;
+using Azure.Identity;
 
 namespace minimal
 {
     class Program
     {
-
         public static async Task Main(string[] args)
         {
             Console.WriteLine("Hello World!");
 
-            //Create the Azure Digital Twins client for API calls
-            DigitalTwinsClient client = createDTClient();
+            // Create the Azure Digital Twins client for API calls
+            DigitalTwinsClient client = createDtClient();
             Console.WriteLine($"Service client created – ready to go");
             Console.WriteLine();
 
-            //Upload models
+            // Upload models
             Console.WriteLine($"Upload models");
             Console.WriteLine();
             string dtdl = File.ReadAllText("<path-to>/Room.json");
             string dtdl1 = File.ReadAllText("<path-to>/Floor.json");
-            var typeList = new List<string>();
-            typeList.Add(dtdl);
-            typeList.Add(dtdl1);
+            var models = new List<string>
+            {
+                dtdl,
+                dtdl1,
+            };
             // Upload the models to the service
-            await client.CreateModelsAsync(typeList);
+            await client.CreateModelsAsync(models);
 
-            //Create new (Floor) digital twin
-            BasicDigitalTwin floorTwin = new BasicDigitalTwin();
+            // Create new (Floor) digital twin
+            var floorTwin = new BasicDigitalTwin();
             string srcId = "myFloorID";
-            floorTwin.Metadata = new DigitalTwinMetadata();
             floorTwin.Metadata.ModelId = "dtmi:example:Floor;1";
-            //Floor twins have no properties, so nothing to initialize
-            //Create the twin
+            // Floor twins have no properties, so nothing to initialize
+            // Create the twin
             await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(srcId, floorTwin);
             Console.WriteLine("Twin created successfully");
 
-            //Create second (Room) digital twin
-            BasicDigitalTwin roomTwin = new BasicDigitalTwin();
+            // Create second (Room) digital twin
+            var roomTwin = new BasicDigitalTwin();
             string targetId = "myRoomID";
-            roomTwin.Metadata = new DigitalTwinMetadata();
             roomTwin.Metadata.ModelId = "dtmi:example:Room;1";
             // Initialize properties
-            Dictionary<string, object> props = new Dictionary<string, object>();
-            props.Add("Temperature", 35.0);
-            props.Add("Humidity", 55.0);
-            roomTwin.Contents = props;
-            //Create the twin
+            roomTwin.Contents.Add("Temperature", 35.0);
+            roomTwin.Contents.Add("Humidity", 55.0);
+            // Create the twin
             await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(targetId, roomTwin);
             
-            //Create relationship between them
+            // Create relationship between them
             // <UseCreateRelationship>
-            await CreateRelationship(client, srcId, targetId, "contains");
+            await CreateRelationshipAsync(client, srcId, targetId, "contains");
             // </UseCreateRelationship>
             Console.WriteLine();
 
@@ -74,14 +70,14 @@ namespace minimal
             Console.WriteLine("--------");
             Console.WriteLine();
 
-            //Delete the relationship
+            // Delete the relationship
             Console.WriteLine("Deleting the relationship");
             // <UseDeleteRelationship>
-            await DeleteRelationship(client, srcId, $"{srcId}-contains->{targetId}");
+            await DeleteRelationshipAsync(client, srcId, $"{srcId}-contains->{targetId}");
             // </UseDeleteRelationship>
             Console.WriteLine();
 
-            //Print twins and their relationships again
+            // Print twins and their relationships again
             Console.WriteLine("--- Printing details:");
             Console.WriteLine("Outgoing relationships from source twin:");
             await FetchAndPrintTwinAsync(srcId, client);
@@ -92,15 +88,16 @@ namespace minimal
             Console.WriteLine();
         }
 
-        private static DigitalTwinsClient createDTClient()
+        private static DigitalTwinsClient createDtClient()
         {
             string adtInstanceUrl = "https://<your-instance-hostname>";
             var credentials = new DefaultAzureCredential();
-            DigitalTwinsClient client = new DigitalTwinsClient(new Uri(adtInstanceUrl), credentials);
+            var client = new DigitalTwinsClient(new Uri(adtInstanceUrl), credentials);
             return client;
         }
+
         // <CreateRelationshipMethod>
-        private async static Task CreateRelationship(DigitalTwinsClient client, string srcId, string targetId, string relName)
+        private async static Task CreateRelationshipAsync(DigitalTwinsClient client, string srcId, string targetId, string relName)
         {
             var relationship = new BasicRelationship
             {
@@ -121,11 +118,11 @@ namespace minimal
 
         }
         // </CreateRelationshipMethod>
+
         // <FetchAndPrintMethod>
         private static async Task FetchAndPrintTwinAsync(string twin_Id, DigitalTwinsClient client)
         {
-            BasicDigitalTwin twin;
-            Response<BasicDigitalTwin> res = client.GetDigitalTwin(twin_Id);
+            Response<BasicDigitalTwin> res = await client.GetDigitalTwinAsync<BasicDigitalTwin>(twin_Id);
             // <UseFindOutgoingRelationships>
             await FindOutgoingRelationshipsAsync(client, twin_Id);
             // </UseFindOutgoingRelationships>
@@ -148,7 +145,7 @@ namespace minimal
                 // <GetRelationshipsCall>
                 AsyncPageable<BasicRelationship> rels = client.GetRelationshipsAsync<BasicRelationship>(dtId);
                 // </GetRelationshipsCall>
-                List<BasicRelationship> results = new List<BasicRelationship>();
+                var results = new List<BasicRelationship>();
                 await foreach (BasicRelationship rel in rels)
                 {
                     results.Add(rel);
@@ -164,6 +161,7 @@ namespace minimal
             }
         }
         // </FindOutgoingRelationshipsMethod>
+
         // <FindIncomingRelationshipsMethod>
         private static async Task<List<IncomingRelationship>> FindIncomingRelationshipsAsync(DigitalTwinsClient client, string dtId)
         {
@@ -174,7 +172,7 @@ namespace minimal
                 // GetRelationshipsAsync will throw an error if a problem occurs
                 AsyncPageable<IncomingRelationship> incomingRels = client.GetIncomingRelationshipsAsync(dtId);
 
-                List<IncomingRelationship> results = new List<IncomingRelationship>();
+                var results = new List<IncomingRelationship>();
                 await foreach (IncomingRelationship incomingRel in incomingRels)
                 {
                     results.Add(incomingRel);
@@ -189,8 +187,9 @@ namespace minimal
             }
         }
         // </FindIncomingRelationshipsMethod>
+
         // <DeleteRelationshipMethod>
-        private static async Task DeleteRelationship(DigitalTwinsClient client, string srcId, string relId)
+        private static async Task DeleteRelationshipAsync(DigitalTwinsClient client, string srcId, string relId)
         {
             try
             {
@@ -198,9 +197,9 @@ namespace minimal
                 await FetchAndPrintTwinAsync(srcId, client);
                 Console.WriteLine("Deleted relationship successfully");
             }
-            catch (RequestFailedException Ex)
+            catch (RequestFailedException e)
             {
-                Console.WriteLine($"Error {Ex.ErrorCode}");
+                Console.WriteLine($"Error {e.ErrorCode}");
             }
         }
         // </DeleteRelationshipMethod>
