@@ -58,6 +58,13 @@ namespace minimal
             // </UseCreateRelationship>
             Console.WriteLine();
 
+            // Update relationship's Name property
+            // <UseUpdateRelationship>
+            var updatePropertyPatch = new JsonPatchDocument();
+            updatePropertyPatch.AppendAdd("/StringProperty", "StringProperty NEW value");
+            await UpdateRelationshipAsync(client, srcId, $"{srcId}-contains->{targetId}", updateNamePatch)
+            // </UseUpdateRelationship>
+
             //Print twins and their relationships
             Console.WriteLine("--- Printing details:");
             Console.WriteLine("Outgoing relationships from source twin:");
@@ -103,13 +110,14 @@ namespace minimal
             {
                 TargetId = targetId,
                 Name = relName
+                Properties = {{"StringProperty", "StringProperty original value"}}
             };
 
             try
             {
                 string relId = $"{srcId}-{relName}->{targetId}";
                 await client.CreateOrReplaceRelationshipAsync<BasicRelationship>(srcId, relId, relationship);
-                Console.WriteLine($"Created {relName} relationship successfully");
+                Console.WriteLine($"Created {relName} relationship successfully. Relationship ID is {relId}.");
             }
             catch (RequestFailedException rex)
             {
@@ -118,6 +126,23 @@ namespace minimal
 
         }
         // </CreateRelationshipMethod>
+
+        // <UpdateRelationshipMethod>
+        private async static Azure.Response UpdateRelationshipAsync(DigitalTwinsClient client, string srcId, string relId, Azure.JsonPatchDocument updateDocument)
+        {
+
+            try
+            {
+                await client.UpdateRelationshipAsync(srcId, relId, updateDocument);
+                Console.WriteLine($"{relId} Updated");
+            }
+            catch (RequestFailedException rex)
+            {
+                Console.WriteLine($"Update relationship error: {rex.Status}:{rex.Message}");
+            }
+
+        }
+        // </UpdateRelationshipMethod>
 
         // <FetchAndPrintMethod>
         private static async Task FetchAndPrintTwinAsync(string twin_Id, DigitalTwinsClient client)
@@ -150,6 +175,7 @@ namespace minimal
                 {
                     results.Add(rel);
                     Console.WriteLine($"Found relationship-{rel.Name}->{rel.TargetId}");
+                    Console.WriteLine($"Relationship properties: {rel.Properties}");
                 }
 
                 return results;
@@ -177,6 +203,8 @@ namespace minimal
                 {
                     results.Add(incomingRel);
                     Console.WriteLine($"Found incoming relationship-{incomingRel.RelationshipId}");
+                    AsyncPageable<BasicRelationship> rel = client.GetRelationshipAsync<BasicRelationship>(dtId, incomingRel.RelationshipId);
+                    Console.WriteLine($"Relationship properties: {rel.Properties}")
                 }
                 return results;
             }
