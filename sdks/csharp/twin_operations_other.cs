@@ -1,31 +1,32 @@
 // ------------------ CREATE TWIN: NO HELPER ---------------------
 // <CreateTwin_noHelper>
 // Define the model type for the twin to be created
-Dictionary<string, object> meta = new Dictionary<string, object>()
-{
-    { "$model", "dtmi:example:Room;1" }
-};
+using System.Net.Mime;
+
 // Initialize the twin properties
-Dictionary<string, object> initData = new Dictionary<string, object>()
+var twinInit = new BasicDigitalTwin
 {
-    { "$metadata", meta },
-    { "Temperature", 25.0},
-    { "Humidity", 50.0},
+    Metadata = { ModelId = "dtmi:example:Room;1" },
+    Content =
+    {
+        { "Temperature", 25.0},
+        { "Humidity", 50.0},
+    },
 };
 //Create the twin
-client.CreateOrReplaceDigitalTwinAsync(twin_ID, JsonSerializer.Serialize<Dictionary<string, object>>(initData));
+client.CreateOrReplaceDigitalTwinAsync(twinID, twinInit);
 // </CreateTwin_noHelper>
 
 // ------------------ CREATE TWIN: Error handling---------------------
 // <CreateTwin_errorHandling>
 try
 {
-    await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(id, initData);
+    await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(id, twinInit);
     Console.WriteLine($"Created a twin successfully: {id}");
 }
 catch (ErrorResponseException e)
 {
-    Console.WriteLine($"*** Error creating twin {id}: {e.Response.StatusCode}"); 
+    Console.WriteLine($"*** Error creating twin {id}: {e.Response.StatusCode}");
 }
 // </CreateTwin_errorHandling>
 
@@ -37,19 +38,19 @@ updateTwinData.AppendAddOp("/myComponent/Property", "Hello");
 // Un-set a property
 updateTwinData.AppendRemoveOp("/Humidity");
 
-client.UpdateDigitalTwin("myTwin", updateTwinData);
+await client.UpdateDigitalTwinAsync("myTwin", updateTwinData);
 // </UpdateTwin>
 
 // ------------------ SET TAG PROPERTY VALUES: MARKER ---------------------
 // <TagPropertiesMarker>
-entity-01: "tags": { "red": true, "round": true } 
-entity-02: "tags": { "blue": true, "round": true } 
+entity-01: "tags": { "red": true, "round": true }
+entity-02: "tags": { "blue": true, "round": true }
 entity-03: "tags": { "red": true, "large": true }
 // </TagPropertiesMarker>
 
 // ------------------ SET TAG PROPERTY VALUES: VALUE ---------------------
 // <TagPropertiesValue>
-entity-01: "tags": { "red": "", "size": "large" } 
-entity-02: "tags": { "purple": "", "size": "small" } 
-entity-03: "tags": { "red": "", "size": "small" } 
+entity-01: "tags": { "red": "", "size": "large" }
+entity-02: "tags": { "purple": "", "size": "small" }
+entity-03: "tags": { "red": "", "size": "small" }
 // </TagPropertiesValue>
