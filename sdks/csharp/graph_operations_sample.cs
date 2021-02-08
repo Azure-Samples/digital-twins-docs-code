@@ -54,7 +54,8 @@ namespace minimal
             
             // Create relationship between them
             // <UseCreateRelationship>
-            await CreateRelationshipAsync(client, srcId, targetId, "contains");
+            IDictionary<string,object> properties = {{"StringProperty", "StringProperty original value"}};
+            await CreateRelationshipAsync(client, srcId, targetId, "contains", properties);
             // </UseCreateRelationship>
             Console.WriteLine();
 
@@ -104,13 +105,13 @@ namespace minimal
         }
 
         // <CreateRelationshipMethod>
-        private async static Task CreateRelationshipAsync(DigitalTwinsClient client, string srcId, string targetId, string relName)
+        private async static Task CreateRelationshipAsync(DigitalTwinsClient client, string srcId, string targetId, string relName, IDictionary<string,object> inputProperties)
         {
             var relationship = new BasicRelationship
             {
                 TargetId = targetId,
-                Name = relName
-                Properties = {{"StringProperty", "StringProperty original value"}}
+                Name = relName,
+                Properties = inputProperties
             };
 
             try
