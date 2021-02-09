@@ -53,8 +53,9 @@ namespace minimal
             await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(targetId, roomTwin);
             
             // Create relationship between them
+            IDictionary<string, object> properties = new Dictionary<string, object>();
+            properties.Add("ownershipUser", "ownershipUser original value");
             // <UseCreateRelationship>
-            IDictionary<string,object> properties = {{"StringProperty", "StringProperty original value"}};
             await CreateRelationshipAsync(client, srcId, targetId, "contains", properties);
             // </UseCreateRelationship>
             Console.WriteLine();
@@ -62,31 +63,31 @@ namespace minimal
             // Update relationship's Name property
             // <UseUpdateRelationship>
             var updatePropertyPatch = new JsonPatchDocument();
-            updatePropertyPatch.AppendAdd("/StringProperty", "StringProperty NEW value");
-            await UpdateRelationshipAsync(client, srcId, $"{srcId}-contains->{targetId}", updateNamePatch)
+            updatePropertyPatch.AppendAdd("/ownershipUser", "ownershipUser NEW value");
+            await UpdateRelationshipAsync(client, srcId, $"{srcId}-contains->{targetId}", updatePropertyPatch);
             // </UseUpdateRelationship>
+            Console.WriteLine();
 
             //Print twins and their relationships
             Console.WriteLine("--- Printing details:");
-            Console.WriteLine("Outgoing relationships from source twin:");
+            Console.WriteLine($"Outgoing relationships from source twin, {srcId}:");
             // <UseFetchAndPrint>
             await FetchAndPrintTwinAsync(srcId, client);
             // </UseFetchAndPrint>
             Console.WriteLine();
-            Console.WriteLine("Incoming relationships to target twin:");
+            Console.WriteLine($"Incoming relationships to target twin, {targetId}:");
             await FetchAndPrintTwinAsync(targetId, client);
             Console.WriteLine("--------");
             Console.WriteLine();
 
             // Delete the relationship
-            Console.WriteLine("Deleting the relationship");
             // <UseDeleteRelationship>
             await DeleteRelationshipAsync(client, srcId, $"{srcId}-contains->{targetId}");
             // </UseDeleteRelationship>
             Console.WriteLine();
 
             // Print twins and their relationships again
-            Console.WriteLine("--- Printing details:");
+            Console.WriteLine("--- Printing details (after relationship deletion):");
             Console.WriteLine("Outgoing relationships from source twin:");
             await FetchAndPrintTwinAsync(srcId, client);
             Console.WriteLine();
@@ -129,13 +130,13 @@ namespace minimal
         // </CreateRelationshipMethod>
 
         // <UpdateRelationshipMethod>
-        private async static Azure.Response UpdateRelationshipAsync(DigitalTwinsClient client, string srcId, string relId, Azure.JsonPatchDocument updateDocument)
+        private async static Task UpdateRelationshipAsync(DigitalTwinsClient client, string srcId, string relId, Azure.JsonPatchDocument updateDocument)
         {
 
             try
             {
                 await client.UpdateRelationshipAsync(srcId, relId, updateDocument);
-                Console.WriteLine($"{relId} Updated");
+                Console.WriteLine($"Successfully updated {relId}");
             }
             catch (RequestFailedException rex)
             {
@@ -175,8 +176,14 @@ namespace minimal
                 await foreach (BasicRelationship rel in rels)
                 {
                     results.Add(rel);
-                    Console.WriteLine($"Found relationship-{rel.Name}->{rel.TargetId}");
-                    Console.WriteLine($"Relationship properties: {rel.Properties}");
+                    Console.WriteLine($"Found relationship: {rel.Id}");
+
+                    //Print its properties
+                    Console.WriteLine($"Relationship properties:");
+                    foreach(KeyValuePair<string, object> property in rel.Properties)
+                    {
+                        Console.WriteLine("{0} = {1}", property.Key, property.Value);
+                    }
                 }
 
                 return results;
@@ -203,9 +210,16 @@ namespace minimal
                 await foreach (IncomingRelationship incomingRel in incomingRels)
                 {
                     results.Add(incomingRel);
-                    Console.WriteLine($"Found incoming relationship-{incomingRel.RelationshipId}");
-                    AsyncPageable<BasicRelationship> rel = client.GetRelationshipAsync<BasicRelationship>(dtId, incomingRel.RelationshipId);
-                    Console.WriteLine($"Relationship properties: {rel.Properties}")
+                    Console.WriteLine($"Found incoming relationship: {incomingRel.RelationshipId}");
+
+                    //Print its properties
+                    Response<BasicRelationship> relResponse = await client.GetRelationshipAsync<BasicRelationship>(incomingRel.SourceId, incomingRel.RelationshipId);
+                    BasicRelationship rel = relResponse.Value;
+                    Console.WriteLine($"Relationship properties:");
+                    foreach(KeyValuePair<string, object> property in rel.Properties)
+                    {
+                        Console.WriteLine("{0} = {1}", property.Key, property.Value);
+                    }
                 }
                 return results;
             }
