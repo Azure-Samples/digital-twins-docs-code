@@ -1,16 +1,18 @@
-async void ParseDemo(DigitalTwinsClient client)
+using System;
+
+async Task ParseDemoAsync(DigitalTwinsClient client)
 {
     try
     {
         AsyncPageable<DigitalTwinsModelData> mdata = client.GetModelsAsync(new GetModelsOptions { IncludeModelDefinition = true });
-        List<string> models = new List<string>();
+        var models = new List<string>();
         await foreach (DigitalTwinsModelData md in mdata)
             models.Add(md.DtdlModel);
-        ModelParser parser = new ModelParser();
+        var parser = new ModelParser();
         IReadOnlyDictionary<Dtmi, DTEntityInfo> dtdlOM = await parser.ParseAsync(models);
 
-        List<DTInterfaceInfo> interfaces = new List<DTInterfaceInfo>();
-        IEnumerable<DTInterfaceInfo> ifenum = 
+        var interfaces = new List<DTInterfaceInfo>();
+        IEnumerable<DTInterfaceInfo> ifenum =
             from entity in dtdlOM.Values
             where entity.EntityKind == DTEntityKind.Interface
             select entity as DTInterfaceInfo;
@@ -19,19 +21,20 @@ async void ParseDemo(DigitalTwinsClient client)
         {
             PrintInterfaceContent(dtif, dtdlOM);
         }
-
-    } catch (RequestFailedException rex)
+    }
+    catch (RequestFailedException ex)
     {
-
+        Console.WriteLine($"Failed due to {ex}");
     }
 }
 
-void PrintInterfaceContent(DTInterfaceInfo dtif, IReadOnlyDictionary<Dtmi, DTEntityInfo> dtdlOM, int indent=0)
+void PrintInterfaceContent(DTInterfaceInfo dtif, IReadOnlyDictionary<Dtmi, DTEntityInfo> dtdlOM, int indent = 0)
 {
-    StringBuilder sb = new StringBuilder();
+    var sb = new StringBuilder();
     for (int i = 0; i < indent; i++) sb.Append("  ");
     Console.WriteLine($"{sb}Interface: {dtif.Id} | {dtif.DisplayName}");
     SortedDictionary<string, DTContentInfo> contents = dtif.Contents;
+
     foreach (DTContentInfo item in contents.Values)
     {
         switch (item.EntityKind)
@@ -54,8 +57,6 @@ void PrintInterfaceContent(DTInterfaceInfo dtif, IReadOnlyDictionary<Dtmi, DTEnt
                 dtdlOM.TryGetValue(ci.Id, out DTEntityInfo value);
                 DTInterfaceInfo component = value as DTInterfaceInfo;
                 PrintInterfaceContent(component, dtdlOM, indent + 1);
-                break;
-            default:
                 break;
         }
     }

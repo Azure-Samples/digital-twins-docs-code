@@ -25,11 +25,12 @@ namespace IotHubtoTwins
 
             try
             {
-                //Authenticate with Digital Twins
-                ManagedIdentityCredential cred = new ManagedIdentityCredential("https://digitaltwins.azure.net");
-                DigitalTwinsClient client = new DigitalTwinsClient(
-                    new Uri(adtInstanceUrl), cred, new DigitalTwinsClientOptions 
-                    { Transport = new HttpClientTransport(httpClient) });
+                // Authenticate with Digital Twins
+                var cred = new ManagedIdentityCredential("https://digitaltwins.azure.net");
+                var client = new DigitalTwinsClient(
+                    new Uri(adtInstanceUrl),
+                    cred,
+                    new DigitalTwinsClientOptions { Transport = new HttpClientTransport(httpClient) });
                 log.LogInformation($"ADT service client connection created.");
             
                 if (eventGridEvent != null && eventGridEvent.Data != null)
@@ -41,7 +42,7 @@ namespace IotHubtoTwins
                     string deviceId = (string)deviceMessage["systemProperties"]["iothub-connection-device-id"];
                     var temperature = deviceMessage["body"]["Temperature"];
                     // </Find_device_ID_and_temperature>
-                    
+
                     log.LogInformation($"Device:{deviceId} Temperature is:{temperature}");
 
                     // <Update_twin_with_device_temperature>
@@ -51,9 +52,9 @@ namespace IotHubtoTwins
                     // </Update_twin_with_device_temperature>
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                log.LogError($"Error in ingest function: {e.Message}");
+                log.LogError($"Error in ingest function: {ex.Message}");
             }
         }
     }

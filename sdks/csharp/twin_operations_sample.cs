@@ -1,62 +1,59 @@
 using System;
-using Azure.DigitalTwins.Core;
-using Azure.Identity;
+using System.Text.Json;
 using System.Threading.Tasks;
-using System.IO;
 using System.Collections.Generic;
 using Azure;
-using Azure.DigitalTwins.Core.Serialization;
-using System.Text.Json;
+using Azure.DigitalTwins.Core;
+using Azure.Identity;
+using System.IO;
+using System.Reflection;
 
 namespace minimal
 {
     class Program
     {
-
         public static async Task Main(string[] args)
         {
             Console.WriteLine("Hello World!");
 
-            //Create the Azure Digital Twins client for API calls
+            // Create the Azure Digital Twins client for API calls
             string adtInstanceUrl = "https://<your-instance-hostname>";
             var credentials = new DefaultAzureCredential();
-            DigitalTwinsClient client = new DigitalTwinsClient(new Uri(adtInstanceUrl), credentials);
+            var client = new DigitalTwinsClient(new Uri(adtInstanceUrl), credentials);
             Console.WriteLine($"Service client created – ready to go");
-            Console.WriteLine();
 
-            //Upload models
+            // Upload models
             Console.WriteLine($"Upload a model");
-            Console.WriteLine();
             string dtdl = File.ReadAllText("<path-to>/Room.json");
-            var typeList = new List<string>();
-            typeList.Add(dtdl);
+            var models = new List<string> { dtdl };
             // Upload the model to the service
-            await client.CreateModelsAsync(typeList);
+            await client.CreateModelsAsync(models);
 
-            //Create new digital twin
+            // Create new digital twin
             // <CreateTwin_withHelper>
-            BasicDigitalTwin initData = new BasicDigitalTwin();
-            string twin_ID = "myTwinID";
-            initData.Metadata = new DigitalTwinMetadata();
-            initData.Metadata.ModelId = "dtmi:example:Room;1";
-            // Initialize properties
-            Dictionary<string, object> props = new Dictionary<string, object>();
-            props.Add("Temperature", 25.0);
-            props.Add("Humidity", 50.0);
-            initData.Contents = props;
+            string twinId = "myTwinID";
+            var initData = new BasicDigitalTwin
+            {
+                Id = twinId,
+                Metadata = { ModelId = "dtmi:example:Room;1" },
+                // Initialize properties
+                Contents =
+                {
+                    { "Temperature", 25.0 },
+                    { "Humidity", 50.0 },
+                },
+            };
 
             // <CreateTwinCall>
-            await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(twin_ID, initData);
+            await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(twinId, initData);
             // </CreateTwinCall>
             // </CreateTwin_withHelper>
             Console.WriteLine("Twin created successfully");
-            Console.WriteLine();
 
             //Print twin
             Console.WriteLine("--- Printing twin details:");
-            twin = FetchAndPrintTwin(twin_ID, client);
+            twin = await FetchAndPrintTwinAsync(twinId, client);
             Console.WriteLine("--------");
-            Console.WriteLine();
 
             //Update twin data
             var updateTwinData = new JsonPatchDocument();
@@ -77,36 +74,38 @@ namespace minimal
             await DeleteTwin(client, twin_ID);
         }
 
-        private static BasicDigitalTwin FetchAndPrintTwin(string twin_ID, DigitalTwinsClient client)
+        private static async Task<BasicDigitalTwin> FetchAndPrintTwinAsync(string twinId, DigitalTwinsClient client)
         {
-            BasicDigitalTwin twin;
             // <GetTwin>
+            BasicDigitalTwin twin;
             // <GetTwinCall>
-            Response<BasicDigitalTwin> twin = client.GetDigitalTwin(twin_ID);
+            Response<BasicDigitalTwin> twinResponse = await client.GetDigitalTwinAsync(twinId);
+            twin = twinResponse.Value;
             // </GetTwinCall>
             Console.WriteLine($"Model id: {twin.Metadata.ModelId}");
             foreach (string prop in twin.Contents.Keys)
             {
-            if (twin.Contents.TryGetValue(prop, out object value))
-            Console.WriteLine($"Property '{prop}': {value}");
+                if (twin.Contents.TryGetValue(prop, out object value))
+                    Console.WriteLine($"Property '{prop}': {value}");
             }
             // </GetTwin>
 
             return twin;
         }
+
         // <DeleteTwin>
-        private static async Task DeleteTwin(DigitalTwinsClient client, string id)
+        private static async Task DeleteTwinAsync(DigitalTwinsClient client, string twinId)
         {
-            await FindAndDeleteOutgoingRelationshipsAsync(client, id);
-            await FindAndDeleteIncomingRelationshipsAsync(client, id);
+            await FindAndDeleteOutgoingRelationshipsAsync(client, twinId);
+            await FindAndDeleteIncomingRelationshipsAsync(client, twinId);
             try
             {
-                await client.DeleteDigitalTwinAsync(id);
+                await client.DeleteDigitalTwinAsync(twinId);
                 Console.WriteLine("Twin deleted successfully");
             }
-            catch (RequestFailedException exc)
+            catch (RequestFailedException ex)
             {
-                Console.WriteLine($"*** Error:{exc.Message}");
+                Console.WriteLine($"*** Error:{ex.Message}");
             }
         }
 
