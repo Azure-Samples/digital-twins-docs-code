@@ -7,7 +7,7 @@ using System.Net.Mime;
 var twinInit = new BasicDigitalTwin
 {
     Metadata = { ModelId = "dtmi:example:Room;1" },
-    Content =
+    Contents =
     {
         { "Temperature", 25.0},
         { "Humidity", 50.0},
