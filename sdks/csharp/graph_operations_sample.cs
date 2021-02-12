@@ -53,8 +53,10 @@ namespace minimal
             await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(targetId, roomTwin);
             
             // Create relationship between them
-            IDictionary<string, object> properties = new Dictionary<string, object>();
-            properties.Add("ownershipUser", "ownershipUser original value");
+            var properties = new Dictionary<string, object>
+            {
+                { "ownershipUser", "ownershipUser original value" },
+            };
             // <UseCreateRelationship>
             await CreateRelationshipAsync(client, srcId, targetId, "contains", properties);
             // </UseCreateRelationship>
