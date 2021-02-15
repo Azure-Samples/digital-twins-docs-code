@@ -53,32 +53,43 @@ namespace minimal
             await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(targetId, roomTwin);
             
             // Create relationship between them
+            var properties = new Dictionary<string, object>
+            {
+                { "ownershipUser", "ownershipUser original value" },
+            };
             // <UseCreateRelationship>
-            await CustomMethod_CreateRelationshipAsync(client, srcId, targetId, "contains");
+            await CustomMethod_CreateRelationshipAsync(client, srcId, targetId, "contains", properties);
             // </UseCreateRelationship>
+            Console.WriteLine();
+
+            // Update relationship's Name property
+            // <UseUpdateRelationship>
+            var updatePropertyPatch = new JsonPatchDocument();
+            updatePropertyPatch.AppendAdd("/ownershipUser", "ownershipUser NEW value");
+            await UpdateRelationshipAsync(client, srcId, $"{srcId}-contains->{targetId}", updatePropertyPatch);
+            // </UseUpdateRelationship>
             Console.WriteLine();
 
             //Print twins and their relationships
             Console.WriteLine("--- Printing details:");
-            Console.WriteLine("Outgoing relationships from source twin:");
+            Console.WriteLine($"Outgoing relationships from source twin, {srcId}:");
             // <UseFetchAndPrint>
             await CustomMethod_FetchAndPrintTwinAsync(srcId, client);
             // </UseFetchAndPrint>
             Console.WriteLine();
-            Console.WriteLine("Incoming relationships to target twin:");
+            Console.WriteLine($"Incoming relationships to target twin, {targetId}:");
             await CustomMethod_FetchAndPrintTwinAsync(targetId, client);
             Console.WriteLine("--------");
             Console.WriteLine();
 
             // Delete the relationship
-            Console.WriteLine("Deleting the relationship");
             // <UseDeleteRelationship>
             await CustomMethod_DeleteRelationshipAsync(client, srcId, $"{srcId}-contains->{targetId}");
             // </UseDeleteRelationship>
             Console.WriteLine();
 
             // Print twins and their relationships again
-            Console.WriteLine("--- Printing details:");
+            Console.WriteLine("--- Printing details (after relationship deletion):");
             Console.WriteLine("Outgoing relationships from source twin:");
             await CustomMethod_FetchAndPrintTwinAsync(srcId, client);
             Console.WriteLine();
@@ -97,19 +108,20 @@ namespace minimal
         }
 
         // <CreateRelationshipMethod>
-        private async static Task CustomMethod_CreateRelationshipAsync(DigitalTwinsClient client, string srcId, string targetId, string relName)
+        private async static Task CustomMethod_CreateRelationshipAsync(DigitalTwinsClient client, string srcId, string targetId, string relName, IDictionary<string,object> inputProperties)
         {
             var relationship = new BasicRelationship
             {
                 TargetId = targetId,
-                Name = relName
+                Name = relName,
+                Properties = inputProperties
             };
 
             try
             {
                 string relId = $"{srcId}-{relName}->{targetId}";
                 await client.CreateOrReplaceRelationshipAsync<BasicRelationship>(srcId, relId, relationship);
-                Console.WriteLine($"Created {relName} relationship successfully");
+                Console.WriteLine($"Created {relName} relationship successfully. Relationship ID is {relId}.");
             }
             catch (RequestFailedException rex)
             {
@@ -118,6 +130,23 @@ namespace minimal
 
         }
         // </CreateRelationshipMethod>
+
+        // <UpdateRelationshipMethod>
+        private async static Task UpdateRelationshipAsync(DigitalTwinsClient client, string srcId, string relId, Azure.JsonPatchDocument updateDocument)
+        {
+
+            try
+            {
+                await client.UpdateRelationshipAsync(srcId, relId, updateDocument);
+                Console.WriteLine($"Successfully updated {relId}");
+            }
+            catch (RequestFailedException rex)
+            {
+                Console.WriteLine($"Update relationship error: {rex.Status}:{rex.Message}");
+            }
+
+        }
+        // </UpdateRelationshipMethod>
 
         // <FetchAndPrintMethod>
         private static async Task CustomMethod_FetchAndPrintTwinAsync(string twin_Id, DigitalTwinsClient client)
@@ -149,7 +178,14 @@ namespace minimal
                 await foreach (BasicRelationship rel in rels)
                 {
                     results.Add(rel);
-                    Console.WriteLine($"Found relationship-{rel.Name}->{rel.TargetId}");
+                    Console.WriteLine($"Found relationship: {rel.Id}");
+
+                    //Print its properties
+                    Console.WriteLine($"Relationship properties:");
+                    foreach(KeyValuePair<string, object> property in rel.Properties)
+                    {
+                        Console.WriteLine("{0} = {1}", property.Key, property.Value);
+                    }
                 }
 
                 return results;
@@ -176,7 +212,16 @@ namespace minimal
                 await foreach (IncomingRelationship incomingRel in incomingRels)
                 {
                     results.Add(incomingRel);
-                    Console.WriteLine($"Found incoming relationship-{incomingRel.RelationshipId}");
+                    Console.WriteLine($"Found incoming relationship: {incomingRel.RelationshipId}");
+
+                    //Print its properties
+                    Response<BasicRelationship> relResponse = await client.GetRelationshipAsync<BasicRelationship>(incomingRel.SourceId, incomingRel.RelationshipId);
+                    BasicRelationship rel = relResponse.Value;
+                    Console.WriteLine($"Relationship properties:");
+                    foreach(KeyValuePair<string, object> property in rel.Properties)
+                    {
+                        Console.WriteLine("{0} = {1}", property.Key, property.Value);
+                    }
                 }
                 return results;
             }
