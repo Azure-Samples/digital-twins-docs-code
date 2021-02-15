@@ -52,34 +52,34 @@ namespace minimal
 
             //Print twin
             Console.WriteLine("--- Printing twin details:");
-            twin = await FetchAndPrintTwinAsync(twinId, client);
+            await CustomMethod_FetchAndPrintTwinAsync(twinId, client);
             Console.WriteLine("--------");
 
             //Update twin data
             var updateTwinData = new JsonPatchDocument();
-            updateTwinData.AppendAdd("/Temperature", 25.0);
+            updateTwinData.AppendAdd("/Temperature", 30.0);
             // <UpdateTwinCall>
-            await client.UpdateDigitalTwinAsync(twin_ID, updateTwinData);
+            await client.UpdateDigitalTwinAsync(twinId, updateTwinData);
             // </UpdateTwinCall>
             Console.WriteLine("Twin properties updated");
             Console.WriteLine();
 
             //Print twin again
             Console.WriteLine("--- Printing twin details (after update):");
-            FetchAndPrintTwin(twin_ID, client);
+            await CustomMethod_FetchAndPrintTwinAsync(twinId, client);
             Console.WriteLine("--------");
             Console.WriteLine();
 
             //Delete twin
-            await DeleteTwin(client, twin_ID);
+            await CustomMethod_DeleteTwinAsync(client, twinId);
         }
 
-        private static async Task<BasicDigitalTwin> FetchAndPrintTwinAsync(string twinId, DigitalTwinsClient client)
+        private static async Task<BasicDigitalTwin> CustomMethod_FetchAndPrintTwinAsync(string twinId, DigitalTwinsClient client)
         {
             // <GetTwin>
             BasicDigitalTwin twin;
             // <GetTwinCall>
-            Response<BasicDigitalTwin> twinResponse = await client.GetDigitalTwinAsync(twinId);
+            Response<BasicDigitalTwin> twinResponse = await client.GetDigitalTwinAsync<BasicDigitalTwin>(twinId);
             twin = twinResponse.Value;
             // </GetTwinCall>
             Console.WriteLine($"Model id: {twin.Metadata.ModelId}");
@@ -94,10 +94,10 @@ namespace minimal
         }
 
         // <DeleteTwin>
-        private static async Task DeleteTwinAsync(DigitalTwinsClient client, string twinId)
+        private static async Task CustomMethod_DeleteTwinAsync(DigitalTwinsClient client, string twinId)
         {
-            await FindAndDeleteOutgoingRelationshipsAsync(client, twinId);
-            await FindAndDeleteIncomingRelationshipsAsync(client, twinId);
+            await CustomMethod_FindAndDeleteOutgoingRelationshipsAsync(client, twinId);
+            await CustomMethod_FindAndDeleteIncomingRelationshipsAsync(client, twinId);
             try
             {
                 await client.DeleteDigitalTwinAsync(twinId);
@@ -109,7 +109,7 @@ namespace minimal
             }
         }
 
-        private static async Task FindAndDeleteOutgoingRelationshipsAsync(DigitalTwinsClient client, string dtId)
+        private static async Task CustomMethod_FindAndDeleteOutgoingRelationshipsAsync(DigitalTwinsClient client, string dtId)
         {
             // Find the relationships for the twin
 
@@ -130,7 +130,7 @@ namespace minimal
             }
         }
 
-       private static async Task FindAndDeleteIncomingRelationshipsAsync(DigitalTwinsClient client, string dtId)
+        private static async Task CustomMethod_FindAndDeleteIncomingRelationshipsAsync(DigitalTwinsClient client, string dtId)
         {
             // Find the relationships for the twin
 
