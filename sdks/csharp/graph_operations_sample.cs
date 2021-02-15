@@ -54,7 +54,7 @@ namespace minimal
             
             // Create relationship between them
             // <UseCreateRelationship>
-            await CreateRelationshipAsync(client, srcId, targetId, "contains");
+            await CustomMethod_CreateRelationshipAsync(client, srcId, targetId, "contains");
             // </UseCreateRelationship>
             Console.WriteLine();
 
@@ -62,28 +62,28 @@ namespace minimal
             Console.WriteLine("--- Printing details:");
             Console.WriteLine("Outgoing relationships from source twin:");
             // <UseFetchAndPrint>
-            await FetchAndPrintTwinAsync(srcId, client);
+            await CustomMethod_FetchAndPrintTwinAsync(srcId, client);
             // </UseFetchAndPrint>
             Console.WriteLine();
             Console.WriteLine("Incoming relationships to target twin:");
-            await FetchAndPrintTwinAsync(targetId, client);
+            await CustomMethod_FetchAndPrintTwinAsync(targetId, client);
             Console.WriteLine("--------");
             Console.WriteLine();
 
             // Delete the relationship
             Console.WriteLine("Deleting the relationship");
             // <UseDeleteRelationship>
-            await DeleteRelationshipAsync(client, srcId, $"{srcId}-contains->{targetId}");
+            await CustomMethod_DeleteRelationshipAsync(client, srcId, $"{srcId}-contains->{targetId}");
             // </UseDeleteRelationship>
             Console.WriteLine();
 
             // Print twins and their relationships again
             Console.WriteLine("--- Printing details:");
             Console.WriteLine("Outgoing relationships from source twin:");
-            await FetchAndPrintTwinAsync(srcId, client);
+            await CustomMethod_FetchAndPrintTwinAsync(srcId, client);
             Console.WriteLine();
             Console.WriteLine("Incoming relationships to target twin:");
-            await FetchAndPrintTwinAsync(targetId, client);
+            await CustomMethod_FetchAndPrintTwinAsync(targetId, client);
             Console.WriteLine("--------");
             Console.WriteLine();
         }
@@ -97,7 +97,7 @@ namespace minimal
         }
 
         // <CreateRelationshipMethod>
-        private async static Task CreateRelationshipAsync(DigitalTwinsClient client, string srcId, string targetId, string relName)
+        private async static Task CustomMethod_CreateRelationshipAsync(DigitalTwinsClient client, string srcId, string targetId, string relName)
         {
             var relationship = new BasicRelationship
             {
@@ -120,14 +120,14 @@ namespace minimal
         // </CreateRelationshipMethod>
 
         // <FetchAndPrintMethod>
-        private static async Task FetchAndPrintTwinAsync(string twin_Id, DigitalTwinsClient client)
+        private static async Task CustomMethod_FetchAndPrintTwinAsync(string twin_Id, DigitalTwinsClient client)
         {
             Response<BasicDigitalTwin> res = await client.GetDigitalTwinAsync<BasicDigitalTwin>(twin_Id);
             // <UseFindOutgoingRelationships>
-            await FindOutgoingRelationshipsAsync(client, twin_Id);
+            await CustomMethod_FindOutgoingRelationshipsAsync(client, twin_Id);
             // </UseFindOutgoingRelationships>
             // <UseFindIncomingRelationships>
-            await FindIncomingRelationshipsAsync(client, twin_Id);
+            await CustomMethod_FindIncomingRelationshipsAsync(client, twin_Id);
             // </UseFindIncomingRelationships>
 
             return;
@@ -135,7 +135,7 @@ namespace minimal
         // </FetchAndPrintMethod>
 
         // <FindOutgoingRelationshipsMethod>
-        private static async Task<List<BasicRelationship>> FindOutgoingRelationshipsAsync(DigitalTwinsClient client, string dtId)
+        private static async Task<List<BasicRelationship>> CustomMethod_FindOutgoingRelationshipsAsync(DigitalTwinsClient client, string dtId)
         {
             // Find the relationships for the twin
             
@@ -163,7 +163,7 @@ namespace minimal
         // </FindOutgoingRelationshipsMethod>
 
         // <FindIncomingRelationshipsMethod>
-        private static async Task<List<IncomingRelationship>> FindIncomingRelationshipsAsync(DigitalTwinsClient client, string dtId)
+        private static async Task<List<IncomingRelationship>> CustomMethod_FindIncomingRelationshipsAsync(DigitalTwinsClient client, string dtId)
         {
             // Find the relationships for the twin
             
@@ -189,12 +189,12 @@ namespace minimal
         // </FindIncomingRelationshipsMethod>
 
         // <DeleteRelationshipMethod>
-        private static async Task DeleteRelationshipAsync(DigitalTwinsClient client, string srcId, string relId)
+        private static async Task CustomMethod_DeleteRelationshipAsync(DigitalTwinsClient client, string srcId, string relId)
         {
             try
             {
                 Response response = await client.DeleteRelationshipAsync(srcId, relId);
-                await FetchAndPrintTwinAsync(srcId, client);
+                await CustomMethod_FetchAndPrintTwinAsync(srcId, client);
                 Console.WriteLine("Deleted relationship successfully");
             }
             catch (RequestFailedException e)
