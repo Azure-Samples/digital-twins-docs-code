@@ -66,7 +66,7 @@ namespace minimal
             // <UseUpdateRelationship>
             var updatePropertyPatch = new JsonPatchDocument();
             updatePropertyPatch.AppendAdd("/ownershipUser", "ownershipUser NEW value");
-            await UpdateRelationshipAsync(client, srcId, $"{srcId}-contains->{targetId}", updatePropertyPatch);
+            await CustomMethod_UpdateRelationshipAsync(client, srcId, $"{srcId}-contains->{targetId}", updatePropertyPatch);
             // </UseUpdateRelationship>
             Console.WriteLine();
 
@@ -132,7 +132,7 @@ namespace minimal
         // </CreateRelationshipMethod>
 
         // <UpdateRelationshipMethod>
-        private async static Task UpdateRelationshipAsync(DigitalTwinsClient client, string srcId, string relId, Azure.JsonPatchDocument updateDocument)
+        private async static Task CustomMethod_UpdateRelationshipAsync(DigitalTwinsClient client, string srcId, string relId, Azure.JsonPatchDocument updateDocument)
         {
 
             try
