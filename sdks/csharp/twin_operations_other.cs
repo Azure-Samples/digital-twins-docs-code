@@ -33,10 +33,10 @@ catch (ErrorResponseException e)
 // ------------------ UPDATE TWIN (Longer example than in the runnable sample)---------------------
 // <UpdateTwin>
 var updateTwinData = new JsonPatchDocument();
-updateTwinData.AppendAddOp("/Temperature", 25.0);
-updateTwinData.AppendAddOp("/myComponent/Property", "Hello");
+updateTwinData.AppendAdd("/Temperature", 25.0);
+updateTwinData.AppendAdd("/myComponent/Property", "Hello");
 // Un-set a property
-updateTwinData.AppendRemoveOp("/Humidity");
+updateTwinData.AppendRemove("/Humidity");
 
 await client.UpdateDigitalTwinAsync("myTwin", updateTwinData);
 // </UpdateTwin>
