@@ -32,6 +32,11 @@ SELECT * FROM digitaltwins WHERE is_defined(tags.red)
 SELECT * FROM DIGITALTWINS​ T WHERE IS_NUMBER(T.Temperature)
 -- </QueryByProperty3>
 
+-- (Shows property query with a Map-type property)
+-- <QueryByProperty4>
+SELECT * FROM DIGITALTWINS​ T WHERE T.<propertyName>.<mapKey> = '<mapValue>'
+-- </QueryByProperty4>
+
 -- (Shows model query with only twinTypeName parameter)
 -- <QueryByModel1>
 SELECT * FROM DIGITALTWINS WHERE IS_OF_MODEL('dtmi:example:thing;1')
