@@ -55,7 +55,7 @@ namespace Samples.AdtIothub
 
                 // Must have hubs selected on the enrollment
                 if (hubs == null
-                    || hubs.Count < 1)
+                    || hubs.Length < 1)
                 {
                     message = "No hub group defined for the enrollment.";
                     log.LogInformation("linkedHubs: NULL");
@@ -107,8 +107,8 @@ namespace Samples.AdtIothub
 
             // Find existing twin with registration ID
             string query = $"SELECT * FROM DigitalTwins T WHERE $dtId = '{regId}' AND IS_OF_MODEL('{dtmi}')";
-            AsyncPageable<BasicDigitalTwin> twins = client.QueryAsync(query);
-            string dtId;
+            AsyncPageable<BasicDigitalTwin> twins = client.QueryAsync<BasicDigitalTwin>(query);
+            string dtId = "";
 
             await foreach (BasicDigitalTwin digitalTwin in twins)
             {
