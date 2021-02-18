@@ -106,38 +106,40 @@ namespace Samples.AdtIothub
                 });
 
             // Find existing twin with registration ID
-            string query = $"SELECT * FROM DigitalTwins T WHERE $dtId = '{regId}' AND IS_OF_MODEL('{dtmi}')";
-            AsyncPageable<BasicDigitalTwin> twins = client.QueryAsync<BasicDigitalTwin>(query);
-            string dtId = "";
-
-            await foreach (BasicDigitalTwin digitalTwin in twins)
+            
+            try
             {
-                dtId = digitalTwin.Id;
-                log.LogInformation($"Twin '{dtId}' with Registration ID '{regId}' found in DT");
-                break;
-            }
+                // Get twin with Id `regId`
+                BasicDigitalTwin dt = await GetDigitalTwin<BasicDigitalTwin>(regId).ConfigureAwait(false);
 
-            if (String.IsNullOrWhiteSpace(dtId))
+                // Check to make sure it is of model type `dtmi`
+                if (dt.Metadata.ModelId.Equals(dtmi, StringComparison.OrdinalIgnoreCase)
+                {
+                    return dt.Id;
+                }
+                else
+                {
+                    // Found digital twin with `regId` but it is not of model type `dtmi`
+                    log.LogInformation($"Found digital twin {dt.Id} but it is not of model {dtmi}");
+                }
+            }
+            catch(RequestFailedException ex) when (ex.Status == (int)HttpStatusCode.NotFound)
             {
-                // Not found, so create new twin
-                log.LogInformation($"Twin ID not found - setting DT ID to regID");
-                dtId = regId; // use the Registration ID as the DT ID
+                // Digital twin not found, so we will create a new one.
+                BasicDigitalTwin dt = await client.CreateOrReplaceDigitalTwinAsync(
+                    regId, 
+                    new BasicDigitalTwin
+                    {
+                        Metadata = { ModelId = dtmi },
+                        Contents = 
+                        {
+                            { "Temperature", 0.0 }
+                        }
+                    }).ConfigureAwait(false);
 
-                // Initialize the twin properties
-                var digitalTwin = new BasicDigitalTwin
-                {
-                    Metadata = { ModelId = dtmi },
-                    Contents =
-                {
-                    {  "Temperature", 0.0 },
-                },
-                };
-
-                await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(dtId, digitalTwin);
-                log.LogInformation($"Twin '{dtId}' created in DT");
+                log.LogInformation($"Digital Twin '{dtId}' created.");
+                return dt.Id;
             }
-
-            return dtId;
         }
     }
 
