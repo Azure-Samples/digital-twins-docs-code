@@ -121,6 +121,7 @@ namespace Samples.AdtIothub
                 {
                     // Found digital twin with `regId` but it is not of model type `dtmi`
                     log.LogInformation($"Found digital twin {dt.Id} but it is not of model {dtmi}");
+                    return null;
                 }
             }
             catch(RequestFailedException ex) when (ex.Status == (int)HttpStatusCode.NotFound)
