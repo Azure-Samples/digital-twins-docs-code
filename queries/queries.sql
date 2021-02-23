@@ -1,8 +1,7 @@
 -------------- Used in tutorial-end-to-end
 -- (Shows how to query all twins)
 -- <GetAllTwins>
-SELECT * 
-FROM DIGITALTWINS
+SELECT * FROM DIGITALTWINS
 -- </GetAllTwins>
 
 -------------- Used in how-to-query-graph
