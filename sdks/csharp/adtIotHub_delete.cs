@@ -56,7 +56,7 @@ namespace Samples.AdtIothub
                             BasicDigitalTwin digitalTwin = await client.GetDigitalTwinAsync<BasicDigitalTwin>(deviceId);
 
                             // In order to delete the twin, all relationships must first be removed
-                            await DeleteRelationshipsAsync(client, digitalTwin.Id, log);
+                            await DeleteAllRelationshipsAsync(client, digitalTwin.Id, log);
 
                             // Delete the twin
                             await client.DeleteDigitalTwinAsync(digitalTwin.Id, digitalTwin.ETag);
@@ -90,7 +90,7 @@ namespace Samples.AdtIothub
             AsyncPageable<BasicRelationship> relationships = client.GetRelationshipsAsync<BasicRelationship>(dtId);
             await foreach (BasicRelationship relationship in relationships)
             {
-                await client.DeleteRelationshipAsync(dtId, relationshipId.Id, relationship.ETag);
+                await client.DeleteRelationshipAsync(dtId, relationship.Id, relationship.ETag);
                 log.LogInformation($"Twin '{dtId}' relationship '{relationship.Id}' deleted in DT");
             }
 
@@ -98,7 +98,7 @@ namespace Samples.AdtIothub
             await foreach (IncomingRelationship incomingRelationship in incomingRelationships)
             {
                 await client.DeleteRelationshipAsync(incomingRelationship.SourceId, incomingRelationship.RelationshipId);
-                log.LogInformation($"Twin '{dtId}' incoming relationship '{relationship.Id}' from '{incomingRelationship.SourceId}' deleted in DT");
+                log.LogInformation($"Twin '{dtId}' incoming relationship '{incomingRelationship.RelationshipId}' from '{incomingRelationship.SourceId}' deleted in DT");
             }
         }
     }
