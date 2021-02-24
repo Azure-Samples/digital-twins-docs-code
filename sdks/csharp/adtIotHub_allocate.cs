@@ -105,39 +105,48 @@ namespace Samples.AdtIothub
                     Transport = new HttpClientTransport(singletonHttpClientInstance)
                 });
 
-            // Find existing twin with registration ID
-            string query = $"SELECT * FROM DigitalTwins T WHERE $dtId = '{regId}' AND IS_OF_MODEL('{dtmi}')";
-            AsyncPageable<BasicDigitalTwin> twins = client.QueryAsync<BasicDigitalTwin>(query);
-            string dtId = "";
-
-            await foreach (BasicDigitalTwin digitalTwin in twins)
+            // Find existing DigitalTwin with registration ID
+            
+            try
             {
-                dtId = digitalTwin.Id;
-                log.LogInformation($"Twin '{dtId}' with Registration ID '{regId}' found in DT");
-                break;
+                // Get DigitalTwin with Id `regId`
+                BasicDigitalTwin dt = await GetDigitalTwin<BasicDigitalTwin>(regId).ConfigureAwait(false);
+
+                // Check to make sure it is of model type `dtmi`
+                if (StringComparer.OrdinalIgnoreCase.Equals(dtmi, dt.Metadata.ModelId))
+                {
+                    return dt.Id;
+                }
+
+                // Found DigitalTwin with `regId` but it is not of model type `dtmi`
+                log.LogInformation($"Found DigitalTwin {dt.Id} but it is not of model {dtmi}");
+            }
+            catch(RequestFailedException ex) when (ex.Status == (int)HttpStatusCode.NotFound)
+            {
+                log.LogInformation($"Did not find DigitalTwin {dt.Id}");
             }
 
-            if (String.IsNullOrWhiteSpace(dtId))
-            {
-                // Not found, so create new twin
-                log.LogInformation($"Twin ID not found - setting DT ID to regID");
-                dtId = regId; // use the Registration ID as the DT ID
-
-                // Initialize the twin properties
-                var digitalTwin = new BasicDigitalTwin
+            // Either the DigitalTwin was not found, or we found it but it is of a different model type
+            // Create or replace it with what it needs to be, meaning if it was not found a brand new DigitalTwin will be created
+            // and if it was of a different model, it will replace that existing DigitalTwin
+            // If it was intended to only create the DigitalTwin if there is no matching DigitalTwin with the same Id,
+            // ETag.All could have been used as the ifNonMatch parameter to the CreateOrReplaceDigitalTwinAsync method call.
+            // Read more in the CreateOrReplaceDigitalTwinAsync documentation here:
+            // https://docs.microsoft.com/en-us/dotnet/api/azure.digitaltwins.core.digitaltwinsclient.createorreplacedigitaltwinasync?view=azure-dotnet
+            BasicDigitalTwin dt = await client.CreateOrReplaceDigitalTwinAsync(
+                regId, 
+                new BasicDigitalTwin
                 {
                     Metadata = { ModelId = dtmi },
-                    Contents =
-                {
-                    {  "Temperature", 0.0 },
-                },
-                };
+                    Contents = 
+                    {
+                        { "Temperature", 0.0 }
+                    }
+                }
+            ).ConfigureAwait(false);
 
-                await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(dtId, digitalTwin);
-                log.LogInformation($"Twin '{dtId}' created in DT");
-            }
-
-            return dtId;
+            log.LogInformation($"Digital Twin '{dtId}' created.");
+            return dt.Id;
         }
     }
 
