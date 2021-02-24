@@ -127,10 +127,10 @@ namespace Samples.AdtIothub
             }
 
             // Either the DigitalTwin was not found, or we found it but it is of a different model type
-            // Create or replace it with what it needs to be. Meaning if it was not found a brand new DigitalTwin will be created
-            // and if it was of a different model, it will be replace that existing DigitalTwin
+            // Create or replace it with what it needs to be, meaning if it was not found a brand new DigitalTwin will be created
+            // and if it was of a different model, it will replace that existing DigitalTwin
             // If it was intended to only create the DigitalTwin if there is no matching DigitalTwin with the same Id,
-            // ETag.All would have been used as the ifNonMatch parameter to the CreateOrReplaceDigitalTwinAsync method call.
+            // ETag.All could have been used as the ifNonMatch parameter to the CreateOrReplaceDigitalTwinAsync method call.
             // Read more in the CreateOrReplaceDigitalTwinAsync documentation here:
             // https://docs.microsoft.com/en-us/dotnet/api/azure.digitaltwins.core.digitaltwinsclient.createorreplacedigitaltwinasync?view=azure-dotnet
             BasicDigitalTwin dt = await client.CreateOrReplaceDigitalTwinAsync(
