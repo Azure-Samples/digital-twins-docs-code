@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Reflection;
 using Azure;
 using Azure.Core.Pipeline;
 using Azure.DigitalTwins.Core;
@@ -16,7 +15,6 @@ using Microsoft.Azure.Devices.Shared;
 using Microsoft.Azure.Devices.Provisioning.Service;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Samples.AdtIothub
 {
@@ -106,24 +104,24 @@ namespace Samples.AdtIothub
                 });
 
             // Find existing DigitalTwin with registration ID
-            
             try
             {
-                // Get DigitalTwin with Id `regId`
-                BasicDigitalTwin dt = await GetDigitalTwin<BasicDigitalTwin>(regId).ConfigureAwait(false);
+                // Get DigitalTwin with Id 'regId'
+                BasicDigitalTwin existingDt = await client.GetDigitalTwinAsync<BasicDigitalTwin>(regId).ConfigureAwait(false);
 
-                // Check to make sure it is of model type `dtmi`
-                if (StringComparer.OrdinalIgnoreCase.Equals(dtmi, dt.Metadata.ModelId))
+                // Check to make sure it is of the correct model type
+                if (StringComparer.OrdinalIgnoreCase.Equals(dtmi, existingDt.Metadata.ModelId))
                 {
-                    return dt.Id;
+                    log.LogInformation($"DigitalTwin {existingDt.Id} already exists");
+                    return existingDt.Id;
                 }
 
-                // Found DigitalTwin with `regId` but it is not of model type `dtmi`
-                log.LogInformation($"Found DigitalTwin {dt.Id} but it is not of model {dtmi}");
+                // Found DigitalTwin but it is not of the correct model type
+                log.LogInformation($"Found DigitalTwin {existingDt.Id} but it is not of model {dtmi}");
             }
             catch(RequestFailedException ex) when (ex.Status == (int)HttpStatusCode.NotFound)
             {
-                log.LogInformation($"Did not find DigitalTwin {dt.Id}");
+                log.LogDebug($"Did not find DigitalTwin {regId}");
             }
 
             // Either the DigitalTwin was not found, or we found it but it is of a different model type
@@ -145,7 +143,7 @@ namespace Samples.AdtIothub
                 }
             ).ConfigureAwait(false);
 
-            log.LogInformation($"Digital Twin '{dtId}' created.");
+            log.LogInformation($"Digital Twin {dt.Id} created.");
             return dt.Id;
         }
     }
