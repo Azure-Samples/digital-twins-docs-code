@@ -9,9 +9,7 @@ SELECT * FROM DIGITALTWINS
 
 -- (Shows query that escapes a single quote in data)
 -- <EscapedSingleQuote>
-SELECT T 
-FROM digitaltwins T 
-WHERE name = 'D\'Souza'
+SELECT * FROM DIGITALTWINS WHERE Name = 'D\'Souza'
 -- </EscapedSingleQuote>
 
 -- (Shows basic property query)
