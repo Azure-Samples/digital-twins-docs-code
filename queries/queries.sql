@@ -7,6 +7,13 @@ SELECT * FROM DIGITALTWINS
 -------------- Used in how-to-query-graph
 -- GetAllTwins from above
 
+-- (Shows query that escapes a single quote in data)
+-- <EscapedSingleQuote>
+SELECT T 
+FROM digitaltwins T 
+WHERE name = 'D\'Souza'
+-- </EscapedSingleQuote>
+
 -- (Shows basic property query)
 -- <QueryByProperty1>
 SELECT  *
