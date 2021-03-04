@@ -1,12 +1,16 @@
 -------------- Used in tutorial-end-to-end
 -- (Shows how to query all twins)
 -- <GetAllTwins>
-SELECT * 
-FROM DIGITALTWINS
+SELECT * FROM DIGITALTWINS
 -- </GetAllTwins>
 
 -------------- Used in how-to-query-graph
 -- GetAllTwins from above
+
+-- (Shows query that escapes a single quote in data)
+-- <EscapedSingleQuote>
+SELECT * FROM DIGITALTWINS WHERE Name = 'D\'Souza'
+-- </EscapedSingleQuote>
 
 -- (Shows basic property query)
 -- <QueryByProperty1>

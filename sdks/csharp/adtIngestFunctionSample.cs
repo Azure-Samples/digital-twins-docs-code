@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using Azure.DigitalTwins.Core;
 using Azure.Identity;
 using System.Net.Http;
-using Azure.Core;
+using Azure.Core.Pipeline;
 //</Function_dependencies>
 
 namespace adtIngestFunctionSample
