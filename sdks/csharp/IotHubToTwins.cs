@@ -1,8 +1,8 @@
 using System;
+using Azure;
 using System.Net.Http;
 using Azure.Core.Pipeline;
 using Azure.DigitalTwins.Core;
-using Azure.DigitalTwins.Core.Serialization;
 using Azure.Identity;
 using Microsoft.Azure.EventGrid.Models;
 using Microsoft.Azure.WebJobs;
