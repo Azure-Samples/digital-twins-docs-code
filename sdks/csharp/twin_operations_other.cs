@@ -1,27 +1,53 @@
 // ------------------ CREATE TWIN: NO HELPER ---------------------
 // <CreateTwin_noHelper>
-// Define the model type for the twin to be created
-using System.Net.Mime;
+// Define a custom model type for the twin to be created
+class CustomDigitalTwin
+{
+    [JsonPropertyName(DigitalTwinsJsonPropertyNames.DigitalTwinId)]
+    public string Id { get; set; }
+
+    [JsonPropertyName(DigitalTwinsJsonPropertyNames.DigitalTwinETag)]
+    public string ETag { get; set; }
+
+    [JsonPropertyName(DigitalTwinsJsonPropertyNames.DigitalTwinMetadata)]
+    public MyCustomDigitalTwinMetadata Metadata { get; set; } = new MyCustomDigitalTwinMetadata();
+
+    [JsonPropertyName("temperature")]
+    public double Temperature { get; set; }
+
+    [JsonPropertyName("humidity")]
+    public double Humidity{ get; set; }
+}
+
+class MyCustomDigitalTwinMetadata
+{
+    [JsonPropertyName(DigitalTwinsJsonPropertyNames.MetadataModel)]
+    public string ModelId { get; set; }
+
+    [JsonPropertyName("temperature")]
+    public DigitalTwinPropertyMetadata Temperature { get; set; }
+
+    [JsonPropertyName("humidity")]
+    public DigitalTwinPropertyMetadata Humidity { get; set; }
+}
 
 // Initialize the twin properties
-var twinInit = new BasicDigitalTwin
+var myTwin = new MyCustomDigitalTwin
 {
     Metadata = { ModelId = "dtmi:example:Room;1" },
-    Contents =
-    {
-        { "Temperature", 25.0},
-        { "Humidity", 50.0},
-    },
+    Temperature = 25.0,
+    Humidity = 50.0,
 };
-//Create the twin
-client.CreateOrReplaceDigitalTwinAsync(twinID, twinInit);
+// Create the twin
+Response<BasicDigitalTwin> response = await client.CreateOrReplaceDigitalTwinAsync(twinId, myTwin);
+Console.WriteLine($"Temperature last updated on {response.Value.Metadata.Temperature.LastUpdatedOn}")
 // </CreateTwin_noHelper>
 
 // ------------------ CREATE TWIN: Error handling---------------------
 // <CreateTwin_errorHandling>
 try
 {
-    await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(id, twinInit);
+    await client.CreateOrReplaceDigitalTwinAsync<MyCustomDigitalTwin>(id, myTwin);
     Console.WriteLine($"Created a twin successfully: {id}");
 }
 catch (ErrorResponseException e)
