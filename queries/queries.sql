@@ -58,7 +58,7 @@ SELECT * FROM DIGITALTWINS WHERE IS_OF_MODEL('dtmi:example:thing;1', exact)
 
 -- (Shows model query with twinCollection, twinTypeName, and exact parameters)
 -- <QueryByModel4>
-SELECT ROOM FROM DIGITALTWINS DT WHERE IS_OF_MODEL(DT, 'dtmi:example:thing;1', exact)
+SELECT * FROM DIGITALTWINS DT WHERE IS_OF_MODEL(DT, 'dtmi:example:thing;1', exact)
 -- </QueryByModel4>
 
 -- (Shows basic relationship query)
