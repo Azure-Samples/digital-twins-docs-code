@@ -80,3 +80,17 @@ entity-01: "tags": { "red": "", "size": "large" }
 entity-02: "tags": { "purple": "", "size": "small" }
 entity-03: "tags": { "red": "", "size": "small" }
 // </TagPropertiesValue>
+
+// ------------------ SET TAG PROPERTY VALUES: EXAMPLE ---------------------
+// <TagPropertiesExample>
+// Create twin
+BasicDigitalTwin twin = new BasicDigitalTwin();
+twinData.Metadata.ModelId = "dtmi:example:Room;1";
+twinData.Contents.Add("Temperature", 75);
+IDictionary<string, bool> tags = new Dictionary<string, bool>
+{
+    { "view", "ocean" },
+    { "VIP", true }
+};
+twinData.Contents.Add("tags", tags);
+// </TagPropertiesExample>
