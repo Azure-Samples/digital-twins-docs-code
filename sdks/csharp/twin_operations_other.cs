@@ -89,7 +89,7 @@ twinData.Metadata.ModelId = "dtmi:example:Room;1";
 twinData.Contents.Add("Temperature", 75);
 IDictionary<string, bool> tags = new Dictionary<string, bool>
 {
-    { "view", "ocean" },
+    { "oceanview", true },
     { "VIP", true }
 };
 twinData.Contents.Add("tags", tags);
