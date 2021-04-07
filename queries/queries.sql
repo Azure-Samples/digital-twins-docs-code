@@ -69,6 +69,22 @@ JOIN CT RELATED T.contains
 WHERE T.$dtId = 'ABC'
 -- </QueryByRelationship1>
 
+-- (Shows querying by relationship source twin to get target twin)
+-- <QueryByRelationshipSource>
+SELECT target 
+FROM DIGITALTWINS source 
+JOIN target RELATED source.feeds 
+WHERE source.$dtId = 'source-twin'
+-- </QueryByRelationshipSource>
+
+-- (Shows querying by relationship target twin to get source twin)
+-- <QueryByRelationshipTarget>
+SELECT source 
+FROM DIGITALTWINS source 
+JOIN target RELATED source.feeds 
+WHERE target.$dtId = 'target-twin'
+-- </QueryByRelationshipTarget>
+
 -- (Shows querying properties of relationship)
 -- <QueryByRelationship2>
 SELECT T, SBT, R
