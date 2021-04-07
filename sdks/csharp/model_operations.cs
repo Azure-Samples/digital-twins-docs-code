@@ -2,10 +2,8 @@
 // <CreateModel>
 // 'client' is an instance of DigitalTwinsClient
 // Read model file into string (not part of SDK)
-using var modelStreamReader = new StreamReader("MyModelFile.json");
-string dtdl = modelStreamReader.ReadToEnd();
-string[] dtdls = new string[] { dtdl };
-client.CreateModels(dtdls);
+string dtdl = new File.ReadAllText("MyModelFile.json");
+await client.CreateModelsAsync(new[] { dtdl });
 // </CreateModel>
 
 // ------------------ CREATE MODEL (MULTIPLE) ---------------------
@@ -16,11 +14,10 @@ var dtdlModels = new List<string>();
 foreach (string fileName in dtdlFiles)
 {
     // Read model file into string (not part of SDK)
-    using var modelStreamReader = new StreamReader(fileName);
-    string dtdl = modelStreamReader.ReadToEnd();
+    string dtdl = File.ReadAllText(fileName);
     dtdlModels.Add(dtdl);
 }
-client.CreateModels(dtdlModels);
+await client.CreateModelsAsync(dtdlModels);
 // </CreateModels_multi>
 
 // ------------------ GET MODELS ---------------------
@@ -28,17 +25,18 @@ client.CreateModels(dtdlModels);
 // 'client' is a valid DigitalTwinsClient object
 
 // Get a single model, metadata and data
-DigitalTwinsModelData md1 = client.GetModel(id);
+Response<DigitalTwinsModelData> md1 = await client.GetModelAsync(id);
+DigitalTwinsModelData model1 = md1.Value;
 
 // Get a list of the metadata of all available models; print their display names and IDs
-AsyncPageable<DigitalTwinsModelData> pmd2 = client.GetModelsAsync();
-await foreach (DigitalTwinsModelData md in pmd2)
+AsyncPageable<DigitalTwinsModelData> md2 = client.GetModelsAsync();
+await foreach (DigitalTwinsModelData md in md2)
 {
     Console.WriteLine($"Type name: {md.DisplayName}: {md.Id}");
 }
 
 // Get models and metadata for a model ID, including all dependencies (models that it inherits from, components it references)
-Pageable<DigitalTwinsModelData> pmd3 = client.GetModels(new GetModelsOptions { IncludeModelDefinition = true });
+AssyncPageable<DigitalTwinsModelData> md3 = client.GetModelsAsync(new GetModelsOptions { IncludeModelDefinition = true });
 // </GetModels>
 
 // ------------------ DECOMISSION MODEL ---------------------
