@@ -81,9 +81,8 @@ entity-02: "tags": { "purple": "", "size": "small" }
 entity-03: "tags": { "red": "", "size": "small" }
 // </TagPropertiesValue>
 
-// ------------------ SET TAG PROPERTY VALUES: EXAMPLE ---------------------
-// <TagPropertiesExample>
-// Create twin
+// ------------------ SET TAG PROPERTY VALUES: CSHARP ---------------------
+// <TagPropertiesCsharp>
 BasicDigitalTwin twin = new BasicDigitalTwin();
 twinData.Metadata.ModelId = "dtmi:example:Room;1";
 twinData.Contents.Add("Temperature", 75);
