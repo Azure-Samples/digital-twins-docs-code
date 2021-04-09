@@ -92,4 +92,4 @@ IDictionary<string, bool> tags = new Dictionary<string, bool>
     { "VIP", true }
 };
 twinData.Contents.Add("tags", tags);
-// </TagPropertiesExample>
+// </TagPropertiesCsharp>
