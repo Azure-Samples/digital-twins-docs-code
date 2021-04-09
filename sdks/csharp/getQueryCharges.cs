@@ -3,7 +3,7 @@ int pageNum = 0;
 
 // The "await" keyword here is required, as a call is made when fetching a new page.
 
-await foreach (Page<string> page in asyncPageableResponseWithCharge.AsPages())
+await foreach (Page<BasicDigitalTwin> page in asyncPageableResponseWithCharge.AsPages())
 {
     Console.WriteLine($"Page {++pageNum} results:");
 
