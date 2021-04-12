@@ -83,13 +83,18 @@ entity-03: "tags": { "red": "", "size": "small" }
 
 // ------------------ SET TAG PROPERTY VALUES: CSHARP ---------------------
 // <TagPropertiesCsharp>
-BasicDigitalTwin twin = new BasicDigitalTwin();
-twinData.Metadata.ModelId = "dtmi:example:Room;1";
-twinData.Contents.Add("Temperature", 75);
 IDictionary<string, bool> tags = new Dictionary<string, bool>
 {
     { "oceanview", true },
     { "VIP", true }
 };
-twinData.Contents.Add("tags", tags);
+var twin = new BasicDigitalTwin
+{
+    Metadata = { ModelId = "dtmi:example:Room;1" },
+    Contents =
+    {
+        { "Temperature", 75 },
+        { "tags", tags },
+    },
+};
 // </TagPropertiesCsharp>
