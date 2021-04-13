@@ -80,3 +80,21 @@ entity-01: "tags": { "red": "", "size": "large" }
 entity-02: "tags": { "purple": "", "size": "small" }
 entity-03: "tags": { "red": "", "size": "small" }
 // </TagPropertiesValue>
+
+// ------------------ SET TAG PROPERTY VALUES: CSHARP ---------------------
+// <TagPropertiesCsharp>
+IDictionary<string, bool> tags = new Dictionary<string, bool>
+{
+    { "oceanview", true },
+    { "VIP", true }
+};
+var twin = new BasicDigitalTwin
+{
+    Metadata = { ModelId = "dtmi:example:Room;1" },
+    Contents =
+    {
+        { "Temperature", 75 },
+        { "tags", tags },
+    },
+};
+// </TagPropertiesCsharp>
