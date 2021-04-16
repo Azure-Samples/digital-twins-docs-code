@@ -32,7 +32,14 @@
       {
         "@type": "Relationship",
         "name": "satellites",
-        "target": "dtmi:com:contoso:Moon;1"
+        "target": "dtmi:com:contoso:Moon;1",
+        "properties": [
+          {
+            "@type": "Property",
+            "name": "Distance",
+            "schema": "double"
+          }
+        ]
       },
       {
         "@type": "Component",
