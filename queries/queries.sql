@@ -248,5 +248,5 @@ SELECT * FROM digitaltwins WHERE NOT is_defined(tags.red) AND tags.size = 'small
 -------------- Used in quickstart-adt-explorer
 -- (A query example used for the quickstart to observe changes in twin properties)
 -- <TemperatureQuery>
-SELECT * FROM DigitalTwins T WHERE T.Temperature > 75
+SELECT * FROM digitaltwins T WHERE T.Temperature > 75
 -- </TemperatureQuery>
