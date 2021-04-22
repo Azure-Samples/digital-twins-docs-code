@@ -15,7 +15,7 @@ SELECT * FROM DIGITALTWINS WHERE Name = 'D\'Souza'
 -- (Shows basic property query)
 -- <QueryByProperty1>
 SELECT  *
-FROM DigitalTwins T  
+FROM DIGITALTWINS T  
 WHERE T.firmwareVersion = '1.1'
 AND T.$dtId in ['123', '456']
 AND T.Temperature = 70
@@ -28,7 +28,7 @@ SELECT *​ FROM DIGITALTWINS WHERE IS_DEFINED(Location)
 
 -- (Shows property query based on marker tags)
 -- <QueryMarkerTags1>
-SELECT * FROM digitaltwins WHERE is_defined(tags.red)
+SELECT * FROM DIGITALTWINS WHERE is_defined(tags.red)
 -- </QueryMarkerTags1>
 
 -- (Shows property query based on property type)
@@ -205,7 +205,7 @@ AND IS_OF_MODEL(Room, 'dtmi:com:contoso:Room;1')
 -- (A query example)
 -- <OtherExamples1>
 SELECT device
-FROM DigitalTwins space
+FROM DIGITALTWINS space
 JOIN device RELATED space.has
 WHERE space.$dtid = 'Room 123'
 AND device.$metadata.model = 'dtmi:contoso:com:DigitalTwins:MxChip:3'
@@ -234,12 +234,12 @@ AND IS_OF_MODEL(Room, 'dtmi:contoso:com:DigitalTwins:Room;1')
 
 -- (Shows property query that includes two marker tags)
 -- <QueryMarkerTags2>
-SELECT * FROM digitaltwins WHERE NOT is_defined(tags.red) AND is_defined(tags.round)
+SELECT * FROM DIGITALTWINS WHERE NOT is_defined(tags.red) AND is_defined(tags.round)
 -- </QueryMarkerTags2>
 
 -- (Shows property query that includes one marker and one value tag)
 -- <QueryMarkerValueTags>
-SELECT * FROM digitaltwins WHERE NOT is_defined(tags.red) AND tags.size = 'small'
+SELECT * FROM DIGITALTWINS WHERE NOT is_defined(tags.red) AND tags.size = 'small'
 -- </QueryMarkerValueTags>
 
 -------------- Used in tutorial-end-to-end
@@ -248,5 +248,5 @@ SELECT * FROM digitaltwins WHERE NOT is_defined(tags.red) AND tags.size = 'small
 -------------- Used in quickstart-adt-explorer
 -- (A query example used for the quickstart to observe changes in twin properties)
 -- <TemperatureQuery>
-SELECT * FROM digitaltwins T WHERE T.Temperature > 75
+SELECT * FROM DIGITALTWINS T WHERE T.Temperature > 75
 -- </TemperatureQuery>
