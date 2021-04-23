@@ -10,7 +10,8 @@ Below is a list of the query files contained in this folder, including mappings 
 
 | Query file | Used in | Description
 | --- | --- | --- |
-| examples.sql | [how-to-manage-twin](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin)<br><br>[how-to-query-graph](https://docs.microsoft.com/azure/digital-twins/how-to-query-graph)<br><br>[how-to-use-tags](https://docs.microsoft.com/azure/digital-twins/how-to-use-tags)<br><br>[tutorial-end-to-end](https://docs.microsoft.com/azure/digital-twins/tutorial-end-to-end)<br><br>[quickstart-azure-digital-twins-explorer](https://docs.microsoft.com/azure/digital-twins/quickstart-azure-digital-twins-explorer)| This file contains the code snippets for the queries that are shown in these documents outside of a runnable context. |
+| examples.sql | [how-to-manage-twin](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin)<br><br>[how-to-query-graph](https://docs.microsoft.com/azure/digital-twins/how-to-query-graph)<br><br>[how-to-use-tags](https://docs.microsoft.com/azure/digital-twins/how-to-use-tags)<br><br>[tutorial-end-to-end](https://docs.microsoft.com/azure/digital-twins/tutorial-end-to-end)<br><br>[quickstart-azure-digital-twins-explorer](https://docs.microsoft.com/azure/digital-twins/quickstart-azure-digital-twins-explorer)| This file contains the code snippets for the example queries that are shown in these documents. |
+| reference.sql | Query language reference documentation (accessible from [Azure Digital Twins documentation](https://docs.microsoft.com/azure/digital-twins/) TOC | This file contains the code snippets for the queries that are shown in these reference documents. |
 | test_queries.cs | *None* | *FOR TESTING PURPOSES*<br>The code in this file runs the queries in **queries.sql** to test whether they work as expected. |
 
 ## Strategy
