@@ -154,7 +154,6 @@ SELECT Consumer.name
 FROM DIGITALTWINS Factory
 JOIN Consumer RELATED Factory.customer Edge
 WHERE Factory.$dtId = 'ABC'
-AND IS_PRIMITIVE(Consumer.name)
 -- </Projections2>
 
 -- (Shows use of projection to return a relationship's property)
@@ -163,7 +162,6 @@ SELECT Consumer.name, Edge.prop1, Edge.prop2, Factory.area
 FROM DIGITALTWINS Factory
 JOIN Consumer RELATED Factory.customer Edge
 WHERE Factory.$dtId = 'ABC'
-AND IS_PRIMITIVE(Factory.area) AND IS_PRIMITIVE(Consumer.name) AND IS_PRIMITIVE(Edge.prop1) AND IS_PRIMITIVE(Edge.prop2)
 -- </Projections3>
 
 -- (Same as Projections3 except adds aliases to result set)
@@ -172,7 +170,6 @@ SELECT Consumer.name AS consumerName, Edge.prop1 AS first, Edge.prop2 AS second,
 FROM DIGITALTWINS Factory
 JOIN Consumer RELATED Factory.customer Edge
 WHERE Factory.$dtId = 'ABC'
-AND IS_PRIMITIVE(Factory.area) AND IS_PRIMITIVE(Consumer.name) AND IS_PRIMITIVE(Edge.prop1) AND IS_PRIMITIVE(Edge.prop2)
 -- </Projections4>
 
 -- (Similar to Projections3 and Projections4, more specific result set)
@@ -181,7 +178,6 @@ SELECT Consumer.name AS consumerName, Factory
 FROM DIGITALTWINS Factory
 JOIN Consumer RELATED Factory.customer Edge
 WHERE Factory.$dtId = 'ABC'
-AND IS_PRIMITIVE(Factory.area) AND IS_PRIMITIVE(Consumer.name)
 -- </Projections5>
 
 -- (Shows a query process that can be simplified using the IN operator)
