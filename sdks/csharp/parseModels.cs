@@ -54,10 +54,9 @@ void PrintInterfaceContent(DTInterfaceInfo dtif, IReadOnlyDictionary<Dtmi, DTEnt
             case DTEntityKind.Component:
                 DTComponentInfo ci = item as DTComponentInfo;
                 Console.WriteLine($"{sb}--Component: {ci.Id} | {ci.Name}");
-                dtdlOM.TryGetValue(ci.Id, out DTEntityInfo value);
-                DTInterfaceInfo component = value as DTInterfaceInfo;
+                DTInterfaceInfo component = ci.Schema;
                 PrintInterfaceContent(component, dtdlOM, indent + 1);
-                break;
+                break;                
         }
     }
 }
