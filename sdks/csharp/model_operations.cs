@@ -2,7 +2,7 @@
 // <CreateModel>
 // 'client' is an instance of DigitalTwinsClient
 // Read model file into string (not part of SDK)
-string dtdl = new File.ReadAllText("MyModelFile.json");
+string dtdl = File.ReadAllText("MyModelFile.json");
 await client.CreateModelsAsync(new[] { dtdl });
 // </CreateModel>
 
