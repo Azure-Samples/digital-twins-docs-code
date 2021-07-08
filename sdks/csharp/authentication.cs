@@ -23,14 +23,6 @@ catch(Exception e)
 }
 // </DefaultAzureCredential_full>
 
-// ------------------ DefaultAzureCredential (Basic) ------------------ 
-// <DefaultAzureCredential_basic>
-// Authenticate against the service and create a client
-string adtInstanceUrl = "https://<your-Azure-Digital-Twins-instance-hostName>";
-var credential = new DefaultAzureCredential();
-DigitalTwinsClient client = new DigitalTwinsClient(new Uri(adtInstanceUrl), credential);
-// </DefaultAzureCredential_basic>
-
 // ------------------ ManagedIdentityCredential ------------------
 // <ManagedIdentityCredential>
 ManagedIdentityCredential cred = new ManagedIdentityCredential(adtAppId);
