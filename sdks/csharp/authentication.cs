@@ -8,9 +8,9 @@ namespace DigitalTwins_Samples
 {
     // ------------------ DefaultAzureCredential with try/catch (Full) ------------------ 
     // <DefaultAzureCredential_full>
-    // The URL of your instance, starting with the protocol (https://)
     public class DefaultAzureCredentialSample
     {
+        // The URL of your instance, starting with the protocol (https://)
         private const string adtInstanceUrl = "https://<your-Azure-Digital-Twins-instance-URL>";
 
         internal void RunSample()
