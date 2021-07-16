@@ -1,7 +1,7 @@
 // Default URL for triggering event grid function in the local environment.
 // http://localhost:7071/runtime/webhooks/EventGrid?functionName={functionname}
-using Azure.Core.Pipeline;
 //<Function_dependencies>
+using Azure.Core.Pipeline;
 using Azure.DigitalTwins.Core;
 using Azure.Identity;
 using Microsoft.Azure.EventGrid.Models;
