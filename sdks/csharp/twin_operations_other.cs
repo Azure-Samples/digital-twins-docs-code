@@ -43,19 +43,6 @@ Response<BasicDigitalTwin> response = await client.CreateOrReplaceDigitalTwinAsy
 Console.WriteLine($"Temperature last updated on {response.Value.Metadata.Temperature.LastUpdatedOn}")
 // </CreateTwin_noHelper>
 
-// ------------------ CREATE TWIN: Error handling---------------------
-// <CreateTwin_errorHandling>
-try
-{
-    await client.CreateOrReplaceDigitalTwinAsync<MyCustomDigitalTwin>(id, myTwin);
-    Console.WriteLine($"Created a twin successfully: {id}");
-}
-catch (ErrorResponseException e)
-{
-    Console.WriteLine($"*** Error creating twin {id}: {e.Response.StatusCode}");
-}
-// </CreateTwin_errorHandling>
-
 // ------------------ UPDATE TWIN (Longer example than in the runnable sample)---------------------
 // <UpdateTwin>
 var updateTwinData = new JsonPatchDocument();
