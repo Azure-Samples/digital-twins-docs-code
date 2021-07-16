@@ -1,21 +1,20 @@
 // Default URL for triggering event grid function in the local environment.
 // http://localhost:7071/runtime/webhooks/EventGrid?functionName={functionname}
-using System;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
-using Microsoft.Azure.EventGrid.Models;
-using Microsoft.Azure.WebJobs.Extensions.EventGrid;
-using Microsoft.Extensions.Logging;
 //<Function_dependencies>
+using Azure.Core.Pipeline;
 using Azure.DigitalTwins.Core;
 using Azure.Identity;
+using Microsoft.Azure.EventGrid.Models;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.EventGrid;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Net.Http;
-using Azure.Core.Pipeline;
 //</Function_dependencies>
 
-namespace adtIngestFunctionSample
+namespace DigitalTwins_Samples
 {
-    public class Function1
+    public class DigitalTwinsIngestFunctionSample
     {
         // Your Digital Twin URL is stored in an application setting in Azure Functions
         // <ADT_service_URL>
@@ -46,9 +45,8 @@ namespace adtIngestFunctionSample
                     });
                 // </DigitalTwinsClient>
                 log.LogInformation($"ADT service client connection created.");
-                /*
-                * Add your business logic here.
-                */
+
+                // Add your business logic here.
             }
             catch (Exception e)
             {
