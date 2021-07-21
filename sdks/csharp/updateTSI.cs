@@ -31,7 +31,7 @@ namespace UpdateTSI
                     //        output: Front.Temperature
                     string path = operation["path"].ToString().Substring(1);
                     path = path.Replace("/", ".");
-                    tsiUpdate.Add(path, operation["value"]);
+                    tsiUpdate.Add(path, (double) operation["value"]);
                 }
             }
             // Send an update if updates exist
