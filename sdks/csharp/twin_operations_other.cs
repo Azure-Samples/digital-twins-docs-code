@@ -1,6 +1,7 @@
 using Azure;
 using Azure.DigitalTwins.Core;
 using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 
@@ -53,7 +54,7 @@ namespace DigitalTwins_Samples
             };
             // Create the twin
             const string twinId = "<twin-ID>";
-            Response<BasicDigitalTwin> response = await client.CreateOrReplaceDigitalTwinAsync(twinId, myTwin);
+            Response<CustomDigitalTwin> response = await client.CreateOrReplaceDigitalTwinAsync(twinId, myTwin);
             Console.WriteLine($"Temperature last updated on {response.Value.Metadata.Temperature.LastUpdatedOn}");
             // </CreateTwin_noHelper>
         }
@@ -70,26 +71,27 @@ namespace DigitalTwins_Samples
             await client.UpdateDigitalTwinAsync("myTwin", updateTwinData);
             // </UpdateTwin>
         }
-    }
 
-
-    // ------------------ SET TAG PROPERTY VALUES: CSHARP ---------------------
-    // <TagPropertiesCsharp>
-    IDictionary<string, bool> tags = new Dictionary<string, bool>
-    {
-        { "oceanview", true },
-        { "VIP", true }
-    };
-    var twin = new BasicDigitalTwin
-    {
-        Metadata = { ModelId = "dtmi:example:Room;1" },
-        Contents =
+        public async void SetPropertyValues(DigitalTwinsClient client)
         {
-            { "Temperature", 75 },
-            { "tags", tags },
-        },
-    };
-    await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>("myTwinID", twin);
-    // </TagPropertiesCsharp>
-
+            // ------------------ SET TAG PROPERTY VALUES: CSHARP ---------------------
+            // <TagPropertiesCsharp>
+            IDictionary<string, bool> tags = new Dictionary<string, bool>
+            {
+                { "oceanview", true },
+                { "VIP", true }
+            };
+            var twin = new BasicDigitalTwin
+            {
+                Metadata = { ModelId = "dtmi:example:Room;1" },
+                Contents =
+                {
+                    { "Temperature", 75 },
+                    { "tags", tags },
+                },
+            };
+            await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>("myTwinID", twin);
+            // </TagPropertiesCsharp>
+            }
+        }
 }

@@ -44,7 +44,7 @@ namespace DigitalTwins_Samples
             var sb = new StringBuilder();
             for (int i = 0; i < indent; i++) sb.Append("  ");
             Console.WriteLine($"{sb}Interface: {dtif.Id} | {dtif.DisplayName}");
-            SortedDictionary<string, DTContentInfo> contents = dtif.Contents;
+            Dictionary<string, DTContentInfo> contents = dtif.Contents;
 
             foreach (DTContentInfo item in contents.Values)
             {
