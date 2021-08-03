@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalTwins Samples", "DigitalTwins Samples.csproj", "{DCB26F29-8DEB-4B54-A098-8050C369D9A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigitalTwins Samples", "DigitalTwins Samples.csproj", "{DCB26F29-8DEB-4B54-A098-8050C369D9A4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "in-progress", "in-progress", "{0063C146-70B5-4A53-AA9D-F8B40038F0F7}"
+	ProjectSection(SolutionItems) = preProject
+		convertRDF.cs = convertRDF.cs
+		model_operations.cs = model_operations.cs
+		parseModels.cs = parseModels.cs
+		twin_operations_other.cs = twin_operations_other.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

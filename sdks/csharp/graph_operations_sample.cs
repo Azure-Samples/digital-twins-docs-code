@@ -2,14 +2,13 @@ using System;
 using System.Threading.Tasks;
 using System.IO;
 using System.Collections.Generic;
-using System.Text.Json;
 using Azure;
 using Azure.DigitalTwins.Core;
 using Azure.Identity;
 
-namespace minimal
+namespace DigitalTwins_Samples
 {
-    class Program
+    public class GraphOperationsSample
     {
         public static async Task Main(string[] args)
         {

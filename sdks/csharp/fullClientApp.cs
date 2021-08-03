@@ -13,9 +13,9 @@ using Azure;
 using System.Text.Json;
 // </Query_dependencies>
 
-namespace minimal
+namespace DigitalTwins_Samples
 {
-    class Program
+    public class DigitalTwinsClientAppSample
     {
         // <Async_signature>
         static async Task Main(string[] args)
