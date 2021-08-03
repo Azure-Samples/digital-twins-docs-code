@@ -84,4 +84,5 @@ var twin = new BasicDigitalTwin
         { "tags", tags },
     },
 };
+await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>("myTwinID", twin);
 // </TagPropertiesCsharp>
