@@ -73,20 +73,6 @@ namespace DigitalTwins_Samples
     }
 
 
-    // ------------------ SET TAG PROPERTY VALUES: MARKER ---------------------
-    // <TagPropertiesMarker>
-    entity-01: "tags": { "red": true, "round": true }
-    entity-02: "tags": { "blue": true, "round": true }
-    entity-03: "tags": { "red": true, "large": true }
-    // </TagPropertiesMarker>
-
-    // ------------------ SET TAG PROPERTY VALUES: VALUE ---------------------
-    // <TagPropertiesValue>
-    entity-01: "tags": { "red": "", "size": "large" }
-    entity-02: "tags": { "purple": "", "size": "small" }
-    entity-03: "tags": { "red": "", "size": "small" }
-    // </TagPropertiesValue>
-
     // ------------------ SET TAG PROPERTY VALUES: CSHARP ---------------------
     // <TagPropertiesCsharp>
     IDictionary<string, bool> tags = new Dictionary<string, bool>
@@ -103,6 +89,7 @@ namespace DigitalTwins_Samples
             { "tags", tags },
         },
     };
+    await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>("myTwinID", twin);
     // </TagPropertiesCsharp>
 
 }
