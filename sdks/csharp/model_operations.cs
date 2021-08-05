@@ -44,11 +44,11 @@ namespace DigitalTwins_Samples
             Response<DigitalTwinsModelData> md1 = await client.GetModelAsync("<model-Id>");
             DigitalTwinsModelData model1 = md1.Value;
 
-            // Get a list of the metadata of all available models; print their display names and IDs
+            // Get a list of the metadata of all available models; print their IDs
             AsyncPageable<DigitalTwinsModelData> md2 = client.GetModelsAsync();
             await foreach (DigitalTwinsModelData md in md2)
             {
-                Console.WriteLine($"Type name: {md.DisplayName}: {md.Id}");
+                Console.WriteLine($"Type ID: {md.Id}");
             }
 
             // Get models and metadata for a model ID, including all dependencies (models that it inherits from, components it references)

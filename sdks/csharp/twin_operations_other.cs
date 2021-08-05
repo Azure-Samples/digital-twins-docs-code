@@ -41,9 +41,9 @@ namespace DigitalTwins_Samples
         public DigitalTwinPropertyMetadata Humidity { get; set; }
     }
 
-    class TwinOperationSample
+    class TwinOperationsSamples
     {
-        public async void Run(DigitalTwinsClient client)
+        public async void CreateTwin(DigitalTwinsClient client)
         {
             // Initialize the twin properties
             var myTwin = new CustomDigitalTwin
