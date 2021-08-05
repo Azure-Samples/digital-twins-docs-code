@@ -15,7 +15,7 @@ using System.Text.Json;
 
 namespace DigitalTwins_Samples
 {
-    public class DigitalTwinsClientAppSample
+    class DigitalTwinsClientAppSample
     {
         // <Async_signature>
         static async Task Main(string[] args)
