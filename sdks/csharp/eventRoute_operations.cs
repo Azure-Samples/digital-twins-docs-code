@@ -7,7 +7,7 @@ namespace DigitalTwins_Samples
 {
     public class EventRouteOperationsSample
     {
-        private static async Task CreateEventRouteBasic(DigitalTwinsClient client)
+        public static async Task CreateEventRouteBasic(DigitalTwinsClient client)
         {
             // ------------------ CREATE EVENT ROUTE (Basic) ---------------------
             // <CreateEventRoute>

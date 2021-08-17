@@ -8,16 +8,18 @@ namespace DigitalTwins_Samples
 {
     class ModelOperationsSample
     {
-        async public void CreateModelSingle(DigitalTwinsClient client)
+        async public void CreateModelSingleAsync(string fileName, DigitalTwinsClient client)
         {
             // ------------------ CREATE MODEL (SINGLE) ---------------------
             // <CreateModel>
             // 'client' is an instance of DigitalTwinsClient
             // Read model file into string (not part of SDK)
-            string dtdl = File.ReadAllText("MyModelFile.json");
+            // fileName is the name of the JSON model file
+            string dtdl = File.ReadAllText(fileName);
             await client.CreateModelsAsync(new[] { dtdl });
             // </CreateModel>
         }
+
         async public void CreateModelMultiple(DigitalTwinsClient client, string sourceDirectory)
         {
             // ------------------ CREATE MODEL (MULTIPLE) ---------------------
@@ -34,6 +36,7 @@ namespace DigitalTwins_Samples
             await client.CreateModelsAsync(dtdlModels);
             // </CreateModels_multi>
         }
+        
         async public void GetModels(DigitalTwinsClient client)
         {
             // ------------------ GET MODELS ---------------------

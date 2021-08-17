@@ -3,7 +3,7 @@ using Azure.DigitalTwins.Core;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-
+using System.Threading.Tasks;
 
 namespace DigitalTwins_Samples
 {
@@ -11,7 +11,7 @@ namespace DigitalTwins_Samples
     // <CreateTwin_noHelper>
     // Define a custom model type for the twin to be created
 
-    class CustomDigitalTwin
+    internal class CustomDigitalTwin
     {
         [JsonPropertyName(DigitalTwinsJsonPropertyNames.DigitalTwinId)]
         public string Id { get; set; }
@@ -29,7 +29,7 @@ namespace DigitalTwins_Samples
         public double Humidity{ get; set; }
     }
 
-    class MyCustomDigitalTwinMetadata
+    internal class MyCustomDigitalTwinMetadata
     {
         [JsonPropertyName(DigitalTwinsJsonPropertyNames.MetadataModel)]
         public string ModelId { get; set; }
@@ -41,9 +41,9 @@ namespace DigitalTwins_Samples
         public DigitalTwinPropertyMetadata Humidity { get; set; }
     }
 
-    class TwinOperationsSamples
+    public class TwinOperationsSamples
     {
-        public async void CreateTwin(DigitalTwinsClient client)
+        public async Task CreateTwinAsync(DigitalTwinsClient client)
         {
             // Initialize the twin properties
             var myTwin = new CustomDigitalTwin
@@ -52,13 +52,15 @@ namespace DigitalTwins_Samples
                 Temperature = 25.0,
                 Humidity = 50.0,
             };
+
             // Create the twin
             const string twinId = "<twin-ID>";
             Response<CustomDigitalTwin> response = await client.CreateOrReplaceDigitalTwinAsync(twinId, myTwin);
             Console.WriteLine($"Temperature last updated on {response.Value.Metadata.Temperature.LastUpdatedOn}");
             // </CreateTwin_noHelper>
         }
-        public async void UpdateTwin(DigitalTwinsClient client)
+
+        public async Task UpdateTwinAsync(DigitalTwinsClient client)
         {
             // ------------------ UPDATE TWIN (Longer example than in the runnable sample)---------------------
             // <UpdateTwin>
@@ -68,11 +70,11 @@ namespace DigitalTwins_Samples
             // Un-set a property
             updateTwinData.AppendRemove("/Humidity");
 
-            await client.UpdateDigitalTwinAsync("myTwin", updateTwinData);
+            await client.UpdateDigitalTwinAsync("myTwin", updateTwinData).ConfigureAwait(false);
             // </UpdateTwin>
         }
 
-        public async void SetPropertyValues(DigitalTwinsClient client)
+        public async Task SetPropertyValuesAsync(DigitalTwinsClient client)
         {
             // ------------------ SET TAG PROPERTY VALUES: CSHARP ---------------------
             // <TagPropertiesCsharp>

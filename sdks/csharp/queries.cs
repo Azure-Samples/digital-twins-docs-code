@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace DigitalTwins_Samples
 {
-    class QueriesSample
+    public class QueriesSample
     {
-        async public void QueryBasic(DigitalTwinsClient client)
+        async public void QueryBasicAsync(DigitalTwinsClient client)
         {
             // ------------------ RUN QUERY (Basic) ---------------------
             // <RunQuery>
@@ -16,7 +16,7 @@ namespace DigitalTwins_Samples
             AsyncPageable<BasicDigitalTwin> result = client.QueryAsync<BasicDigitalTwin>(query);
             // </RunQuery>
         }
-        async public void QueryWithLoop(DigitalTwinsClient client)
+        async public void QueryWithLoopAsync(DigitalTwinsClient client)
         {
             // ------------------ RUN QUERY & LOOP THROUGH PAGEABLE RESULTS WITH TRY/CATCH (Full sample) ---------------------
             // <FullQuerySample>

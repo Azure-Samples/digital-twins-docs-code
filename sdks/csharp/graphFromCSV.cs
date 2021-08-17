@@ -68,10 +68,9 @@ namespace creating_twin_graph_from_csv
             // Create relationships between the twins
             foreach (BasicRelationship rec in relationshipRecordList)
             {
-                string relId = "";
+                string relId = $"{rec.SourceId}-{rec.Name}->{rec.TargetId}";
                 try
                 {
-                    relId = $"{rec.SourceId}-{rec.Name}->{rec.TargetId}";
                     await client.CreateOrReplaceRelationshipAsync<BasicRelationship>(rec.SourceId, relId, rec);
                     Console.WriteLine($"Relationship {relId} is created");
                 }

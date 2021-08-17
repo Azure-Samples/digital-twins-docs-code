@@ -36,6 +36,7 @@ namespace DigitalTwins_Samples
             catch (RequestFailedException ex)
             {
                 Console.WriteLine($"Failed due to {ex}");
+                throw;
             }
         }
 
