@@ -40,8 +40,8 @@ namespace DigitalTwins_Samples
 
                     // An OWL graph can have parent/child classes.
                     // So to understand if an OWL class is a base class or a child class,
-                    // we can look for a superclass on any given OWL class.
-                    // If found, we convert these to parent + child Interfaces using DTDL extends.
+                    // look for a superclass on any given OWL class.
+                    // If found, convert these to parent + child Interfaces using DTDL extends.
                     IEnumerable<OntologyClass> foundSuperClasses = owlClass.DirectSuperClasses;
 
                     //...

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace DigitalTwins_Samples
 {
-    class ParseModelsSample
+    public class ParseModelsSample
     {
-        async Task ParseDemoAsync(DigitalTwinsClient client)
+        public async Task ParseDemoAsync(DigitalTwinsClient client)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace DigitalTwins_Samples
             }
         }
 
-        void PrintInterfaceContent(DTInterfaceInfo dtif, IReadOnlyDictionary<Dtmi, DTEntityInfo> dtdlOM, int indent = 0)
+        public void PrintInterfaceContent(DTInterfaceInfo dtif, IReadOnlyDictionary<Dtmi, DTEntityInfo> dtdlOM, int indent = 0)
         {
             var sb = new StringBuilder();
             for (int i = 0; i < indent; i++) sb.Append("  ");

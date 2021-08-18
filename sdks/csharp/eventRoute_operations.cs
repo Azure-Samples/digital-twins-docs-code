@@ -19,7 +19,7 @@ namespace DigitalTwins_Samples
 
         // ------------------ CREATE, LIST, AND DELETE EVENT ROUTE (Full sample) ---------------------
         // <FullEventRouteSample>
-        private static async Task CreateEventRouteAsync(DigitalTwinsClient client, string routeId, DigitalTwinsEventRoute er)
+        public static async Task CreateEventRouteAsync(DigitalTwinsClient client, string routeId, DigitalTwinsEventRoute er)
         {
             try
             {
