@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Azure;
 using Azure.DigitalTwins.Core;
@@ -49,7 +48,7 @@ namespace creating_twin_graph_from_csv
                         Id = srcID,
                         Metadata = { ModelId = modelID },
                         Contents = props,
-                    };
+                    });
             }
 
             // Create digital twins
@@ -69,9 +68,9 @@ namespace creating_twin_graph_from_csv
             // Create relationships between the twins
             foreach (BasicRelationship rec in relationshipRecordList)
             {
+                string relId = $"{rec.SourceId}-{rec.Name}->{rec.TargetId}";
                 try
                 {
-                    string relId = $"{rec.SourceId}-{rec.Name}->{rec.TargetId}";
                     await client.CreateOrReplaceRelationshipAsync<BasicRelationship>(rec.SourceId, relId, rec);
                     Console.WriteLine($"Relationship {relId} is created");
                 }

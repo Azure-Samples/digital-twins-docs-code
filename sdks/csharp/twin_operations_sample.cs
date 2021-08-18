@@ -1,16 +1,14 @@
 using System;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Azure;
 using Azure.DigitalTwins.Core;
 using Azure.Identity;
 using System.IO;
-using System.Reflection;
 
-namespace minimal
+namespace DigitalTwins_Samples
 {
-    class Program
+    class TwinOperationsSample
     {
         public static async Task Main(string[] args)
         {

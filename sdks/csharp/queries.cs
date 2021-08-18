@@ -1,29 +1,45 @@
-// ------------------ RUN QUERY (Basic) ---------------------
-// <RunQuery>
-    // Run a query for all twins   
-    string query = "SELECT * FROM DIGITALTWINS";
-    AsyncPageable<BasicDigitalTwin> result = client.QueryAsync<BasicDigitalTwin>(query);
-// </RunQuery>
+using Azure;
+using Azure.DigitalTwins.Core;
+using System;
+using System.Collections.Generic;
 
-// ------------------ RUN QUERY & LOOP THROUGH PAGEABLE RESULTS WITH TRY/CATCH (Full sample) ---------------------
-// <FullQuerySample>
-AsyncPageable<string> result = client.QueryAsync("Select * From DigitalTwins");
-try
+namespace DigitalTwins_Samples
 {
-    await foreach(BasicDigitalTwin twin in result)
+    public class QueriesSample
     {
-        // You can include your own logic to print the result
-        // The logic below prints the twin's ID and contents
-        Console.WriteLine($"Twin ID: {twin.Id} \nTwin data");
-        foreach (KeyValuePair<string, object> kvp in twin.Contents)
+        async public void QueryBasicAsync(DigitalTwinsClient client)
         {
-            Console.WriteLine($"{kvp.Key}  {kvp.Value}");
+            // ------------------ RUN QUERY (Basic) ---------------------
+            // <RunQuery>
+            // Run a query for all twins   
+            string query = "SELECT * FROM DIGITALTWINS";
+            AsyncPageable<BasicDigitalTwin> result = client.QueryAsync<BasicDigitalTwin>(query);
+            // </RunQuery>
+        }
+        async public void QueryWithLoopAsync(DigitalTwinsClient client)
+        {
+            // ------------------ RUN QUERY & LOOP THROUGH PAGEABLE RESULTS WITH TRY/CATCH (Full sample) ---------------------
+            // <FullQuerySample>
+            AsyncPageable<BasicDigitalTwin> result = client.QueryAsync<BasicDigitalTwin>("Select * From DigitalTwins");
+            try
+            {
+                await foreach (BasicDigitalTwin twin in result)
+                {
+                    // You can include your own logic to print the result
+                    // The logic below prints the twin's ID and contents
+                    Console.WriteLine($"Twin ID: {twin.Id} \nTwin data");
+                    foreach (KeyValuePair<string, object> kvp in twin.Contents)
+                    {
+                        Console.WriteLine($"{kvp.Key}  {kvp.Value}");
+                    }
+                }
+            }
+            catch (RequestFailedException ex)
+            {
+                Console.WriteLine($"Error {ex.Status}, {ex.ErrorCode}, {ex.Message}");
+                throw;
+            }
+            // </FullQuerySample>
         }
     }
 }
-catch (RequestFailedException ex)
-{
-    Console.WriteLine($"Error {ex.Status}, {ex.ErrorCode}, {ex.Message}");
-    throw;
-}
-// </FullQuerySample>
