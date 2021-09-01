@@ -332,3 +332,8 @@ SELECT *
 FROM DIGITALTWINS DT
 WHERE NOT DT.Temperature < 80
 -- </NotExample>
+
+-------------- Used in reference-query-reserved.md
+-- <ReservedKeywordExample>
+SELECT * FROM DIGITALTWINS WHERE [[Group]] = 'BravoTeam'
+-- </ReservedKeywordExample>
