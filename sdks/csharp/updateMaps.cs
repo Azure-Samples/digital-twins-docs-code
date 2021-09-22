@@ -45,9 +45,10 @@ namespace updateMaps
                                         new JProperty("value", operation["value"].ToString()),
                                         new JProperty("eventTimestamp", DateTime.UtcNow.ToString("s"))))));
 
-                        var response = await httpClient.PostAsync(
-                            $"https://atlas.microsoft.com/featureState/state?api-version=1.0&statesetID={statesetID}&featureID={featureID}&subscription-key={subscriptionKey}",
+                        var response = await httpClient.PutAsync(
+                            $"https://us.atlas.microsoft.com/featurestatesets/{statesetID}/featureStates/{featureID}?api-version=2.0&subscription-key={subscriptionKey}",
                             new StringContent(postcontent.ToString()));
+
 
                         log.LogInformation(await response.Content.ReadAsStringAsync());
                     }
