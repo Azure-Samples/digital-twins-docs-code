@@ -93,6 +93,53 @@ JOIN Floor RELATED Building.contains
 WHERE Building.$dtId = 'Building1'
 -- </NoOuterJoinExample>
 
+-------------- Used in reference-query-clause-match.md
+-- <MatchSyntax>
+SELECT 
+FROM DIGITALTWINS  
+MATCH <condition> 
+WHERE <twin-collection-name-OR-target-twin-collection-name>.$dtId = '<twin-ID>' 
+AND <twin-or-relationship-collection>.<property> <operator> <value-to-compare> 
+-- </MatchSyntax>
+
+-- <MatchExample1>
+SELECT bldg, sensor FROM DIGITALTWINS MATCH (bldg-[]-> (sensor) 
+WHERE bldg.$tdid= 'Building21' AND T.temp > 50  
+-- <MatchExample1>
+ 
+-- <MatchExample2>
+SELECT t, c, r FROM DIGITALTWINS   
+MATCH (t)-[r:contains|isAssociatedWith]-(c)  
+WHERE t. $dtid = 'ABC' AND c.humidity > 70 AND r.length = 10 
+-- </MatchExample2>
+
+-- <MatchWithRelationshipDirectionExampleLR>
+SELECT T, C FROM DIGITALTWINS MATCH (T-[]-> (C) 
+WHERE T.temp > 50 AND C.$dtid = 'ABC'  
+-- </MatchWithRelationshipDirectionExampleLR>
+
+-- <MatchWithRelationshipDirectionExampleND>
+SELECT t, c FROM DIGITALTWINS MATCH (t)-[]-(c) 
+WHERE t.$tdid ='ABC'  AND c.humidity > 70 
+-- </MatchWithRelationshipDirectionExampleND>
+
+-- <MatchWithRelationshipDirectionExampleRL>
+SELECT T, C FROM DIGITALTWINS MATCH (T<-[]- (C) 
+WHERE C.$dtid = 'ABC' AND T.temp > 50  
+-- </MatchWithRelationshipDirectionExampleRL>
+
+-- <MatchWithRelationshipPropertiesExample>
+SELECT t, c, r FROM DIGITALTWINS   
+MATCH (t)-[r:contains|isAssociatedWith]-(c)  
+WHERE t.$dtId = ‘thermostat-15’ AND c.humidity > 70 AND r.length = 10 
+-- </MatchWithRelationshipPropertiesExample>
+
+-- <BidirectionalMatchExample>
+SELECT t1, t2, c FROM DIGITALTWINS    
+MATCH (t1)-[contains|isAssociatedWith*3..5]->(c)<-[has|includes*2..3]-(t2)  
+WHERE t.$dtId = ‘thermostat-15’  AND c.humidity > 70 AND t2.temp = 55  
+-- </BidirectionalMatchExample>
+
 -------------- Used in reference-query-clause-select.md
 -- <SelectSyntax>
 SELECT *
