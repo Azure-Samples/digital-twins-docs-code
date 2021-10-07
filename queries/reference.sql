@@ -83,7 +83,7 @@ JOIN Room RELATED Floor.contains
 JOIN LightPanel RELATED Room.contains
 JOIN LightBulbRow RELATED LightPanel.contains
 JOIN LightBulb RELATED LightBulbRow.contains
-WHERE Buliding.$dtId = 'Building1'
+WHERE Building.$dtId = 'Building1'
 -- </MaxJoinExample>
 
 -- <NoOuterJoinExample>
@@ -97,47 +97,106 @@ WHERE Building.$dtId = 'Building1'
 -- <MatchSyntax>
 --SELECT ...
 -- FROM ...  
-MATCH <condition> 
-WHERE <twin-collection-name-OR-target-twin-collection-name>.$dtId = '<twin-ID>' 
+MATCH <twin-1><relationship-condition><twin-2>
+WHERE <twin-or-twin-collection>.$dtId = '<twin-ID>' 
 -- AND ... 
 -- </MatchSyntax>
 
--- <MatchExample1>
+-- <MatchExample>
 SELECT building, sensor FROM DIGITALTWINS MATCH (building-[]-> (sensor) 
-WHERE building.$tdid= 'Building21' AND T.temp > 50  
--- <MatchExample1>
- 
--- <MatchExample2>
-SELECT t, c, r FROM DIGITALTWINS   
-MATCH (t)-[r:contains|isAssociatedWith]-(c)  
-WHERE t. $dtid = 'ABC' AND c.humidity > 70 AND r.length = 10 
--- </MatchExample2>
+WHERE building.$dtId= 'Building21' AND T.temp > 50  
+-- </MatchExample>
 
--- <MatchWithRelationshipDirectionExampleLR>
+-- <MatchDirectionLRSyntax>
+...
+MATCH <source-twin> -[<optional-relationship-name>]-> <target-twin>
+...
+-- </MatchDirectionLRSyntax>
+
+-- <MatchDirectionRLSyntax>
+...
+MATCH <target-twin> <-[<optional-relationship-name>]- <source-twin>
+...
+-- </MatchDirectionRLSyntax>
+
+-- <MatchDirectionNDSyntax>
+...
+MATCH <source-twin> -[<optional-relationship-name>]- <target-twin>
+...
+-- </MatchDirectionNDSyntax>
+
+-- <MatchDirectionBDSyntax>
+...
+MATCH <source-twin> <-[<optional-relationship-name>]-> <target-twin>
+...
+-- </MatchDirectionBDSyntax>
+
+-- <MatchDirectionLRExample>
 SELECT T, C FROM DIGITALTWINS MATCH (T-[]-> (C) 
-WHERE T.temp > 50 AND C.$dtid = 'ABC'  
--- </MatchWithRelationshipDirectionExampleLR>
+WHERE T.temp > 50 AND C.$dtId = 'ABC'  
+-- </MatchDirectionLRExample>
 
--- <MatchWithRelationshipDirectionExampleND>
+-- <MatchDirectionNDExample>
 SELECT t, c FROM DIGITALTWINS MATCH (t)-[]-(c) 
 WHERE t.$tdid ='ABC'  AND c.humidity > 70 
--- </MatchWithRelationshipDirectionExampleND>
+-- </MatchDirectionNDExample>
 
--- <MatchWithRelationshipDirectionExampleRL>
+-- <MatchDirectionRLExample>
 SELECT T, C FROM DIGITALTWINS MATCH (T<-[]- (C) 
-WHERE C.$dtid = 'ABC' AND T.temp > 50  
--- </MatchWithRelationshipDirectionExampleRL>
+WHERE C.$dtId = 'ABC' AND T.temp > 50  
+-- </MatchDirectionRLExample>
+
+-- <MatchDirectionBDExample>
+SELECT T, C FROM DIGITALTWINS MATCH (T<-[]- (C) 
+WHERE C.$dtId = 'ABC' AND T.temp > 50  
+-- </MatchDirectionBDExample>
+
+-- <MatchNameSingleSyntax>
+...
+MATCH <twin-1> -[:<relationship-name>]- <twin-2>
+...
+-- </MatchNameSingleSyntax>
+
+-- <MatchNameMultiSyntax>
+...
+MATCH <twin-1> -[:<relationship-name-option-1>|<relationship-name-option-2>...]- <twin-2>
+...
+-- </MatchNameMultiSyntax>
+
+-- <MatchNameAllSyntax>
+...
+MATCH <twin-1> -[]- <twin-2>
+...
+-- </MatchNameAllSyntax>
+
+-- <MatchNameSingleExample>
+SELECT t, c FROM DIGITALTWINS   
+MATCH (t)-[:contains]-(c)  
+WHERE t. $dtId = 'ABC'
+-- </MatchNameSingleExample>
+
+-- <MatchNameMultiExample>
+SELECT t, c FROM DIGITALTWINS   
+MATCH (t)-[:contains|isAssociatedWith]-(c)  
+WHERE t. $dtId = 'ABC'
+-- </MatchNameMultiExample>
+
+-- <MatchNameAllExample>
+SELECT t, c FROM DIGITALTWINS   
+MATCH (t)-[]-(c)  
+WHERE t. $dtId = 'ABC'
+-- </MatchNameAllExample>
 
 -- <MatchWithRelationshipPropertiesExample>
 SELECT t, c, r FROM DIGITALTWINS   
 MATCH (t)-[r:contains|isAssociatedWith]-(c)  
-WHERE t.$dtId = ‘thermostat-15’ AND c.humidity > 70 AND r.length = 10 
+WHERE t.$dtId = 'thermostat-15' AND c.humidity > 70 AND r.length = 10 
 -- </MatchWithRelationshipPropertiesExample>
 
 -- <BidirectionalMatchExample>
 SELECT t1, t2, c FROM DIGITALTWINS    
 MATCH (t1)-[contains|isAssociatedWith*3..5]->(c)<-[has|includes*2..3]-(t2)  
-WHERE t.$dtId = ‘thermostat-15’  AND c.humidity > 70 AND t2.temp = 55  
+WHERE t.$dtId = 'thermostat-15'  AND c.humidity > 70 AND t2.temp = 55  
 -- </BidirectionalMatchExample>
 
 -------------- Used in reference-query-clause-select.md
