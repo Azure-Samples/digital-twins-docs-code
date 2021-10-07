@@ -83,7 +83,7 @@ JOIN Room RELATED Floor.contains
 JOIN LightPanel RELATED Room.contains
 JOIN LightBulbRow RELATED LightPanel.contains
 JOIN LightBulb RELATED LightBulbRow.contains
-WHERE Buliding.$dtId = 'Building1'
+WHERE Building.$dtId = 'Building1'
 -- </MaxJoinExample>
 
 -- <NoOuterJoinExample>
