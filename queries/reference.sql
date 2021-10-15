@@ -93,6 +93,199 @@ JOIN Floor RELATED Building.contains
 WHERE Building.$dtId = 'Building1'
 -- </NoOuterJoinExample>
 
+-------------- Used in reference-query-clause-match.md
+-- <MatchSyntax>
+--SELECT ... FROM ...  
+MATCH (twin_1)-[relationship_condition]-(twin_2)
+WHERE twin_or_twin_collection.$dtId = 'twin_ID' 
+-- AND ... 
+-- </MatchSyntax>
+
+-- <MatchChainSyntax>
+--Chained relationship conditions
+-- SELECT ... FROM ... 
+MATCH (twin_1)-[relationship_condition]-(twin_2)-[relationship_condition]-(twin_3)...
+WHERE twin_or_twin_collection.$dtId = 'twin_ID'
+-- </MatchChainSyntax>
+
+-- <MatchNodeSyntax>
+-- No relationship condition
+-- SELECT ... FROM ... 
+MATCH (twin_1)
+WHERE twin_or_twin_collection.$dtId = 'twin_ID' 
+-- </MatchNodeSyntax>
+
+-- <MatchExample>
+SELECT building, sensor FROM DIGITALTWINS 
+MATCH (building)-[]->(sensor) 
+WHERE building.$dtId = 'Building21' AND sensor.temperature > 50   
+-- </MatchExample>
+
+-- <MatchDirectionLRSyntax>
+-- SELECT ... FROM ...
+MATCH (source_twin)-[]->(target_twin)
+-- WHERE ...
+-- </MatchDirectionLRSyntax>
+
+-- <MatchDirectionRLSyntax>
+-- SELECT ... FROM ...
+MATCH (target_twin)<-[]-(source_twin)
+-- WHERE ...
+-- </MatchDirectionRLSyntax>
+
+-- <MatchDirectionNDSyntax>
+-- SELECT ... FROM ...
+MATCH (source_twin)-[]-(target_twin)
+-- WHERE ...
+-- </MatchDirectionNDSyntax>
+
+-- <MatchDirectionLRExample>
+SELECT room, factory FROM DIGITALTWINS MATCH (room)-[]->(factory) 
+WHERE room.temperature > 50 AND factory.$dtId = 'ABC'  
+-- </MatchDirectionLRExample>
+
+-- <MatchDirectionRLExample>
+SELECT room, factory FROM DIGITALTWINS MATCH (room)<-[]-(factory) 
+WHERE factory.$dtId = 'ABC' AND room.temperature > 50 
+-- </MatchDirectionRLExample>
+
+-- <MatchDirectionNDExample>
+SELECT factory, room FROM DIGITALTWINS MATCH (factory)-[]-(room) 
+WHERE factory.$dtId ='ABC'  AND room.humidity > 70 
+-- </MatchDirectionNDExample>
+
+-- <MatchTypeSingleSyntax>
+-- SELECT ... FROM ...
+MATCH (twin_1)-[:relationship_type]-(twin_2)
+-- WHERE ...
+-- </MatchTypeSingleSyntax>
+
+-- <MatchTypeMultiSyntax>
+-- SELECT ... FROM ...
+MATCH (twin_1)-[:relationship_type_option_1|relationship_type_option_2|continue pattern as needed...]-(twin_2)
+-- WHERE ...
+-- </MatchTypeMultiSyntax>
+
+-- <MatchTypeAllSyntax>
+-- SELECT ... FROM ...
+MATCH (twin_1)-[]-(twin_2)
+-- WHERE ...
+-- </MatchTypeAllSyntax>
+
+-- <MatchTypeSingleExample>
+SELECT building, sensor FROM DIGITALTWINS   
+MATCH (building)-[:contains]-(sensor)  
+WHERE building.$dtId = 'Seattle21'
+-- </MatchTypeSingleExample>
+
+-- <MatchTypeMultiExample>
+SELECT building, sensor FROM DIGITALTWINS   
+MATCH (building)-[:contains|isAssociatedWith]-(sensor)  
+WHERE building.$dtId = 'Seattle21'
+-- </MatchTypeMultiExample>
+
+-- <MatchTypeAllExample>
+SELECT building, sensor FROM DIGITALTWINS   
+MATCH (building-[]-(sensor)  
+WHERE building.$dtId = 'Seattle21'
+-- </MatchTypeAllExample>
+
+-- <MatchHopsExactSyntax>
+-- SELECT ... FROM ... 
+MATCH (twin_1)-[*number_of_hops]-(twin_2)
+-- WHERE ...
+-- </MatchHopsExactSyntax>
+
+-- <MatchHopsRangeSyntax>
+-- SELECT ... FROM ...
+MATCH (twin_1)-[*starting_limit..ending_limit]-(twin_2)
+-- WHERE ...
+-- </MatchHopsRangeSyntax>
+
+-- <MatchHopsRangeEndingSyntax>
+-- SELECT ... FROM ...
+MATCH (twin_1)-[*..ending_limit]-(twin_2)
+-- WHERE ...
+-- </MatchHopsRangeEndingSyntax>
+
+-- <MatchHopsOneSyntax>
+-- SELECT ... FROM ... 
+MATCH (twin_1)-[]-(twin_2)
+-- WHERE ...
+-- </MatchHopsOneSyntax>
+
+-- <MatchHopsExactExample>
+SELECT * FROM DIGITALTWINS 
+MATCH (floor)-[*3]-(room)
+WHERE floor.$dtId = 'thermostat-15'
+-- </MatchHopsExactExample>
+
+-- <MatchHopsRangeExample1>
+SELECT * FROM DIGITALTWINS 
+MATCH (floor)-[*1..3]-(room)
+WHERE floor.$dtId = 'thermostat-15'
+-- </MatchHopsRangeExample1>
+
+-- <MatchHopsRangeEndingExample>
+SELECT * FROM DIGITALTWINS 
+MATCH (floor)-[*..2]-(room)
+WHERE floor.$dtId = 'thermostat-15'
+-- </MatchHopsRangeEndingExample>
+
+-- <MatchHopsOneExample>
+SELECT * FROM DIGITALTWINS  
+MATCH (floor)-[]-(room)
+WHERE floor.$dtId = 'thermostat-15'
+-- </MatchHopsOneExample>
+
+-- <MatchVariableSyntax>
+-- SELECT ... FROM ...   
+MATCH (twin_1)-[relationship_variable]-(twin_2>) 
+-- WHERE ... 
+-- </MatchVariableSyntax>
+
+-- <MatchVariableExample>
+SELECT floor,cafe, rel DIGITALTWINS   
+MATCH (floor)-[rel]-(cafe)  
+WHERE floor.$dtId = 'thermostat-15' AND rel.name = 'child'
+-- </MatchVariableExample>
+
+-- <MatchCombinedHopsSyntax>
+-- SELECT ... FROM ...
+MATCH (twin_1)optional_left_angle_bracket-[:relationship_type(s)*number_of_hops]-optional_right_angle_bracket(twin_2)
+-- WHERE
+-- </MatchCombinedHopsSyntax>
+
+-- <MatchCombinedVariableSyntax>
+-- SELECT ... FROM ...
+MATCH (twin_1)optional_left_angle_bracket-[relationship_variable:relationship_type(s)]-optional_right_angle_bracket(twin_2)
+-- WHERE
+-- </MatchCombinedVariableSyntax>
+
+-- <MatchCombinedHopsExample>
+SELECT floor, room FROM DIGITALTWINS    
+MATCH (floor)-[:contains|isAssociatedWith*3..5]->(room) 
+WHERE floor.$dtId = 'thermostat-15'
+-- </MatchCombinedHopsExample>
+
+-- <MatchCombinedVariableExample>
+SELECT floor, room FROM DIGITALTWINS    
+MATCH (floor)-[r:contains|isAssociatedWith]->(room) 
+WHERE floor.$dtId = 'thermostat-15' AND r.length = 10
+-- </MatchCombinedVariableExample>
+
+-- <MatchCombinedChainExample>
+SELECT floor,room, cafe FROM DIGITALTWINS    
+MATCH (floor)-[r:contains|isAssociatedWith]->(cafe)<-[has|includes*..3]-(room)  
+WHERE floor.$dtId = 'thermostat-15'  AND r.length = 10 AND cafe.temperature = 55 
+-- </MatchCombinedChainExample>
+
+-- <MatchCombinedChainBDExample>
+SELECT floor, room FROM DIGITALTWINS    
+MATCH (floor)-[r:isAssociatedWith]->(room)-[r:isAssociatedWith]->(floor)
+WHERE floor.$dtId = 'thermostat-15'  AND r.length = 10
+-- </MatchCombinedChainBDExample>
+
 -------------- Used in reference-query-clause-select.md
 -- <SelectSyntax>
 SELECT *
