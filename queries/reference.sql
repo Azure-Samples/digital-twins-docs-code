@@ -154,41 +154,41 @@ SELECT factory, room FROM DIGITALTWINS MATCH (factory)-[]-(room) 
 WHERE factory.$dtId ='ABC'  AND room.humidity > 70 
 -- </MatchDirectionNDExample>
 
--- <MatchTypeSingleSyntax>
+-- <MatchNameSingleSyntax>
 -- SELECT ... FROM ...
-MATCH (twin_1)-[:relationship_type]-(twin_2)
+MATCH (twin_1)-[:relationship_name]-(twin_2)
 -- WHERE ...
--- </MatchTypeSingleSyntax>
+-- </MatchNameSingleSyntax>
 
--- <MatchTypeMultiSyntax>
+-- <MatchNameMultiSyntax>
 -- SELECT ... FROM ...
-MATCH (twin_1)-[:relationship_type_option_1|relationship_type_option_2|continue pattern as needed...]-(twin_2)
+MATCH (twin_1)-[:relationship_name_option_1|relationship_name_option_2|continue pattern as needed...]-(twin_2)
 -- WHERE ...
--- </MatchTypeMultiSyntax>
+-- </MatchNameMultiSyntax>
 
--- <MatchTypeAllSyntax>
+-- <MatchNameAllSyntax>
 -- SELECT ... FROM ...
 MATCH (twin_1)-[]-(twin_2)
 -- WHERE ...
--- </MatchTypeAllSyntax>
+-- </MatchNameAllSyntax>
 
--- <MatchTypeSingleExample>
+-- <MatchNameSingleExample>
 SELECT building, sensor FROM DIGITALTWINS   
 MATCH (building)-[:contains]-(sensor)  
 WHERE building.$dtId = 'Seattle21'
--- </MatchTypeSingleExample>
+-- </MatchNameSingleExample>
 
--- <MatchTypeMultiExample>
+-- <MatchNameMultiExample>
 SELECT building, sensor FROM DIGITALTWINS   
 MATCH (building)-[:contains|isAssociatedWith]-(sensor)  
 WHERE building.$dtId = 'Seattle21'
--- </MatchTypeMultiExample>
+-- </MatchNameMultiExample>
 
--- <MatchTypeAllExample>
+-- <MatchNameAllExample>
 SELECT building, sensor FROM DIGITALTWINS   
 MATCH (building-[]-(sensor)  
 WHERE building.$dtId = 'Seattle21'
--- </MatchTypeAllExample>
+-- </MatchNameAllExample>
 
 -- <MatchHopsExactSyntax>
 -- SELECT ... FROM ... 
@@ -252,13 +252,13 @@ WHERE floor.$dtId = 'thermostat-15' AND rel.name = 'child'
 
 -- <MatchCombinedHopsSyntax>
 -- SELECT ... FROM ...
-MATCH (twin_1)optional_left_angle_bracket-[:relationship_type(s)*number_of_hops]-optional_right_angle_bracket(twin_2)
+MATCH (twin_1)optional_left_angle_bracket-[:relationship_name(s)*number_of_hops]-optional_right_angle_bracket(twin_2)
 -- WHERE
 -- </MatchCombinedHopsSyntax>
 
 -- <MatchCombinedVariableSyntax>
 -- SELECT ... FROM ...
-MATCH (twin_1)optional_left_angle_bracket-[relationship_variable:relationship_type(s)]-optional_right_angle_bracket(twin_2)
+MATCH (twin_1)optional_left_angle_bracket-[relationship_variable:relationship_name(s)]-optional_right_angle_bracket(twin_2)
 -- WHERE
 -- </MatchCombinedVariableSyntax>
 
