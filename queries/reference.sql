@@ -281,9 +281,9 @@ WHERE floor.$dtId = 'thermostat-15'  AND r.length = 10 AND cafe.temperature = 55
 -- </MatchCombinedChainExample>
 
 -- <MatchCombinedChainBDExample>
-SELECT floor, room FROM DIGITALTWINS    
-MATCH (floor)-[r:isAssociatedWith]->(room)-[r:isAssociatedWith]->(floor)
-WHERE floor.$dtId = 'thermostat-15'  AND r.length = 10
+SELECT floor, room, building FROM DIGITALTWINS    
+MATCH (building)-[r1:isAssociatedWith]->(floor)<-[r2:isAssociatedWith]-(room)
+WHERE building.$dtId = 'building-3'  AND room.temperature > 50
 -- </MatchCombinedChainBDExample>
 
 -------------- Used in reference-query-clause-select.md
