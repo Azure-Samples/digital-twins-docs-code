@@ -483,6 +483,16 @@ FROM DIGITALTWINS T
 WHERE STARTSWITH(T.$dtId, 'area1-')
 -- </StartsWithExample>
 
+-- <ContainsSyntax>
+CONTAINS(<string-to-check>,<contained-string>)
+-- </ContainsSyntax>
+
+-- <ContainsExample>
+SELECT *
+FROM DIGITALTWINS T
+WHERE CONTAINS(T.$dtId, '-route')
+-- </ContainsExample>
+
 -------------- Used in reference-query-operators.md
 -- <EqualityExample>
 SELECT * 
