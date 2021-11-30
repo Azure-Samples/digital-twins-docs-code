@@ -98,6 +98,6 @@ namespace DigitalTwins_Samples
             };
             await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>("myTwinID", twin);
             // </TagPropertiesCsharp>
-            }
         }
     }
+}
