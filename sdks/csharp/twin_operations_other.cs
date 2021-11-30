@@ -41,7 +41,8 @@ namespace DigitalTwins_Samples
         public DigitalTwinPropertyMetadata Humidity { get; set; }
     }
 
-    public class TwinOperationsSamples
+    // Initialize properties and create the twin
+    public class TwinOperationsCreateTwin
     {
         public async Task CreateTwinAsync(DigitalTwinsClient client)
         {
@@ -57,9 +58,12 @@ namespace DigitalTwins_Samples
             const string twinId = "<twin-ID>";
             Response<CustomDigitalTwin> response = await client.CreateOrReplaceDigitalTwinAsync(twinId, myTwin);
             Console.WriteLine($"Temperature last updated on {response.Value.Metadata.Temperature.LastUpdatedOn}");
-            // </CreateTwin_noHelper>
         }
+    }
+    // </CreateTwin_noHelper>
 
+    public class TwinOperationsOther
+    { 
         public async Task UpdateTwinAsync(DigitalTwinsClient client)
         {
             // ------------------ UPDATE TWIN (Longer example than in the runnable sample)---------------------
@@ -96,4 +100,4 @@ namespace DigitalTwins_Samples
             // </TagPropertiesCsharp>
             }
         }
-}
+    }
