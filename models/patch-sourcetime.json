@@ -1,0 +1,12 @@
+[
+  {
+    "op": "replace",
+    "path": "/Temperature",
+    "value": "22.3"
+  },
+  {
+    "op": "replace",
+    "path": "/$metadata/Temperature/sourceTime",
+    "value": "2021-11-30T18:47:53.7648958Z"
+  }
+]

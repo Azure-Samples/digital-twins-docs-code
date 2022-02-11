@@ -20,6 +20,7 @@ Below is a list of the model files contained in this folder, including mappings 
 | patch-model-2.json | [how-to-manage-twin](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin) | Patch example that replaces the twin's model, when the twin needs editing to conform to new model |
 | patch-object-sub-property-1.json | [how-to-manage-twin](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin) | Patch example that replaces a sub-property belonging to an object-type property of a twin -- step 1 |
 | patch-object-sub-property-2.json | [how-to-manage-twin](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin) | Patch example that replaces a sub-property belonging to an object-type property of a twin -- step 2 |
+| patch-sourcetime.json | [how-to-manage-twin](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin) | Patch example that updates the sourceTime field on a twin |
 | patch.json | [how-to-manage-twin](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin) | Basic patch example, replaces two properties |
 | PatientRoom.json | [how-to-manage-model](https://docs.microsoft.com/azure/digital-twins/how-to-manage-model) | General model example, with three properties and a relationship |
 | Planet-Crater-Moon.json | [concepts-models](https://docs.microsoft.com/azure/digital-twins/concepts-models) | Full model example, showing all field types |
