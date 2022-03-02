@@ -140,18 +140,18 @@ MATCH (source_twin)-[]-(target_twin)
 -- </MatchDirectionNDSyntax>
 
 -- <MatchDirectionLRExample>
-SELECT room, factory FROM DIGITALTWINS MATCH (room)-[]->(factory) 
-WHERE room.temperature > 50 AND factory.$dtId = 'ABC'  
+SELECT Room, Factory FROM DIGITALTWINS MATCH (Room)-[]->(Factory) 
+WHERE Room.temperature > 50 AND Factory.$dtId = 'ABC'  
 -- </MatchDirectionLRExample>
 
 -- <MatchDirectionRLExample>
-SELECT room, factory FROM DIGITALTWINS MATCH (room)<-[]-(factory) 
-WHERE factory.$dtId = 'ABC' AND room.temperature > 50 
+SELECT Room, Factory FROM DIGITALTWINS MATCH (Room)<-[]-(Factory) 
+WHERE Factory.$dtId = 'ABC' AND Room.temperature > 50 
 -- </MatchDirectionRLExample>
 
 -- <MatchDirectionNDExample>
-SELECT factory, room FROM DIGITALTWINS MATCH (factory)-[]-(room) 
-WHERE factory.$dtId ='ABC'  AND room.humidity > 70 
+SELECT Factory, Room FROM DIGITALTWINS MATCH (Factory)-[]-(Room) 
+WHERE Factory.$dtId ='ABC'  AND Room.humidity > 70 
 -- </MatchDirectionNDExample>
 
 -- <MatchNameSingleSyntax>
@@ -173,21 +173,21 @@ MATCH (twin_1)-[]-(twin_2)
 -- </MatchNameAllSyntax>
 
 -- <MatchNameSingleExample>
-SELECT building, sensor FROM DIGITALTWINS   
-MATCH (building)-[:contains]-(sensor)  
-WHERE building.$dtId = 'Seattle21'
+SELECT Building, Sensor FROM DIGITALTWINS   
+MATCH (Building)-[:contains]-(Sensor)  
+WHERE Building.$dtId = 'Seattle21'
 -- </MatchNameSingleExample>
 
 -- <MatchNameMultiExample>
-SELECT building, sensor FROM DIGITALTWINS   
-MATCH (building)-[:contains|isAssociatedWith]-(sensor)  
+SELECT Building, Sensor FROM DIGITALTWINS   
+MATCH (Building)-[:contains|isAssociatedWith]-(Sensor)  
 WHERE building.$dtId = 'Seattle21'
 -- </MatchNameMultiExample>
 
 -- <MatchNameAllExample>
-SELECT building, sensor FROM DIGITALTWINS   
-MATCH (building-[]-(sensor)  
-WHERE building.$dtId = 'Seattle21'
+SELECT Building, Sensor FROM DIGITALTWINS   
+MATCH (Building-[]-(Sensor)  
+WHERE Building.$dtId = 'Seattle21'
 -- </MatchNameAllExample>
 
 -- <MatchHopsExactSyntax>
@@ -216,26 +216,26 @@ MATCH (twin_1)-[]-(twin_2)
 
 -- <MatchHopsExactExample>
 SELECT * FROM DIGITALTWINS 
-MATCH (floor)-[*3]-(room)
-WHERE floor.$dtId = 'thermostat-15'
+MATCH (Floor)-[*3]-(Room)
+WHERE Floor.$dtId = 'thermostat-15'
 -- </MatchHopsExactExample>
 
 -- <MatchHopsRangeExample1>
 SELECT * FROM DIGITALTWINS 
-MATCH (floor)-[*1..3]-(room)
-WHERE floor.$dtId = 'thermostat-15'
+MATCH (Floor)-[*1..3]-(Room)
+WHERE Floor.$dtId = 'thermostat-15'
 -- </MatchHopsRangeExample1>
 
 -- <MatchHopsRangeEndingExample>
 SELECT * FROM DIGITALTWINS 
-MATCH (floor)-[*..2]-(room)
-WHERE floor.$dtId = 'thermostat-15'
+MATCH (Floor)-[*..2]-(Room)
+WHERE Floor.$dtId = 'thermostat-15'
 -- </MatchHopsRangeEndingExample>
 
 -- <MatchHopsOneExample>
 SELECT * FROM DIGITALTWINS  
-MATCH (floor)-[]-(room)
-WHERE floor.$dtId = 'thermostat-15'
+MATCH (Floor)-[]-(Room)
+WHERE Floor.$dtId = 'thermostat-15'
 -- </MatchHopsOneExample>
 
 -- <MatchVariableSyntax>
@@ -245,8 +245,8 @@ MATCH (twin_1)-[relationship_variable]-(twin_2>)
 -- </MatchVariableSyntax>
 
 -- <MatchVariableExample>
-SELECT floor,cafe, rel DIGITALTWINS   
-MATCH (floor)-[rel]-(cafe)  
+SELECT Floor,cafe, rel DIGITALTWINS   
+MATCH (Floor)-[Rel]-(Cafe)  
 WHERE floor.$dtId = 'thermostat-15' AND rel.name = 'child'
 -- </MatchVariableExample>
 
@@ -263,27 +263,27 @@ MATCH (twin_1)optional_left_angle_bracket-[relationship_variable:relationship_na
 -- </MatchCombinedVariableSyntax>
 
 -- <MatchCombinedHopsExample>
-SELECT floor, room FROM DIGITALTWINS    
-MATCH (floor)-[:contains|isAssociatedWith*3..5]->(room) 
-WHERE floor.$dtId = 'thermostat-15'
+SELECT Floor, Room FROM DIGITALTWINS    
+MATCH (Floor)-[:contains|isAssociatedWith*3..5]->(Room) 
+WHERE Floor.$dtId = 'thermostat-15'
 -- </MatchCombinedHopsExample>
 
 -- <MatchCombinedVariableExample>
-SELECT floor, room FROM DIGITALTWINS    
-MATCH (floor)-[r:contains|isAssociatedWith]->(room) 
-WHERE floor.$dtId = 'thermostat-15' AND r.length = 10
+SELECT Floor, Room FROM DIGITALTWINS    
+MATCH (Floor)-[r:contains|isAssociatedWith]->(Room) 
+WHERE Floor.$dtId = 'thermostat-15' AND r.length = 10
 -- </MatchCombinedVariableExample>
 
 -- <MatchCombinedChainExample>
-SELECT floor,room, cafe FROM DIGITALTWINS    
-MATCH (floor)-[r:contains|isAssociatedWith]->(cafe)<-[has|includes*..3]-(room)  
-WHERE floor.$dtId = 'thermostat-15'  AND r.length = 10 AND cafe.temperature = 55 
+SELECT Floor,Room, Cafe FROM DIGITALTWINS    
+MATCH (Floor)-[r:contains|isAssociatedWith]->(Cafe)<-[has|includes*..3]-(Room)  
+WHERE Floor.$dtId = 'thermostat-15'  AND r.length = 10 AND Cafe.temperature = 55 
 -- </MatchCombinedChainExample>
 
 -- <MatchCombinedChainBDExample>
-SELECT floor, room, building FROM DIGITALTWINS    
-MATCH (building)-[r1:isAssociatedWith]->(floor)<-[r2:isAssociatedWith]-(room)
-WHERE building.$dtId = 'building-3'  AND room.temperature > 50
+SELECT Floor, Room, building FROM DIGITALTWINS    
+MATCH (Building)-[r1:isAssociatedWith]->(Floor)<-[r2:isAssociatedWith]-(Room)
+WHERE Building.$dtId = 'building-3'  AND Room.temperature > 50
 -- </MatchCombinedChainBDExample>
 
 -------------- Used in reference-query-clause-select.md
