@@ -116,9 +116,9 @@ WHERE twin_or_twin_collection.$dtId = 'twin_ID'
 -- </MatchNodeSyntax>
 
 -- <MatchExample>
-SELECT building, sensor FROM DIGITALTWINS 
-MATCH (building)-[]->(sensor) 
-WHERE building.$dtId = 'Building21' AND sensor.temperature > 50   
+SELECT Building, Sensor FROM DIGITALTWINS 
+MATCH (Building)-[]->(Sensor) 
+WHERE Building.$dtId = 'Building21' AND Sensor.temperature > 50   
 -- </MatchExample>
 
 -- <MatchDirectionLRSyntax>
