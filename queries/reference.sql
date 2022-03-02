@@ -245,9 +245,9 @@ MATCH (twin_1)-[relationship_variable]-(twin_2>)
 -- </MatchVariableSyntax>
 
 -- <MatchVariableExample>
-SELECT Floor,cafe, rel DIGITALTWINS   
+SELECT Floor,Cafe, Rel DIGITALTWINS   
 MATCH (Floor)-[Rel]-(Cafe)  
-WHERE floor.$dtId = 'thermostat-15' AND rel.name = 'child'
+WHERE Floor.$dtId = 'thermostat-15' AND Rel.name = 'child'
 -- </MatchVariableExample>
 
 -- <MatchCombinedHopsSyntax>
@@ -281,7 +281,7 @@ WHERE Floor.$dtId = 'thermostat-15'  AND r.length = 10 AND Cafe.temperature = 55
 -- </MatchCombinedChainExample>
 
 -- <MatchCombinedChainBDExample>
-SELECT Floor, Room, building FROM DIGITALTWINS    
+SELECT Floor, Room, Building FROM DIGITALTWINS    
 MATCH (Building)-[r1:isAssociatedWith]->(Floor)<-[r2:isAssociatedWith]-(Room)
 WHERE Building.$dtId = 'building-3'  AND Room.temperature > 50
 -- </MatchCombinedChainBDExample>
