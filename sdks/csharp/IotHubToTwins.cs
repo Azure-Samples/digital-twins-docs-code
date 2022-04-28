@@ -4,12 +4,12 @@ using System.Net.Http;
 using Azure.Core.Pipeline;
 using Azure.DigitalTwins.Core;
 using Azure.Identity;
-using Microsoft.Azure.EventGrid.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.EventGrid;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Azure.Messaging.EventGrid;
 
 namespace IotHubtoTwins
 {
@@ -26,11 +26,8 @@ namespace IotHubtoTwins
             try
             {
                 // Authenticate with Digital Twins
-                var cred = new ManagedIdentityCredential("https://digitaltwins.azure.net");
-                var client = new DigitalTwinsClient(
-                    new Uri(adtInstanceUrl),
-                    cred,
-                    new DigitalTwinsClientOptions { Transport = new HttpClientTransport(httpClient) });
+                var cred = new DefaultAzureCredential();
+                var client = new DigitalTwinsClient(new Uri(adtInstanceUrl), cred);
                 log.LogInformation($"ADT service client connection created.");
             
                 if (eventGridEvent != null && eventGridEvent.Data != null)
