@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Azure.Messaging.EventGrid;
+using System.Threading.Tasks;
 
 namespace IotHubtoTwins
 {
@@ -19,7 +20,7 @@ namespace IotHubtoTwins
         private static readonly HttpClient httpClient = new HttpClient();
 
         [FunctionName("IoTHubtoTwins")]
-        public async void Run([EventGridTrigger] EventGridEvent eventGridEvent, ILogger log)
+        public async Task Run([EventGridTrigger] EventGridEvent eventGridEvent, ILogger log)
         {
             if (adtInstanceUrl == null) log.LogError("Application setting \"ADT_SERVICE_URL\" not set");
 
