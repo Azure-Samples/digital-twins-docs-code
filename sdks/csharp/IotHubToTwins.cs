@@ -19,7 +19,10 @@ namespace IotHubtoTwins
         private static readonly HttpClient httpClient = new HttpClient();
 
         [FunctionName("IoTHubtoTwins")]
+        // While async void should generally be used with caution, it's not uncommon for Azure function apps, since the function app isn't awaiting the task.
+#pragma warning disable AZF0001 // Suppress async void error
         public async void Run([EventGridTrigger] EventGridEvent eventGridEvent, ILogger log)
+#pragma warning restore AZF0001 // Suppress async void error
         {
             if (adtInstanceUrl == null) log.LogError("Application setting \"ADT_SERVICE_URL\" not set");
 
