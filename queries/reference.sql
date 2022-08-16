@@ -407,7 +407,7 @@ SELECT ROOM FROM DIGITALTWINS DT WHERE IS_OF_MODEL(DT, 'dtmi:example:room;1', ex
 -- </IsOfModelExample>
 
 -- <IsBoolSyntax>
-IS_BOOL(<expression>)
+IS_BOOL(<property>)
 -- </IsBoolSyntax>
 
 -- <IsBoolExample>
@@ -423,7 +423,7 @@ WHERE IS_BOOL( HasTemperature ) AND HasTemperature != false
 -- </IsBoolNotFalseExample>
 
 -- <IsNumberSyntax>
-IS_NUMBER(<expression>)
+IS_NUMBER(<property>)
 -- </IsNumberSyntax>
 
 -- <IsNumberExample>
@@ -433,7 +433,7 @@ WHERE IS_NUMBER( Capacity ) AND Capacity != 0
 -- </IsNumberExample>
 
 -- <IsStringSyntax>
-IS_STRING(<expression>)
+IS_STRING(<property>)
 -- </IsStringSyntax>
 
 -- <IsStringExample>
@@ -443,7 +443,7 @@ WHERE IS_STRING( Status ) AND Status != 'Completed'
 -- </IsStringExample>
 
 -- <IsNullSyntax>
-IS_NULL(<expression>)
+IS_NULL(<property>)
 -- </IsNullSyntax>
 
 -- <IsNullExample>
@@ -453,7 +453,7 @@ WHERE NOT IS_NULL(T.Temperature)
 -- </IsNullExample>
 
 -- <IsPrimitiveSyntax>
-IS_PRIMITIVE(<expression>)
+IS_PRIMITIVE(<property>)
 -- </IsPrimitiveSyntax>
 
 -- <IsPrimitiveExample>
@@ -464,7 +464,7 @@ AND IS_PRIMITIVE(Factory.area)
 -- </IsPrimitiveExample>
 
 -- <IsObjectSyntax>
-IS_OBJECT<expression>)
+IS_OBJECT<property>)
 -- </IsObjectSyntax>
 
 -- <IsObjectExample>
