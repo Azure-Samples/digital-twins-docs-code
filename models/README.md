@@ -28,6 +28,7 @@ Below is a list of the model files contained in this folder, including mappings 
 | Room.json | [tutorial-command-line-app](https://docs.microsoft.com/azure/digital-twins/tutorial-command-line-app) | General model example, with three properties and a relationship. Used as the basis for a tutorial<br>*If this file is updated, make sure the line-number reference in the corresponding doc stays up-to-date. |
 | SampleModel.json | [tutorial-code](https://docs.microsoft.com/azure/digital-twins/tutorial-code) | General model example, with a property and a relationship. Used as the basis for a tutorial |
 | tags.json | [how-to-use-tags](https://docs.microsoft.com/azure/digital-twins/how-to-use-tags) | Two models with tags (one marker-type, one value-type).<br>*If this file is updated, make sure the line-number reference in the corresponding doc stays up-to-date. |
+| telemetry-array-example.json |  | Incomplete excerpt from a model showing telemetry of a complex array type. |
 | Thermostat.json | [how-to-ingest-iot-hub-data](https://docs.microsoft.com/azure/digital-twins/how-to-ingest-iot-hub-data) | General model example, with one property. Used in a flow for ingesting IoT Hub data |
 
 ## Strategy
