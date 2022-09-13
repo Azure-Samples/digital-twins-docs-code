@@ -1,8 +1,0 @@
-{
-  "@type": "Telemetry",
-  "name": "ledState",
-    "schema": {
-      "@type": "Array",
-      "elementSchema": "boolean"
-    }
-}
