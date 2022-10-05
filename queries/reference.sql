@@ -378,6 +378,26 @@ WHERE IS_OF_MODEL('dtmi:sample:Room;1')
 -- </WhereFunctionExample>
 
 -------------- Used in reference-query-functions.md
+-- <Array_ContainsSyntax>
+ARRAY_CONTAINS(<array-to-check>,<contained-value>,<partial-match>)
+-- </Array_ContainsSyntax>
+
+-- <Array_ContainsExample>
+SELECT T.name 
+FROM DIGITALTWINS T 
+WHERE ARRAY_CONTAINS (T.floor_number, 2) 
+-- </Array_ContainsExample>
+
+-- <ContainsSyntax>
+CONTAINS(<string-to-check>,<contained-string>)
+-- </ContainsSyntax>
+
+-- <ContainsExample>
+SELECT *
+FROM DIGITALTWINS T
+WHERE CONTAINS(T.$dtId, '-route')
+-- </ContainsExample>
+
 -- <EndsWithSyntax>
 ENDSWITH(<string-to-check>,<ending-string>)
 -- </EndsWithSyntax>
@@ -482,16 +502,6 @@ SELECT *
 FROM DIGITALTWINS T
 WHERE STARTSWITH(T.$dtId, 'area1-')
 -- </StartsWithExample>
-
--- <ContainsSyntax>
-CONTAINS(<string-to-check>,<contained-string>)
--- </ContainsSyntax>
-
--- <ContainsExample>
-SELECT *
-FROM DIGITALTWINS T
-WHERE CONTAINS(T.$dtId, '-route')
--- </ContainsExample>
 
 -------------- Used in reference-query-operators.md
 -- <EqualityExample>
