@@ -5,10 +5,10 @@ namespace DigitalTwins_Samples
 {
     class GraphOperationsOtherSample
     {
-        async public void CreateRelationshipShort(DigitalTwinsClient client)
+        // ------------------ CREATE RELATIONSHIP (Short) ---------------------
+        // <CreateRelationship_short>
+        async public void CreateRelationship(DigitalTwinsClient client)
         {
-            // ------------------ CREATE RELATIONSHIP (Short) ---------------------
-            // <CreateRelationship_short>
             var rel = new BasicRelationship
             {
                 TargetId = "myTargetTwin",
@@ -20,13 +20,14 @@ namespace DigitalTwins_Samples
                 },
             };
             await client.CreateOrReplaceRelationshipAsync("mySourceTwin", "rel001", rel);
-            // </CreateRelationship_short>
         }
+        // </CreateRelationship_short>
 
+        // ------------------ LIST PROPERTIES OF RELATIONSHIPS ---------------------
+        // <ListRelationshipProperties>
         async public void ListRelationshipProperties(DigitalTwinsClient client, string twinId, string relId, BasicDigitalTwin twin)
         {
-            // ------------------ LIST PROPERTIES OF RELATIONSHIPS ---------------------
-            // <ListRelationshipProperties>
+
             var res = await client.GetRelationshipAsync<BasicRelationship>(twinId, relId);
             BasicRelationship rel = res.Value;
             Console.WriteLine($"Relationship Name: {rel.Name}");
@@ -37,7 +38,7 @@ namespace DigitalTwins_Samples
                     Console.WriteLine($"Property '{prop}': {value}");
                 }
             }
-            // </ListRelationshipProperties>
         }
+        // </ListRelationshipProperties>
     }
 }
