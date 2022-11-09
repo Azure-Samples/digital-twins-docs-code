@@ -7,7 +7,7 @@ namespace DigitalTwins_Samples
     {
         // ------------------ CREATE RELATIONSHIP (Short) ---------------------
         // <CreateRelationship_short>
-        async public void CreateRelationship(DigitalTwinsClient client)
+        public async Task CreateRelationship(DigitalTwinsClient client)
         {
             var rel = new BasicRelationship
             {
@@ -25,7 +25,7 @@ namespace DigitalTwins_Samples
 
         // ------------------ LIST PROPERTIES OF RELATIONSHIPS ---------------------
         // <ListRelationshipProperties>
-        async public void ListRelationshipProperties(DigitalTwinsClient client, string twinId, string relId, BasicDigitalTwin twin)
+        public async Task ListRelationshipProperties(DigitalTwinsClient client, string twinId, string relId, BasicDigitalTwin twin)
         {
 
             var res = await client.GetRelationshipAsync<BasicRelationship>(twinId, relId);
