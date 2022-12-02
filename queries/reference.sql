@@ -379,7 +379,7 @@ WHERE IS_OF_MODEL('dtmi:sample:Room;1')
 
 -------------- Used in reference-query-functions.md
 -- <Array_ContainsSyntax>
-ARRAY_CONTAINS(<array-to-check>,<contained-value>,<partial-match>)
+ARRAY_CONTAINS(<array-to-check>,<contained-value>)
 -- </Array_ContainsSyntax>
 
 -- <Array_ContainsExample>
