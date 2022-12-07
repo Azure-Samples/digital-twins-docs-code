@@ -1,5 +1,6 @@
 using Azure.DigitalTwins.Core;
 using System;
+using System.Threading.Tasks;
 
 namespace DigitalTwins_Samples
 {
