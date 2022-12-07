@@ -32,6 +32,26 @@ namespace DigitalTwins_Samples
         // </DefaultAzureCredential_full>
     }
 
+    // ------------------ DefaultAzureCredential with options  ------------------ 
+    // <DefaultAzureCredential_options>
+    public class DefaultAzureCredentialOptionsSample
+    {
+        // The URL of your instance, starting with the protocol (https://)
+        private const string adtInstanceUrl = "https://<your-Azure-Digital-Twins-instance-URL>";
+
+        private static DefaultAzureCredentialOptions credOpts = new DefaultAzureCredentialOptions()
+        {
+            ExcludeSharedTokenCacheCredential = true,
+            ExcludeVisualStudioCodeCredential = true,
+            InteractiveBrowserTenantId = "a000a000-0aaa-0000-00a0-aa000aa0aa0a"
+        };
+
+        private static DefaultAzureCredential cred = new DefaultAzureCredential(credOpts);
+
+        DigitalTwinsClient client = new DigitalTwinsClient(new Uri(adtInstanceUrl), cred);
+        // </DefaultAzureCredential_options>
+    }
+
     // ------------------ ManagedIdentityCredential ------------------
     // <ManagedIdentityCredential>
     public class ManagedIdentityCredentialSample
