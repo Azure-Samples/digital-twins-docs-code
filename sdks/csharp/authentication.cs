@@ -43,7 +43,7 @@ namespace DigitalTwins_Samples
         {
             ExcludeSharedTokenCacheCredential = true,
             ExcludeVisualStudioCodeCredential = true,
-            InteractiveBrowserTenantId = "a000a000-0aaa-0000-00a0-aa000aa0aa0a"
+            TenantId = "a000a000-0aaa-0000-00a0-aa000aa0aa0a"
         };
 
         private static DefaultAzureCredential cred = new DefaultAzureCredential(credOpts);
