@@ -29,8 +29,8 @@ namespace DigitalTwins_Samples
                 Environment.Exit(0);
             }
         }
-        // </DefaultAzureCredential_full>
     }
+    // </DefaultAzureCredential_full>
 
     // ------------------ DefaultAzureCredential with options  ------------------ 
     // <DefaultAzureCredential_options>
@@ -49,8 +49,8 @@ namespace DigitalTwins_Samples
         private static DefaultAzureCredential cred = new DefaultAzureCredential(credOpts);
 
         DigitalTwinsClient client = new DigitalTwinsClient(new Uri(adtInstanceUrl), cred);
-        // </DefaultAzureCredential_options>
     }
+    // </DefaultAzureCredential_options>
 
     // ------------------ ManagedIdentityCredential ------------------
     // <ManagedIdentityCredential>
@@ -105,6 +105,6 @@ namespace DigitalTwins_Samples
                 Environment.Exit(0);
             }
         }
-    // </InteractiveBrowserCredential>
     }
+    // </InteractiveBrowserCredential>
 }
