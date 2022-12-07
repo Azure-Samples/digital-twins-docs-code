@@ -34,7 +34,6 @@ namespace DigitalTwins_Samples
             // Initialize the twin properties
             var myTwin = new CustomDigitalTwin
             {
-                Metadata = { ModelId = "dtmi:example:Room;1" },
                 Temperature = 25.0,
                 Humidity = 50.0,
             };
@@ -42,7 +41,6 @@ namespace DigitalTwins_Samples
             // Create the twin
             const string twinId = "<twin-ID>";
             Response<CustomDigitalTwin> response = await client.CreateOrReplaceDigitalTwinAsync(twinId, myTwin);
-            Console.WriteLine($"Temperature last updated on {response.Value.Metadata.Temperature.LastUpdatedOn}");
         }
     }
     // </CreateTwin_noHelper>

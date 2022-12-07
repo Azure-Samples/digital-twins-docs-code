@@ -1,12 +1,12 @@
 using System;
 using System.Threading.Tasks;
 using System.Net.Http;
-using Microsoft.Azure.EventGrid.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.EventGrid;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Azure.Messaging.EventGrid;
 
 namespace updateMaps
 {
