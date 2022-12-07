@@ -39,16 +39,16 @@ namespace DigitalTwins_Samples
         // The URL of your instance, starting with the protocol (https://)
         private const string adtInstanceUrl = "https://<your-Azure-Digital-Twins-instance-URL>";
 
-        private static DefaultAzureCredentialOptions credOpts = new DefaultAzureCredentialOptions()
+        private static DefaultAzureCredentialOptions credentialOptions = new DefaultAzureCredentialOptions()
         {
             ExcludeSharedTokenCacheCredential = true,
             ExcludeVisualStudioCodeCredential = true,
-            TenantId = "a000a000-0aaa-0000-00a0-aa000aa0aa0a"
+            TenantId = "<your-Azure-Active-Directory-tenant-ID"
         };
 
-        private static DefaultAzureCredential cred = new DefaultAzureCredential(credOpts);
+        private static DefaultAzureCredential credential = new DefaultAzureCredential(credentialOptions);
 
-        DigitalTwinsClient client = new DigitalTwinsClient(new Uri(adtInstanceUrl), cred);
+        DigitalTwinsClient client = new DigitalTwinsClient(new Uri(adtInstanceUrl), credential);
     }
     // </DefaultAzureCredential_options>
 
