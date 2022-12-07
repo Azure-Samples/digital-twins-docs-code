@@ -19,26 +19,11 @@ namespace DigitalTwins_Samples
         [JsonPropertyName(DigitalTwinsJsonPropertyNames.DigitalTwinETag)]
         public string ETag { get; set; }
 
-        [JsonPropertyName(DigitalTwinsJsonPropertyNames.DigitalTwinMetadata)]
-        public MyCustomDigitalTwinMetadata Metadata { get; set; } = new MyCustomDigitalTwinMetadata();
-
         [JsonPropertyName("temperature")]
         public double Temperature { get; set; }
 
         [JsonPropertyName("humidity")]
         public double Humidity{ get; set; }
-    }
-
-    internal class MyCustomDigitalTwinMetadata
-    {
-        [JsonPropertyName(DigitalTwinsJsonPropertyNames.MetadataModel)]
-        public string ModelId { get; set; }
-
-        [JsonPropertyName("temperature")]
-        public DigitalTwinPropertyMetadata Temperature { get; set; }
-
-        [JsonPropertyName("humidity")]
-        public DigitalTwinPropertyMetadata Humidity { get; set; }
     }
 
     // Initialize properties and create the twin
