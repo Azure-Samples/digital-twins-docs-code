@@ -29,8 +29,28 @@ namespace DigitalTwins_Samples
                 Environment.Exit(0);
             }
         }
-        // </DefaultAzureCredential_full>
     }
+    // </DefaultAzureCredential_full>
+
+    // ------------------ DefaultAzureCredential with options  ------------------ 
+    // <DefaultAzureCredential_options>
+    public class DefaultAzureCredentialOptionsSample
+    {
+        // The URL of your instance, starting with the protocol (https://)
+        private const string adtInstanceUrl = "https://<your-Azure-Digital-Twins-instance-URL>";
+
+        private static DefaultAzureCredentialOptions credentialOptions = new DefaultAzureCredentialOptions()
+        {
+            ExcludeSharedTokenCacheCredential = true,
+            ExcludeVisualStudioCodeCredential = true,
+            TenantId = "<your-Azure-Active-Directory-tenant-ID"
+        };
+
+        private static DefaultAzureCredential credential = new DefaultAzureCredential(credentialOptions);
+
+        DigitalTwinsClient client = new DigitalTwinsClient(new Uri(adtInstanceUrl), credential);
+    }
+    // </DefaultAzureCredential_options>
 
     // ------------------ ManagedIdentityCredential ------------------
     // <ManagedIdentityCredential>
@@ -85,6 +105,6 @@ namespace DigitalTwins_Samples
                 Environment.Exit(0);
             }
         }
-    // </InteractiveBrowserCredential>
     }
+    // </InteractiveBrowserCredential>
 }

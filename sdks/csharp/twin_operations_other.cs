@@ -41,6 +41,7 @@ namespace DigitalTwins_Samples
             // Create the twin
             const string twinId = "<twin-ID>";
             Response<CustomDigitalTwin> response = await client.CreateOrReplaceDigitalTwinAsync(twinId, myTwin);
+            Console.WriteLine($"Temperature value: {response.Value.Temperature}");
         }
     }
     // </CreateTwin_noHelper>
