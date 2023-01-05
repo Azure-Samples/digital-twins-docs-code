@@ -15,7 +15,6 @@ Below is a list of the model files contained in this folder, including mappings 
 | feature-extension-annotation-quantitative.json | [concepts-models](https://docs.microsoft.com/azure/digital-twins/concepts-models) | A DTDL V3 model used as an example of the annotation and quantitative types extension. |
 | feature-extension-overriding.json | [concepts-models](https://docs.microsoft.com/azure/digital-twins/concepts-models) | A DTDL V3 model used as an example of the overriding extension. |
 | Moon.json | [how-to-manage-twin](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin) | General model example, with two properties. Used for querying |
-| patch-component-2.json | [how-to-interpret-event-data](https://docs.microsoft.com/azure/digital-twins/how-to-interpret-event-data) | General patch example that replaces a property and a component's property. Used to illustrate corresponding update notification |
 | patch-component.json | [how-to-manage-twin](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin) | Patch example that replaces a component's property |
 | patch-decommission-model.json | [how-to-manage-model](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin) | Patch example for a model to decommission it |
 | patch-model-1.json | [how-to-manage-twin](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin) | Patch example that replaces the twin's model, when the twin conforms to new model already |

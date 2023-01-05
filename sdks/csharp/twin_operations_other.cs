@@ -19,26 +19,11 @@ namespace DigitalTwins_Samples
         [JsonPropertyName(DigitalTwinsJsonPropertyNames.DigitalTwinETag)]
         public string ETag { get; set; }
 
-        [JsonPropertyName(DigitalTwinsJsonPropertyNames.DigitalTwinMetadata)]
-        public MyCustomDigitalTwinMetadata Metadata { get; set; } = new MyCustomDigitalTwinMetadata();
-
         [JsonPropertyName("temperature")]
         public double Temperature { get; set; }
 
         [JsonPropertyName("humidity")]
         public double Humidity{ get; set; }
-    }
-
-    internal class MyCustomDigitalTwinMetadata
-    {
-        [JsonPropertyName(DigitalTwinsJsonPropertyNames.MetadataModel)]
-        public string ModelId { get; set; }
-
-        [JsonPropertyName("temperature")]
-        public DigitalTwinPropertyMetadata Temperature { get; set; }
-
-        [JsonPropertyName("humidity")]
-        public DigitalTwinPropertyMetadata Humidity { get; set; }
     }
 
     // Initialize properties and create the twin
@@ -49,7 +34,6 @@ namespace DigitalTwins_Samples
             // Initialize the twin properties
             var myTwin = new CustomDigitalTwin
             {
-                Metadata = { ModelId = "dtmi:example:Room;1" },
                 Temperature = 25.0,
                 Humidity = 50.0,
             };
@@ -57,7 +41,7 @@ namespace DigitalTwins_Samples
             // Create the twin
             const string twinId = "<twin-ID>";
             Response<CustomDigitalTwin> response = await client.CreateOrReplaceDigitalTwinAsync(twinId, myTwin);
-            Console.WriteLine($"Temperature last updated on {response.Value.Metadata.Temperature.LastUpdatedOn}");
+            Console.WriteLine($"Temperature value: {response.Value.Temperature}");
         }
     }
     // </CreateTwin_noHelper>
