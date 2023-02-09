@@ -2,7 +2,7 @@
   {
     "@id": "dtmi:com:contoso:CelestialBody;1",
     "@type": "Interface",
-    "@context": "dtmi:dtdl:context;2",
+    "@context": "dtmi:dtdl:context;3",
     "displayName": "Celestial body",
     "contents": [
       {
@@ -25,7 +25,7 @@
   {
     "@id": "dtmi:com:contoso:Planet;1",
     "@type": "Interface",
-    "@context": "dtmi:dtdl:context;2",
+    "@context": "dtmi:dtdl:context;3",
     "displayName": "Planet",
     "extends": "dtmi:com:contoso:CelestialBody;1",
     "contents": [
@@ -51,6 +51,6 @@
   {
     "@id": "dtmi:com:contoso:Crater;1",
     "@type": "Interface",
-    "@context": "dtmi:dtdl:context;2"
+    "@context": "dtmi:dtdl:context;3"
   }
 ]
