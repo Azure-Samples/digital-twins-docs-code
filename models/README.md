@@ -12,9 +12,6 @@ Below is a list of the model files contained in this folder, including mappings 
 | --- | --- | --- |
 | CelestialBody-Planet-Crater.json | [concepts-models](https://docs.microsoft.com/azure/digital-twins/concepts-models) | Illustrates model inheritance |
 | coffeeMaker-coffeeMakerInterface-coffeeBar.json | [how-to-parse-models](https://docs.microsoft.com/azure/digital-twins/how-to-parse-models) | General multi-model example. Used as a reference for writing parser code |
-| feature-extension-annotation-quantitative.json | [concepts-models](https://docs.microsoft.com/azure/digital-twins/concepts-models) | A DTDL V3 model used as an example of the annotation and quantitative types extension. |
-| feature-extension-historization.json | [concepts-models](https://docs.microsoft.com/azure/digital-twins/concepts-models) | A DTDL V3 model used as an example of the historization extension. |
-| feature-extension-streaming.json | [concepts-models](https://docs.microsoft.com/azure/digital-twins/concepts-models) | A DTDL V3 model used as an example of the streaming extension. |
 | Moon.json | [how-to-manage-twin](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin) | General model example, with two properties. Used for querying |
 | patch-component.json | [how-to-manage-twin](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin) | Patch example that replaces a component's property |
 | patch-decommission-model.json | [how-to-manage-model](https://docs.microsoft.com/azure/digital-twins/how-to-manage-twin) | Patch example for a model to decommission it |
