@@ -33,7 +33,7 @@ namespace DigitalTwins_Samples
             {
                 // Authenticate with Digital Twins
                 // <ManagedIdentityCredential>
-                var cred = new ManagedIdentityCredential("<client-ID>");
+                var cred = new ManagedIdentityCredential();
                 // </ManagedIdentityCredential>
                 // <DigitalTwinsClient>
                 var client = new DigitalTwinsClient(
