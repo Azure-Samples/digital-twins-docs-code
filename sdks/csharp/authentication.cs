@@ -59,14 +59,14 @@ namespace DigitalTwins_Samples
         // The URL of your instance, starting with the protocol (https://)
         private const string adtInstanceUrl = "https://<your-Azure-Digital-Twins-instance-URL>";
         // Your client / app registration ID
-        private const string adtAppId = "<your-client-ID>";
+        private const string functionAppId = "<client-ID>";
 
         internal void RunSample()
         {
             DigitalTwinsClient client;
             try
             {
-                ManagedIdentityCredential cred = new ManagedIdentityCredential(adtAppId);
+                ManagedIdentityCredential cred = new ManagedIdentityCredential(functionAppId);
                 client = new DigitalTwinsClient(new Uri(adtInstanceUrl), cred);
             }
             catch (Exception e)
