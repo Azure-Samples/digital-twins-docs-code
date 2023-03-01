@@ -64,7 +64,11 @@ namespace DigitalTwins_Samples
             DigitalTwinsClient client;
             try
             {
+                // To use the function app's system-assigned identity:
                 ManagedIdentityCredential cred = new ManagedIdentityCredential();
+                // To use a user-assigned identity for the function app:
+                //ManagedIdentityCredential cred = new ManagedIdentityCredential("<uai-client-ID>");
+
                 client = new DigitalTwinsClient(new Uri(adtInstanceUrl), cred);
             }
             catch (Exception e)

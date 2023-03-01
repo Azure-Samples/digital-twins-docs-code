@@ -33,7 +33,10 @@ namespace DigitalTwins_Samples
             {
                 // Authenticate with Digital Twins
                 // <ManagedIdentityCredential>
+                // To use the function app's system-assigned identity:
                 var cred = new ManagedIdentityCredential();
+                // To use a user-assigned identity for the function app:
+                //var cred = new ManagedIdentityCredential("<uai-client-ID>");
                 // </ManagedIdentityCredential>
                 // <DigitalTwinsClient>
                 var client = new DigitalTwinsClient(
