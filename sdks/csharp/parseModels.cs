@@ -1,6 +1,7 @@
 using Azure;
 using Azure.DigitalTwins.Core;
-using Microsoft.Azure.DigitalTwins.Parser;
+using DTDLParser;
+using DTDLParser.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,18 @@ using System.Threading.Tasks;
 
 namespace DigitalTwins_Samples
 {
+    public static class ListExtensions
+    {
+        public static async IAsyncEnumerable<T> AsAsyncEnumerable<T>(this IEnumerable<T> input)
+        {
+            foreach (var value in input)
+            {
+                yield return value;
+            }
+            await Task.Yield();
+        }
+    }
+
     public class ParseModelsSample
     {
         public async Task ParseDemoAsync(DigitalTwinsClient client)
@@ -20,7 +33,7 @@ namespace DigitalTwins_Samples
                 await foreach (DigitalTwinsModelData md in mdata)
                     models.Add(md.DtdlModel);
                 var parser = new ModelParser();
-                IReadOnlyDictionary<Dtmi, DTEntityInfo> dtdlOM = await parser.ParseAsync(models);
+                IReadOnlyDictionary<Dtmi, DTEntityInfo> dtdlOM = await parser.ParseAsync(models.AsAsyncEnumerable());
 
                 var interfaces = new List<DTInterfaceInfo>();
                 IEnumerable<DTInterfaceInfo> ifenum =
@@ -45,7 +58,7 @@ namespace DigitalTwins_Samples
             var sb = new StringBuilder();
             for (int i = 0; i < indent; i++) sb.Append("  ");
             Console.WriteLine($"{sb}Interface: {dtif.Id} | {dtif.DisplayName}");
-            Dictionary<string, DTContentInfo> contents = dtif.Contents;
+            IReadOnlyDictionary<string, DTContentInfo> contents = dtif.Contents;
 
             foreach (DTContentInfo item in contents.Values)
             {
