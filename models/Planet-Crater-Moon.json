@@ -2,7 +2,7 @@
     {
       "@id": "dtmi:com:contoso:Planet;1",
       "@type": "Interface",
-      "@context": "dtmi:dtdl:context;2",
+      "@context": "dtmi:dtdl:context;3",
       "displayName": "Planet",
       "contents": [
         {
@@ -35,11 +35,11 @@
     {
       "@id": "dtmi:com:contoso:Crater;1",
       "@type": "Interface",
-      "@context": "dtmi:dtdl:context;2"
+      "@context": "dtmi:dtdl:context;3"
     },
     {
       "@id": "dtmi:com:contoso:Moon;1",
       "@type": "Interface",
-      "@context": "dtmi:dtdl:context;2"
+      "@context": "dtmi:dtdl:context;3"
     }
   ]
