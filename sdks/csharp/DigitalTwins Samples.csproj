@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <RootNamespace>DigitalTwins_Samples</RootNamespace>
   </PropertyGroup>
 
@@ -12,13 +12,12 @@
     <PackageReference Include="Azure.Messaging.EventGrid" Version="4.12.0" />
     <PackageReference Include="Azure.Messaging.EventHubs" Version="5.7.5" />
     <PackageReference Include="dotNetRDF" Version="2.7.5" />
-    <PackageReference Include="Microsoft.Azure.DigitalTwins.Parser" Version="3.12.7" />
+    <PackageReference Include="DTDLParser" Version="1.0.48-preview-g91a6ae2e88" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Core" Version="3.0.33" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.EventGrid" Version="3.2.1" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.EventHubs" Version="5.1.2" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="3.2.0" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.SignalRService" Version="1.8.0" />
-    <PackageReference Include="OpenXmlPowerTools" Version="4.5.3.2" />
   </ItemGroup>
 
 </Project>
