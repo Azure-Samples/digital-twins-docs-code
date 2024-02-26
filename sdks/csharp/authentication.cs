@@ -43,7 +43,7 @@ namespace DigitalTwins_Samples
         {
             ExcludeSharedTokenCacheCredential = true,
             ExcludeVisualStudioCodeCredential = true,
-            TenantId = "<your-Azure-Active-Directory-tenant-ID"
+            TenantId = "<your-Azure-Active-Directory-tenant-ID>"
         };
 
         private static DefaultAzureCredential credential = new DefaultAzureCredential(credentialOptions);
