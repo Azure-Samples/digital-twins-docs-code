@@ -2,22 +2,22 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>DigitalTwins_Samples</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Azure.DigitalTwins.Core" Version="1.4.0" />
-    <PackageReference Include="Azure.Identity" Version="1.8.0" />
-    <PackageReference Include="Azure.Messaging.EventGrid" Version="4.12.0" />
-    <PackageReference Include="Azure.Messaging.EventHubs" Version="5.7.5" />
-    <PackageReference Include="dotNetRDF" Version="2.7.5" />
-    <PackageReference Include="DTDLParser" Version="1.0.48-preview-g91a6ae2e88" />
-    <PackageReference Include="Microsoft.Azure.WebJobs.Core" Version="3.0.33" />
-    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.EventGrid" Version="3.2.1" />
-    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.EventHubs" Version="5.1.2" />
+    <PackageReference Include="Azure.Identity" Version="1.13.2" />
+    <PackageReference Include="Azure.Messaging.EventGrid" Version="4.30.0" />
+    <PackageReference Include="Azure.Messaging.EventHubs" Version="5.11.6" />
+    <PackageReference Include="dotNetRDF" Version="3.3.2" />
+    <PackageReference Include="DTDLParser" Version="1.1.3" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Core" Version="3.0.41" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.EventGrid" Version="3.4.3" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.EventHubs" Version="6.3.5" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="3.2.0" />
-    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.SignalRService" Version="1.8.0" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.SignalRService" Version="2.0.0" />
   </ItemGroup>
 
 </Project>
