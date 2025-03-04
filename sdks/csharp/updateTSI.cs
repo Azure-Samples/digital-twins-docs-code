@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Azure.Messaging.EventHubs;
+using System.Runtime.InteropServices;
 
 namespace UpdateTSI
 {
@@ -17,7 +18,7 @@ namespace UpdateTSI
             [EventHub("tsi-event-hub", Connection = "EventHubAppSetting-TSI")]IAsyncCollector<string> outputEvents,
             ILogger log)
         {
-            JObject message = (JObject)JsonConvert.DeserializeObject(Encoding.UTF8.GetString(myEventHubMessage.Body));
+            JObject message = (JObject)JsonConvert.DeserializeObject(Encoding.UTF8.GetString(myEventHubMessage.Body.ToArray()));
             log.LogInformation($"Reading event: {message}");
 
             // Read values that are replaced or added
