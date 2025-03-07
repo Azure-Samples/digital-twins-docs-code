@@ -23,7 +23,7 @@ AND T.Temperature = 70
 
 -- (Shows property query based on whether property is defined)
 -- <QueryByProperty2>
-SELECT *​ FROM DIGITALTWINS WHERE IS_DEFINED(Location)
+SELECT * FROM DIGITALTWINS WHERE IS_DEFINED(Location)
 -- </QueryByProperty2>
 
 -- (Shows property query based on marker tags)
@@ -33,12 +33,12 @@ SELECT * FROM DIGITALTWINS WHERE IS_DEFINED(tags.red)
 
 -- (Shows property query based on property type)
 -- <QueryByProperty3>
-SELECT * FROM DIGITALTWINS​ T WHERE IS_NUMBER(T.Temperature)
+SELECT * FROM DIGITALTWINS T WHERE IS_NUMBER(T.Temperature)
 -- </QueryByProperty3>
 
 -- (Shows property query with a Map-type property)
 -- <QueryByProperty4>
-SELECT * FROM DIGITALTWINS​ T WHERE T.<propertyName>.<mapKey> = '<mapValue>'
+SELECT * FROM DIGITALTWINS T WHERE T.<propertyName>.<mapKey> = '<mapValue>'
 -- </QueryByProperty4>
 
 -- (Shows model query with only twinTypeName parameter)
